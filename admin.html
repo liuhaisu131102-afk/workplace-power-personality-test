@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题库管理后台 - 职场权力人格测评</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-gold: #d4af37;
+            --border: #2a2a3e;
+        }
+        body {
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .stat-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold);
+        }
+        table th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .btn {
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+        }
+        .modal.active {
+            display: flex;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .tab { cursor: pointer; transition: all 0.2s; }
+        .tab.active { background: rgba(212, 175, 55, 0.15); border-color: var(--accent-gold); color: var(--accent-gold); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- 头部 -->
+        <header class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold mb-1">
+                    <span class="bg-gradient-to-r from-yellow-600 to-yellow-400 bg-clip-text text-transparent">题库管理后台</span>
+                </h1>
+                <p class="text-gray-500 text-sm">职场权力人格测评 · 内容管理系统</p>
+            </div>
+            <div class="flex space-x-3 mt-4 md:mt-0">
+                <button onclick="exportData()" class="btn glass rounded-xl px-4 py-2 text-sm font-medium hover:border-yellow-600">导出数据</button>
+                <button onclick="importDataPrompt()" class="btn glass rounded-xl px-4 py-2 text-sm font-medium hover:border-yellow-600">导入数据</button>
+                <button onclick="resetStats()" class="btn glass rounded-xl px-4 py-2 text-sm font-medium text-red-400 hover:border-red-500">重置统计</button>
+            </div>
+        </header>
+
+        <!-- 统计卡片 -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="stat-card glass rounded-2xl p-4">
+                <div class="text-gray-500 text-xs mb-1">总题目数</div>
+                <div class="text-2xl font-bold" id="stat-total">120</div>
+            </div>
+            <div class="stat-card glass rounded-2xl p-4">
+                <div class="text-gray-500 text-xs mb-1">测评完成数</div>
+                <div class="text-2xl font-bold text-gradient" id="stat-completions">0</div>
+            </div>
+            <div class="stat-card glass rounded-2xl p-4">
+                <div class="text-gray-500 text-xs mb-1">分享次数</div>
+                <div class="text-2xl font-bold" id="stat-shares">0</div>
+            </div>
+            <div class="stat-card glass rounded-2xl p-4">
+                <div class="text-gray-500 text-xs mb-1">活跃用户</div>
+                <div class="text-2xl font-bold" id="stat-users">0</div>
+            </div>
+        </div>
+
+        <!-- 标签页切换 -->
+        <div class="flex flex-wrap gap-2 mb-6">
+            <div class="tab glass rounded-xl px-4 py-2 text-sm font-medium transition active" data-tab="questions" onclick="switchTab('questions')">题库管理</div>
+            <div class="tab glass rounded-xl px-4 py-2 text-sm font-medium transition" data-tab="config" onclick="switchTab('config')">人格配置</div>
+            <div class="tab glass rounded-xl px-4 py-2 text-sm font-medium transition" data-tab="analytics" onclick="switchTab('analytics')">数据统计</div>
+        </div>
+
+        <!-- 题库管理标签 -->
+        <div class="tab-content" id="tab-questions">
+            <!-- 筛选器 -->
+            <div class="glass rounded-2xl p-4 mb-4 flex flex-wrap gap-2 items-center">
+                <span class="text-sm text-gray-400 mr-2">筛选维度:</span>
+                <button onclick="filterQuestions('all')" class="dim-filter px-3 py-1.5 rounded-lg text-xs font-medium bg-gray-800 text-white" data-dim="all">全部</button>
+                <button onclick="filterQuestions('power')" class="dim-filter px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-700 text-gray-400" data-dim="power">权力偏好</button>
+                <button onclick="filterQuestions('stress')" class="dim-filter px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-700 text-gray-400" data-dim="stress">压力应对</button>
+                <button onclick="filterQuestions('relation')" class="dim-filter px-3 py-1.5 rounded-lg text-xs font-medium border border-gray-700 text-gray-400" data-dim="relation">关系模式</button>
+                <span class="flex-1"></span>
+                <button onclick="openAddModal()" class="btn bg-yellow-600 hover:bg-yellow-500 text-gray-900 rounded-xl px-4 py-2 text-sm font-bold ml-2">
+                    + 添加题目
+                </button>
+            </div>
+
+            <!-- 题目列表 -->
+            <div class="glass rounded-2xl overflow-hidden">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-800">
+                            <th class="text-left p-4 text-gray-400">ID</th>
+                            <th class="text-left p-4 text-gray-400">维度</th>
+                            <th class="text-left p-4 text-gray-400">题目</th>
+                            <th class="text-left p-4 text-gray-400">选项</th>
+                            <th class="text-right p-4 text-gray-400">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="questions-table-body">
+                        <tr><td colspan="5" class="p-8 text-center text-gray-500">加载中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="flex justify-center items-center gap-2 mt-4" id="pagination"></div>
+        </div>
+
+        <!-- 人格配置标签 -->
+        <div class="tab-content hidden" id="tab-config">
+            <div class="grid md:grid-cols-2 gap-4" id="config-list"></div>
+        </div>
+
+        <!-- 数据统计标签 -->
+        <div class="tab-content hidden" id="tab-analytics">
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-gray-400 mb-4">人格类型分布</h3>
+                    <div id="distribution-chart" class="space-y-3"></div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-gray-400 mb-4">行为漏斗</h3>
+                    <div id="funnel-chart" class="space-y-3"></div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-gray-400 mb-4">设备分布</h3>
+                    <div id="device-chart" class="space-y-3"></div>
+                </div>
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-gray-400 mb-4">平均完成时间</h3>
+                    <div class="text-3xl font-bold" id="avg-duration">--</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加/编辑题目模态框 -->
+    <div class="modal" id="edit-modal">
+        <div class="glass rounded-2xl p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 class="text-xl font-bold mb-4" id="modal-title">添加题目</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">题目维度</label>
+                    <select id="edit-dimension" class="w-full glass rounded-xl px-3 py-2 text-sm bg-transparent text-white">
+                        <option value="power">权力偏好</option>
+                        <option value="stress">压力应对</option>
+                        <option value="relation">关系模式</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">题目内容</label>
+                    <textarea id="edit-text" rows="2" class="w-full glass rounded-xl px-3 py-2 text-sm bg-transparent text-white resize-none" placeholder="输入题目..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">选项（6个，对应6种人格）</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">支配者:</span><input type="text" id="edit-opt-0" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">服从者:</span><input type="text" id="edit-opt-1" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">施压者:</span><input type="text" id="edit-opt-2" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">承压者:</span><input type="text" id="edit-opt-3" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">切换者:</span><input type="text" id="edit-opt-4" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                        <div class="flex items-center gap-2"><span class="text-xs text-gray-500 w-16">安全词:</span><input type="text" id="edit-opt-5" class="flex-1 glass rounded-lg px-3 py-1.5 text-xs bg-transparent text-white" placeholder="选项"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button onclick="closeModal()" class="btn glass rounded-xl px-4 py-2 text-sm">取消</button>
+                <button onclick="saveQuestion()" class="btn bg-yellow-600 hover:bg-yellow-500 text-gray-900 rounded-xl px-4 py-2 text-sm font-bold" id="modal-save-btn">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 数据管理 ====================
+        const Q_STORE_KEY = 'wpr_question_bank';
+        const C_STORE_KEY = 'wpr_config_bank';
+
+        let questionBank = {};
+        let personalityConfig = {};
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const PER_PAGE = 20;
+        let editingId = null;
+
+        const TYPE_NAMES = {
+            power: '权力维度',
+            stress: '压力维度',
+            relation: '关系维度'
+        };
+
+        const TYPE_MAP = ['Dominant', 'Submissive', 'Sadist', 'Masochist', 'Switch', 'Safeword'];
+
+        function loadData() {
+            // 首先尝试从 localStorage 加载用户数据
+            const storedQ = localStorage.getItem(Q_STORE_KEY);
+            if (storedQ) {
+                questionBank = JSON.parse(storedQ);
+            } else {
+                // 从文件加载默认题库
+                loadDefaultData();
+            }
+
+            const storedC = localStorage.getItem(C_STORE_KEY);
+            if (storedC) {
+                personalityConfig = JSON.parse(storedC);
+            }
+        }
+
+        async function loadDefaultData() {
+            try {
+                const resp = await fetch('assets/questions.json');
+                if (resp.ok) {
+                    questionBank = await resp.json();
+                    localStorage.setItem(Q_STORE_KEY, JSON.stringify(questionBank));
+                }
+            } catch(e) {
+                console.warn('无法加载默认题库，使用内置数据');
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem(Q_STORE_KEY, JSON.stringify(questionBank));
+        }
+
+        function loadStats() {
+            const events = JSON.parse(localStorage.getItem('wpr_analytics') || '[]');
+            const completions = events.filter(e => e.event === 'assessment_complete');
+            const shares = events.filter(e => e.event === 'share');
+            const users = new Set(events.map(e => e.userId));
+
+            document.getElementById('stat-completions').textContent = completions.length;
+            document.getElementById('stat-shares').textContent = shares.length;
+            document.getElementById('stat-users').textContent = users.size;
+
+            return { events, completions, shares, users };
+        }
+
+        // ==================== 题库管理 ====================
+        function getAllQuestions() {
+            const all = [];
+            Object.keys(questionBank).forEach(dim => {
+                if (Array.isArray(questionBank[dim])) {
+                    questionBank[dim].forEach((q, i) => {
+                        all.push({ ...q, dimension: dim, origId: q.id || (i + 1) });
+                    });
+                }
+            });
+            return all;
+        }
+
+        function filterQuestions(dim) {
+            currentFilter = dim;
+            currentPage = 1;
+            document.querySelectorAll('.dim-filter').forEach(btn => {
+                btn.classList.toggle('bg-gray-800', btn.dataset.dim === dim);
+                btn.classList.toggle('text-white', btn.dataset.dim === dim);
+                btn.classList.toggle('text-gray-400', btn.dataset.dim !== dim);
+                btn.classList.toggle('border-gray-700', btn.dataset.dim !== dim);
+            });
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const all = getAllQuestions();
+            const filtered = currentFilter === 'all' ? all : all.filter(q => q.dimension === currentFilter);
+            const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+            const start = (currentPage - 1) * PER_PAGE;
+            const pageQuestions = filtered.slice(start, start + PER_PAGE);
+
+            const tbody = document.getElementById('questions-table-body');
+            if (pageQuestions.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-gray-500">暂无题目</td></tr>';
+            } else {
+                tbody.innerHTML = pageQuestions.map((q, idx) => {
+                    const dimBadge = {
+                        power: 'bg-yellow-900 text-yellow-400',
+                        stress: 'bg-red-900 text-red-400',
+                        relation: 'bg-blue-900 text-blue-400'
+                    };
+                    return `
+                    <tr class="border-b border-gray-800/50 hover:bg-white/5 transition">
+                        <td class="p-4 text-gray-500">${start + idx + 1}</td>
+                        <td class="p-4"><span class="px-2 py-0.5 rounded text-xs font-medium ${dimBadge[q.dimension] || 'bg-gray-800 text-gray-400'}">${TYPE_NAMES[q.dimension] || q.dimension}</span></td>
+                        <td class="p-4 max-w-md break-words">${q.text}</td>
+                        <td class="p-4 text-xs text-gray-500">${q.options ? q.options.length : 0}个选项</td>
+                        <td class="p-4 text-right">
+                            <button onclick="editQuestion('${q.dimension}', ${q.origId - 1})" class="text-gray-400 hover:text-white text-xs mr-2">编辑</button>
+                            <button onclick="deleteQuestion('${q.dimension}', ${q.origId - 1})" class="text-red-400 hover:text-red-300 text-xs">删除</button>
+                        </td>
+                    </tr>`;
+                }).join('');
+            }
+
+            document.getElementById('stat-total').textContent = all.length;
+
+            // 分页
+            const pag = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pag.innerHTML = '';
+            } else {
+                let html = `<button onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="glass rounded-lg px-3 py-1 text-xs ${currentPage === 1 ? 'opacity-30' : 'hover:border-yellow-600'}">上一页</button>`;
+                html += `<span class="text-sm text-gray-500 px-3">${currentPage} / ${totalPages}</span>`;
+                html += `<button onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="glass rounded-lg px-3 py-1 text-xs ${currentPage === totalPages ? 'opacity-30' : 'hover:border-yellow-600'}">下一页</button>`;
+                pag.innerHTML = html;
+            }
+        }
+
+        function goPage(page) {
+            const all = getAllQuestions();
+            const filtered = currentFilter === 'all' ? all : all.filter(q => q.dimension === currentFilter);
+            const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderQuestions();
+        }
+
+        function deleteQuestion(dim, idx) {
+            if (!confirm('确定删除此题目？')) return;
+            if (questionBank[dim] && Array.isArray(questionBank[dim])) {
+                questionBank[dim].splice(idx, 1);
+                saveData();
+                renderQuestions();
+            }
+        }
+
+        function openAddModal() {
+            editingId = null;
+            document.getElementById('modal-title').textContent = '添加题目';
+            document.getElementById('edit-dimension').value = 'power';
+            document.getElementById('edit-text').value = '';
+            for (let i = 0; i < 6; i++) {
+                document.getElementById('edit-opt-' + i).value = '';
+            }
+            document.getElementById('modal-save-btn').textContent = '添加';
+            document.getElementById('edit-modal').classList.add('active');
+        }
+
+        function editQuestion(dim, idx) {
+            if (!questionBank[dim] || !questionBank[dim][idx]) return;
+            const q = questionBank[dim][idx];
+            editingId = { dim, idx };
+            document.getElementById('modal-title').textContent = '编辑题目';
+            document.getElementById('edit-dimension').value = dim;
+            document.getElementById('edit-text').value = q.text || '';
+            for (let i = 0; i < 6; i++) {
+                document.getElementById('edit-opt-' + i).value = (q.options && q.options[i]) || '';
+            }
+            document.getElementById('modal-save-btn').textContent = '保存';
+            document.getElementById('edit-modal').classList.add('active');
+        }
+
+        function saveQuestion() {
+            const dim = document.getElementById('edit-dimension').value;
+            const text = document.getElementById('edit-text').value.trim();
+            const options = [];
+            for (let i = 0; i < 6; i++) {
+                options.push(document.getElementById('edit-opt-' + i).value.trim());
+            }
+
+            if (!text || options.some(o => !o)) {
+                alert('请填写完整的题目和所有选项');
+                return;
+            }
+
+            if (!questionBank[dim]) questionBank[dim] = [];
+
+            const newQ = { text, options };
+
+            if (editingId) {
+                questionBank[editingId.dim][editingId.idx] = newQ;
+            } else {
+                const maxId = questionBank[dim].reduce((max, q) => Math.max(max, q.id || 0), 0);
+                newQ.id = maxId + 1;
+                questionBank[dim].push(newQ);
+            }
+
+            saveData();
+            closeModal();
+            renderQuestions();
+        }
+
+        function closeModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+            editingId = null;
+        }
+
+        // ==================== 人格配置 ====================
+        function renderConfig() {
+            const container = document.getElementById('config-list');
+            const configs = [
+                { id: 'Dominant', name: '支配者', color: '#D4AF37', icon: '👑' },
+                { id: 'Submissive', name: '服从者', color: '#4A90D9', icon: '🛡️' },
+                { id: 'Sadist', name: '施压者', color: '#E74C3C', icon: '⚡' },
+                { id: 'Masochist', name: '承压者', color: '#E67E22', icon: '🔥' },
+                { id: 'Switch', name: '切换者', color: '#2ECC71', icon: '🦎' },
+                { id: 'Safeword', name: '安全词持有者', color: '#9B59B6', icon: '🧿' }
+            ];
+
+            container.innerHTML = configs.map(c => `
+                <div class="glass rounded-2xl p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="text-3xl">${c.icon}</span>
+                        <div>
+                            <h3 class="font-bold text-lg" style="color: ${c.color}">${c.name}</h3>
+                            <p class="text-xs text-gray-500">${c.id}</p>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-400">
+                        ${getConfigDescription(c.id)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getConfigDescription(type) {
+            const descs = {
+                Dominant: '掌权者 · 天生的指挥官。决策果断，目标导向，善于掌控全局。',
+                Submissive: '执行者 · 规则中的安心者。可靠细致，执行力强，遵守纪律。',
+                Sadist: '鞭策者 · 卓越的追求者。追求卓越，激发潜力，质量至上。',
+                Masochist: '淬炼者 · 压力中的绽放者。抗压极强，享受挑战，韧性十足。',
+                Switch: '变色龙 · 权力的舞者。适应性强，情商高，角色灵活。',
+                Safeword: '边界者 · 清醒的守护者。边界清晰，理性冷静，保护团队。'
+            };
+            return descs[type] || '';
+        }
+
+        // ==================== 数据统计 ====================
+        function renderAnalytics() {
+            const { events, completions, shares } = loadStats();
+
+            // 人格分布
+            const dist = {};
+            completions.forEach(e => {
+                dist[e.resultType] = (dist[e.resultType] || 0) + 1;
+            });
+            const totalCompletions = completions.length || 1;
+            const typeNames = {
+                Dominant: '支配者', Submissive: '服从者', Sadist: '施压者',
+                Masochist: '承压者', Switch: '切换者', Safeword: '安全词'
+            };
+            const typeColors = {
+                Dominant: '#D4AF37', Submissive: '#4A90D9', Sadist: '#E74C3C',
+                Masochist: '#E67E22', Switch: '#2ECC71', Safeword: '#9B59B6'
+            };
+
+            document.getElementById('distribution-chart').innerHTML = Object.entries(dist)
+                .sort((a, b) => b[1] - a[1])
+                .map(([type, count]) => `
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>${typeNames[type] || type}</span>
+                            <span class="text-gray-500">${count}人 (${((count / totalCompletions) * 100).toFixed(1)}%)</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full transition-all duration-500" style="width: ${(count / totalCompletions) * 100}%; background: ${typeColors[type] || '#666'}"></div>
+                        </div>
+                    </div>
+                `).join('') || '<p class="text-gray-500 text-sm">暂无数据</p>';
+
+            // 行为漏斗
+            const pageViews = events.filter(e => e.event === 'page_view').length;
+            const starts = events.filter(e => e.event === 'assessment_start').length;
+            const totalShares = shares.length;
+            const imageSaves = events.filter(e => e.event === 'image_save').length;
+
+            const funnelSteps = [
+                { label: '页面浏览', value: pageViews || 1, color: '#6060a0' },
+                { label: '开始测评', value: starts, color: '#4A90D9' },
+                { label: '完成测评', value: totalCompletions, color: '#2ECC71' },
+                { label: '保存图片', value: imageSaves, color: '#E67E22' },
+                { label: '分享', value: totalShares, color: '#9B59B6' }
+            ];
+
+            const maxFunnel = Math.max(...funnelSteps.map(f => f.value), 1);
+            document.getElementById('funnel-chart').innerHTML = funnelSteps.map(f => `
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span>${f.label}</span>
+                        <span class="text-gray-500">${f.value}次</span>
+                    </div>
+                    <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full transition-all duration-500" style="width: ${(f.value / maxFunnel) * 100}%; background: ${f.color}"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 设备分布
+            const devices = {};
+            events.forEach(e => {
+                if (e.userAgent) {
+                    const ua = e.userAgent.toLowerCase();
+                    let device = 'Desktop';
+                    if (ua.includes('iphone') || ua.includes('ipad')) device = 'iOS';
+                    else if (ua.includes('android')) device = 'Android';
+                    else if (ua.includes('micromessenger')) device = '微信';
+                    devices[device] = (devices[device] || 0) + 1;
+                }
+            });
+            const totalDevices = Object.values(devices).reduce((a, b) => a + b, 0) || 1;
+            document.getElementById('device-chart').innerHTML = Object.entries(devices)
+                .sort((a, b) => b[1] - a[1])
+                .map(([device, count]) => `
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>${device}</span>
+                            <span class="text-gray-500">${count}次 (${((count / totalDevices) * 100).toFixed(1)}%)</span>
+                        </div>
+                        <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                            <div class="h-full rounded-full transition-all duration-500 bg-blue-500" style="width: ${(count / totalDevices) * 100}%"></div>
+                        </div>
+                    </div>
+                `).join('') || '<p class="text-gray-500 text-sm">暂无数据</p>';
+
+            // 平均完成时间
+            const durations = completions.map(e => e.duration).filter(Boolean);
+            if (durations.length > 0) {
+                const avg = durations.reduce((a, b) => a + b, 0) / durations.length;
+                const minutes = Math.floor(avg / 60000);
+                const seconds = Math.round((avg % 60000) / 1000);
+                document.getElementById('avg-duration').textContent = `${minutes}分${seconds}秒`;
+            } else {
+                document.getElementById('avg-duration').textContent = '--';
+            }
+        }
+
+        // ==================== 数据导出导入 ====================
+        function exportData() {
+            const data = {
+                questions: questionBank,
+                config: personalityConfig,
+                exportTime: new Date().toISOString(),
+                version: '1.0'
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `wpr_backup_${new Date().toISOString().slice(0, 10)}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importDataPrompt() {
+            if (!confirm('导入数据会覆盖当前题库，确定继续吗？')) return;
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                try {
+                    const text = await file.text();
+                    const data = JSON.parse(text);
+                    if (data.questions) {
+                        questionBank = data.questions;
+                        saveData();
+                        if (data.config) {
+                            personalityConfig = data.config;
+                            localStorage.setItem(C_STORE_KEY, JSON.stringify(personalityConfig));
+                        }
+                        renderQuestions();
+                        renderConfig();
+                        alert('数据导入成功！');
+                    } else {
+                        alert('无效的数据格式');
+                    }
+                } catch (err) {
+                    alert('文件解析失败: ' + err.message);
+                }
+            };
+            input.click();
+        }
+
+        function resetStats() {
+            if (!confirm('确定重置所有统计数据？此操作不可逆。')) return;
+            localStorage.removeItem('wpr_analytics');
+            localStorage.removeItem('wpr_user_id');
+            loadStats();
+            renderAnalytics();
+            alert('统计数据已重置');
+        }
+
+        // ==================== 标签切换 ====================
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+
+            if (tab === 'analytics') {
+                renderAnalytics();
+            }
+        }
+
+        // ==================== 初始化 ====================
+        function init() {
+            loadData();
+            loadStats();
+            renderQuestions();
+            renderConfig();
+
+            // 关闭模态框
+            document.getElementById('edit-modal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+
+            // 键盘快捷键
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeModal();
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>

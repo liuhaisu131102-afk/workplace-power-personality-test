@@ -1,0 +1,30 @@
+{
+  "name": "workplace-power-personality-test",
+  "version": "1.0.0",
+  "description": "职场权力人格测评H5应用 - 10分钟，30个问题，揭开你的职场权力人格",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "dev": "npx serve . -p 3000",
+    "test": "echo \"No tests specified\" && exit 0",
+    "deploy": "echo 'Run: vercel --prod'"
+  },
+  "keywords": [
+    "h5",
+    "pwa",
+    "personality-test",
+    "workplace",
+    "power-dynamics"
+  ],
+  "author": "Marvis AI Assistant",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/workplace-power-personality-test"
+  }
+}

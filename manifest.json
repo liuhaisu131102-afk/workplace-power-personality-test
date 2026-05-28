@@ -1,0 +1,78 @@
+{
+  "name": "职场权力人格测评",
+  "short_name": "权力人格测评",
+  "description": "10分钟，30个问题，揭开你的职场权力人格。是掌控者、服从者，还是压力中的绽放者？",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#d4af37",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "../assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["productivity", "lifestyle", "business"],
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "screenshots": [
+    {
+      "src": "assets/screenshot1.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/screenshot2.png",
+      "sizes": "1280x720",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "开始测评",
+      "short_name": "开始",
+      "description": "开始职场权力人格测评",
+      "url": "/?action=start"
+    },
+    {
+      "name": "查看我的报告",
+      "short_name": "报告",
+      "description": "查看上次的测评报告",
+      "url": "/?action=result"
+    }
+  ]
+}

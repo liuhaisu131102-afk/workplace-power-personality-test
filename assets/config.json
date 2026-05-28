@@ -1,0 +1,94 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "power": {
+      "name": "权力偏好",
+      "icon": "crown",
+      "description": "你在权力关系中的自然位置"
+    },
+    "stress": {
+      "name": "压力应对",
+      "icon": "fire",
+      "description": "面对压力的反应模式"
+    },
+    "relation": {
+      "name": "关系模式",
+      "icon": "users",
+      "description": "职场人际中的互动策略"
+    }
+  },
+  "personalities": {
+    "Dominant": {
+      "id": "Dominant",
+      "name": "支配者",
+      "tagline": "掌权者 · 天生的指挥官",
+      "icon": "👑",
+      "description": "会议室里，话语权自然流向你；项目中，你下意识地统筹全局。权力对你不是负担，是让你最自在的氧气。",
+      "traits": ["决策果断", "目标导向", "善于掌控"],
+      "risks": ["可能忽视团队感受", "过度控制"],
+      "advice": "学会授权，培养倾听能力，将控制欲转化为清晰的战略规划",
+      "color": "#D4AF37",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #16213e)"
+    },
+    "Submissive": {
+      "id": "Submissive",
+      "name": "服从者",
+      "tagline": "执行者 · 规则中的安心者",
+      "icon": "🛡️",
+      "description": "清晰指令是你的安心剂，模糊期待是你的焦虑源。你不是没有能力，而是享受在强者引领下的确定性。",
+      "traits": ["可靠细致", "遵守纪律", "执行力强"],
+      "risks": ["缺乏主动性", "害怕犯错"],
+      "advice": "在安全范围内尝试自主决策，建立\"容错\"心态",
+      "color": "#4A90D9",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #0f3460)"
+    },
+    "Sadist": {
+      "id": "Sadist",
+      "name": "施压者",
+      "tagline": "鞭策者 · 卓越的追求者",
+      "icon": "⚡",
+      "description": "高标准是你的信仰，推动他人突破舒适区是你的乐趣。别人眼中的\"苛刻\"，在你看来只是基本要求。",
+      "traits": ["追求卓越", "激发潜力", "质量至上"],
+      "risks": ["团队过度疲劳", "标准脱离实际"],
+      "advice": "区分\"追求卓越\"和\"完美主义\"，学习建设性反馈技巧",
+      "color": "#E74C3C",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #2d0a0a)"
+    },
+    "Masochist": {
+      "id": "Masochist",
+      "name": "承压者",
+      "tagline": "淬炼者 · 压力中的绽放者",
+      "icon": "🔥",
+      "description": "Deadline越紧你越兴奋，难题越大你越来劲。别人逃避的\"苦差事\"，在你看来是证明自己的机会。",
+      "traits": ["抗压极强", "享受挑战", "不断突破"],
+      "risks": ["主动寻求不必要压力", "忽视生活平衡"],
+      "advice": "区分\"成长性压力\"和\"消耗性压力\"，建立健康的压力释放机制",
+      "color": "#E67E22",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #2d1a0a)"
+    },
+    "Switch": {
+      "id": "Switch",
+      "name": "切换者",
+      "tagline": "变色龙 · 权力的舞者",
+      "icon": "🦎",
+      "description": "你是职场变色龙。对上能精准承接压力，对下能果断掌控局面。你的天赋是读懂权力场的暗流，随时调整姿态。",
+      "traits": ["适应性强", "情商高", "角色灵活"],
+      "risks": ["可能被视为无原则", "角色切换消耗能量"],
+      "advice": "明确核心职业身份，记录不同情境的成功策略",
+      "color": "#2ECC71",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #0a2e1a)"
+    },
+    "Safeword": {
+      "id": "Safeword",
+      "name": "安全词持有者",
+      "tagline": "边界者 · 清醒的守护者",
+      "icon": "🧿",
+      "description": "你是办公室最清醒的人。深知任何权力关系都需要边界，敢于对不合理要求说\"不\"，也懂得保护团队的底线。",
+      "traits": ["边界清晰", "理性冷静", "保护团队"],
+      "risks": ["可能被视为不合群", "过度谨慎"],
+      "advice": "区分\"合理边界\"和\"过度防御\"，将边界意识转化为流程规范",
+      "color": "#9B59B6",
+      "gradient": "linear-gradient(135deg, #1a1a2e, #1a0a2e)"
+    }
+  }
+}
