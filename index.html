@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="10分钟，30个问题，揭开你的职场权力人格。是掌控者、服从者，还是压力中的绽放者？">
-    <meta property="og:title" content="职场权力人格测评">
-    <meta property="og:description" content="测测你的职场SM属性，揭开你的权力人格">
+    <meta name="description" content="30个问题，揭开你的职场权力人格。你不是你以为的那个人——测测就知道。">
+    <meta property="og:title" content="职场权力人格测评 | 你到底是什么类型？">
+    <meta property="og:description" content="测测你的职场权力属性，6种人格，总有一种描述得让你坐不住。">
     <meta property="og:image" content="og-image.png">
     <meta property="og:type" content="website">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,34 +19,37 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-    <title>职场权力人格测评</title>
+    <title>职场权力人格测评 | 不要骗自己</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@3.4.1/dist/tailwind.min.css">
     <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="assets/analytics.js"></script>
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a2e;
+            --bg-primary: #050508;
+            --bg-secondary: #0d0d18;
+            --bg-card: #14142a;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0b0;
-            --text-muted: #606070;
-            --accent-gold: #d4af37;
-            --accent-red: #e74c3c;
-            --accent-blue: #4a90d9;
-            --accent-green: #2ecc71;
-            --accent-purple: #9b59b6;
-            --accent-orange: #e67e22;
-            --border: #2a2a3e;
-            --glow-gold: rgba(212, 175, 55, 0.3);
-            --glow-red: rgba(231, 76, 60, 0.3);
-            --font-title: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --text-secondary: #b0b0c0;
+            --text-muted: #5a5a6e;
+            --accent-gold: #c9a227;
+            --accent-red: #e63946;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #a855f7;
+            --accent-orange: #f97316;
+            --border: #1e1e3a;
+            --glow-gold: rgba(201, 162, 39, 0.35);
+            --glow-red: rgba(230, 57, 70, 0.35);
+            --glow-blue: rgba(59, 130, 246, 0.3);
+            --glow-green: rgba(16, 185, 129, 0.3);
+            --glow-purple: rgba(168, 85, 247, 0.3);
+            --glow-orange: rgba(249, 115, 22, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: var(--font-title);
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
@@ -58,63 +61,62 @@
         }
 
         .bg-noise {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
         }
 
         .glass {
-            background: rgba(26, 26, 46, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(20, 20, 42, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .glow-gold { box-shadow: 0 0 30px var(--glow-gold), 0 0 60px rgba(212, 175, 55, 0.1); }
-        .glow-red { box-shadow: 0 0 30px var(--glow-red), 0 0 60px rgba(231, 76, 60, 0.1); }
+        .glow-gold { box-shadow: 0 0 30px var(--glow-gold), 0 0 80px rgba(201, 162, 39, 0.08); }
+        .glow-red { box-shadow: 0 0 30px var(--glow-red), 0 0 80px rgba(230, 57, 70, 0.08); }
+        .glow-blue { box-shadow: 0 0 30px var(--glow-blue), 0 0 60px rgba(59, 130, 246, 0.08); }
+        .glow-green { box-shadow: 0 0 30px var(--glow-green), 0 0 60px rgba(16, 185, 129, 0.08); }
+        .glow-purple { box-shadow: 0 0 30px var(--glow-purple), 0 0 60px rgba(168, 85, 247, 0.08); }
+        .glow-orange { box-shadow: 0 0 30px var(--glow-orange), 0 0 60px rgba(249, 115, 22, 0.08); }
 
         .text-gradient {
-            background: linear-gradient(135deg, #d4af37, #f5d77a, #d4af37);
+            background: linear-gradient(135deg, #c9a227, #f5d77a, #c9a227);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .text-gradient-red {
-            background: linear-gradient(135deg, #e74c3c, #f07070, #e74c3c);
+            background: linear-gradient(135deg, #e63946, #ff6b6b, #e63946);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .text-gradient-blue {
-            background: linear-gradient(135deg, #4a90d9, #7ab8f5, #4a90d9);
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .text-gradient-green {
-            background: linear-gradient(135deg, #2ecc71, #58d68d, #2ecc71);
+            background: linear-gradient(135deg, #10b981, #34d399, #10b981);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .text-gradient-purple {
-            background: linear-gradient(135deg, #9b59b6, #bb8fce, #9b59b6);
+            background: linear-gradient(135deg, #a855f7, #c084fc, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
         .text-gradient-orange {
-            background: linear-gradient(135deg, #e67e22, #f0b27a, #e67e22);
+            background: linear-gradient(135deg, #f97316, #fb923c, #f97316);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .option-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: 1px solid var(--border);
             -webkit-tap-highlight-color: transparent;
@@ -122,8 +124,13 @@
             user-select: none;
             touch-action: pan-y;
         }
-        .option-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
-        .option-card.active { border-color: var(--accent-gold); background: rgba(212, 175, 55, 0.1); }
+        .option-card:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+        .option-card:active { transform: scale(0.985); }
+        .option-card.active {
+            border-color: var(--accent-gold);
+            background: rgba(201, 162, 39, 0.12);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.12), inset 0 0 30px rgba(201, 162, 39, 0.05);
+        }
 
         .progress-bar {
             background: var(--border);
@@ -132,19 +139,26 @@
             overflow: hidden;
         }
         .progress-fill {
-            background: linear-gradient(90deg, #d4af37, #f5d77a);
+            background: linear-gradient(90deg, #c9a227, #f5d77a, #c9a227);
+            background-size: 200% 100%;
+            animation: shimmer 2s linear infinite;
             height: 100%;
-            transition: width 0.5s ease;
+            transition: width 0.4s ease;
             border-radius: 2px;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .share-card {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
+            background: linear-gradient(155deg, #14142a, #0f1f3d);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             padding: 32px 28px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
         }
         .share-card::before {
             content: '';
@@ -153,40 +167,72 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(212,175,55,0.08) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 20%, rgba(201,162,39,0.08) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
+            50% { opacity: 0.5; }
         }
-        .animate-pulse-slow { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-pulse-slow { animation: pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(24px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in-up { animation: fadeInUp 0.6s ease forwards; }
+        .fade-in-up { animation: fadeInUp 0.5s ease forwards; }
 
         @keyframes glow {
             0%, 100% { box-shadow: 0 0 20px var(--glow-gold); }
-            50% { box-shadow: 0 0 40px var(--glow-gold), 0 0 80px rgba(212,175,55,0.15); }
+            50% { box-shadow: 0 0 50px var(--glow-gold), 0 0 100px rgba(201,162,39,0.12); }
         }
-        .glow-animate { animation: glow 2s ease-in-out infinite; }
+        .glow-animate { animation: glow 2.2s ease-in-out infinite; }
 
         @keyframes scaleIn {
-            from { transform: scale(0.8); opacity: 0; }
+            from { transform: scale(0.75); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
-        .scale-in { animation: scaleIn 0.5s ease forwards; }
+        .scale-in { animation: scaleIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
-        .page { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        @keyframes borderPulse {
+            0%, 100% { border-color: rgba(201, 162, 39, 0.3); }
+            50% { border-color: rgba(201, 162, 39, 0.7); }
+        }
+        .border-pulse { animation: borderPulse 2s ease-in-out infinite; }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes textReveal {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+        .text-reveal { animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+
+        .page { display: none; opacity: 0; transition: opacity 0.35s ease; }
         .page.active { display: block; opacity: 1; }
-        #page-assessment { height: 100vh; overflow-y: auto; }
 
-        ::-webkit-scrollbar { width: 4px; }
+        /* Assessment page: fixed layout, only content scrolls */
+        #page-assessment {
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #page-assessment .assessment-scroll {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 
         .typing-text {
             border-right: 2px solid var(--accent-gold);
@@ -194,13 +240,12 @@
         }
         @keyframes blink { 50% { border-color: transparent; } }
 
-        /* Toast通知 */
         .toast {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(20, 20, 42, 0.95);
             border: 1px solid var(--accent-gold);
             color: white;
             padding: 12px 24px;
@@ -209,12 +254,12 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            pointer-events: none;
         }
         .toast.show { opacity: 1; }
         .toast.error { border-color: var(--accent-red); }
 
-        /* 保存按钮loading */
         .btn-loading {
             position: relative;
             pointer-events: none;
@@ -233,10 +278,20 @@
             margin-top: -10px;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        .accent-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+        }
     </style>
 </head>
 <body class="bg-noise">
-    <!-- Toast通知 -->
     <div class="toast" id="toast"></div>
 
     <div id="app">
@@ -244,55 +299,54 @@
         <div class="page active min-h-screen flex flex-col" id="page-home">
             <div class="flex-1 flex flex-col justify-center items-center px-6 py-12">
                 <div class="w-full max-w-md mx-auto text-center">
-                    <!-- Logo/Icon区域 -->
+                    <!-- Logo -->
                     <div class="mb-8 relative inline-block">
-                        <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto text-5xl glow-animate">
+                        <div class="w-28 h-28 rounded-full glass flex items-center justify-center mx-auto text-6xl glow-animate border-pulse">
                             ⚖️
                         </div>
                     </div>
 
                     <!-- 主标题 -->
-                    <h1 class="text-3xl font-black mb-3 tracking-tight">
-                        <span class="text-gradient">职场权力人格</span>
+                    <h1 class="text-4xl font-black mb-2 tracking-tighter">
+                        <span class="text-gradient">你到底是什么</span>
                     </h1>
-                    <h1 class="text-3xl font-black mb-6 tracking-tight">
-                        <span class="text-gradient-red">测评</span>
+                    <h1 class="text-4xl font-black mb-2 tracking-tighter">
+                        <span class="text-gradient-red">权力人格？</span>
                     </h1>
 
                     <!-- 副标题 -->
-                    <p class="text-lg text-gray-400 mb-2 font-semibold">
-                        测测你的职场权力属性
+                    <p class="text-lg text-gray-300 mb-1 font-bold">
+                        别骗自己，测了再说
                     </p>
-                    <p class="text-sm text-gray-600 mb-8">
-                        10分钟 · 30个问题 · 揭开你真实的职场人格
+                    <p class="text-sm text-gray-500 mb-10">
+                        30题 · 5分钟 · 比你更懂你
                     </p>
 
                     <!-- 数据展示 -->
-                    <div class="glass rounded-2xl p-4 mb-8 flex justify-around text-center">
+                    <div class="glass rounded-2xl p-5 mb-8 flex justify-around text-center">
                         <div>
-                            <div class="text-2xl font-bold text-gradient" id="total-users">12,847</div>
-                            <div class="text-xs text-gray-500 mt-1">已完成测评</div>
+                            <div class="text-2xl font-bold text-gradient" id="total-users">15,847</div>
+                            <div class="text-xs text-gray-500 mt-1">已测</div>
                         </div>
                         <div class="w-px bg-gray-800"></div>
                         <div>
                             <div class="text-2xl font-bold text-gradient-red">6</div>
-                            <div class="text-xs text-gray-500 mt-1">人格类型</div>
+                            <div class="text-xs text-gray-500 mt-1">型人格</div>
                         </div>
                         <div class="w-px bg-gray-800"></div>
                         <div>
-                            <div class="text-2xl font-bold text-gradient">92%</div>
-                            <div class="text-xs text-gray-500 mt-1">准确率反馈</div>
+                            <div class="text-2xl font-bold text-gradient">93%</div>
+                            <div class="text-xs text-gray-500 mt-1">说"太准了"</div>
                         </div>
                     </div>
 
                     <!-- 开始按钮 -->
-                    <button onclick="startAssessment()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]">
-                        开始测评
+                    <button onclick="startAssessment()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97]">
+                        敢不敢测一下？
                     </button>
 
-                    <!-- 底部文案 -->
-                    <p class="mt-6 text-xs text-gray-700">
-                        "权力不是目的，是了解自己的工具"
+                    <p class="mt-8 text-xs text-gray-700 italic">
+                        "测完你可能想发给老板"
                     </p>
                 </div>
             </div>
@@ -300,12 +354,13 @@
 
         <!-- ==================== 测评页 ==================== -->
         <div class="page" id="page-assessment">
-            <div class="glass sticky top-0 z-10 px-4 py-3">
+            <!-- Fixed header -->
+            <div class="glass px-4 py-3 flex-shrink-0">
                 <div class="flex items-center justify-between max-w-md mx-auto">
-                    <button onclick="confirmExit()" class="text-gray-400 hover:text-white transition px-2 py-1">
+                    <button onclick="confirmExit()" class="text-gray-400 hover:text-white transition px-2 py-1 text-sm">
                         ← 退出
                     </button>
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-gray-500 font-mono">
                         <span id="current-q">1</span>/30
                     </div>
                     <div class="w-16"></div>
@@ -315,15 +370,19 @@
                 </div>
             </div>
 
-            <div class="flex-1 px-6 py-8 max-w-md mx-auto w-full">
-                <div id="question-area">
-                    <div class="text-xs text-gray-600 mb-3" id="dimension-tag"></div>
-                    <h2 class="text-xl font-bold mb-8 leading-relaxed" id="question-text"></h2>
-                    <div class="space-y-3" id="options-container"></div>
+            <!-- Scrollable content area -->
+            <div class="assessment-scroll">
+                <div class="px-6 py-6 max-w-md mx-auto w-full">
+                    <div id="question-area">
+                        <div class="text-xs text-gray-500 mb-3 tracking-widest uppercase" id="dimension-tag"></div>
+                        <h2 class="text-xl font-bold mb-8 leading-relaxed" id="question-text"></h2>
+                        <div class="space-y-3" id="options-container"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="px-6 pb-8 max-w-md mx-auto w-full">
+            <!-- Fixed bottom button -->
+            <div class="px-6 pb-6 pt-3 max-w-md mx-auto w-full flex-shrink-0" style="padding-bottom: max(24px, env(safe-area-inset-bottom));">
                 <button onclick="nextQuestion()" id="next-btn" class="w-full py-4 rounded-2xl text-lg font-bold bg-gray-800 text-gray-600 transition-all duration-300" disabled>
                     下一题
                 </button>
@@ -333,17 +392,17 @@
         <!-- ==================== 加载页 ==================== -->
         <div class="page min-h-screen flex flex-col justify-center items-center px-6" id="page-loading">
             <div class="text-center">
-                <div class="w-20 h-20 rounded-full glass flex items-center justify-center mx-auto mb-8 animate-pulse-slow text-4xl">
+                <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto mb-8 animate-pulse-slow text-5xl border-pulse">
                     ⚙️
                 </div>
-                <h2 class="text-2xl font-bold mb-4">分析中...</h2>
-                <div class="space-y-3 text-sm text-gray-500">
-                    <p class="fade-in-up" style="animation-delay: 0.5s">正在解析你的权力DNA...</p>
-                    <p class="fade-in-up" style="animation-delay: 1.5s">匹配职场人格原型...</p>
-                    <p class="fade-in-up" style="animation-delay: 2.5s">生成专属报告...</p>
+                <h2 class="text-2xl font-bold mb-6">正在解码你的权力DNA</h2>
+                <div class="space-y-4 text-sm text-gray-400">
+                    <p class="fade-in-up" style="animation-delay: 0.3s">拆解你的权力本能...</p>
+                    <p class="fade-in-up" style="animation-delay: 1.2s">匹配 6 种人格原型...</p>
+                    <p class="fade-in-up" style="animation-delay: 2.1s">生成你的专属权力档案...</p>
                 </div>
-                <p class="mt-8 text-xs text-gray-700 animate-pulse-slow">
-                    "权力不是目的，是了解自己的工具"
+                <p class="mt-10 text-xs text-gray-600 animate-pulse-slow italic">
+                    "结果可能会让你不舒服。这是好事。"
                 </p>
             </div>
         </div>
@@ -355,53 +414,55 @@
                     <button onclick="startAssessment()" class="text-gray-500 hover:text-white transition text-sm">
                         ← 重新测评
                     </button>
-                    <button onclick="showSharePage()" class="text-yellow-500 hover:text-yellow-400 transition text-sm font-semibold">
+                    <button onclick="showSharePage()" class="text-yellow-500 hover:text-yellow-400 transition text-sm font-bold">
                         分享报告 ↗
                     </button>
                 </div>
 
                 <!-- 人格展示 -->
                 <div class="text-center mb-6">
-                    <div class="w-20 h-20 rounded-full glass flex items-center justify-center mx-auto mb-4 text-5xl scale-in" id="result-icon"></div>
-                    <div class="text-sm text-gray-500 mb-2">你的职场权力人格</div>
-                    <h1 class="text-3xl font-black tracking-tight" id="result-name"></h1>
-                    <p class="text-sm text-gray-500 mt-1" id="result-tagline"></p>
+                    <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto mb-4 text-6xl scale-in" id="result-icon"></div>
+                    <div class="text-xs text-gray-500 tracking-widest uppercase mb-2">你的职场权力人格</div>
+                    <h1 class="text-4xl font-black tracking-tight" id="result-name"></h1>
+                    <p class="text-sm text-gray-400 mt-2" id="result-tagline"></p>
                 </div>
 
                 <!-- 金句卡片 -->
                 <div class="glass rounded-2xl p-6 mb-6 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full" id="result-accent-bar"></div>
-                    <p class="text-lg font-semibold leading-relaxed italic" id="result-desc"></p>
+                    <p class="text-lg font-bold leading-relaxed italic text-gray-200" id="result-desc"></p>
                 </div>
 
                 <!-- 雷达图 -->
                 <div class="glass rounded-2xl p-6 mb-6">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-4 text-center">人格维度分布</h3>
+                    <h3 class="text-sm font-bold text-gray-400 mb-4 text-center tracking-wider">人格维度分布</h3>
                     <canvas id="radar-canvas" class="w-full" style="max-width: 280px; margin: 0 auto; display: block;"></canvas>
                 </div>
 
-                <!-- 详细解读 -->
+                <!-- 核心特质 -->
                 <div class="glass rounded-2xl p-6 mb-6">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-4">核心特质</h3>
+                    <h3 class="text-sm font-bold text-gray-400 mb-4 tracking-wider">核心特质</h3>
                     <div class="flex flex-wrap gap-2" id="result-traits"></div>
                 </div>
 
-                <div class="glass rounded-2xl p-6 mb-6">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-4">风险提示</h3>
-                    <div class="space-y-2" id="result-risks"></div>
+                <!-- 风险提示 -->
+                <div class="glass rounded-2xl p-6 mb-6" style="border-left: 2px solid var(--accent-red);">
+                    <h3 class="text-sm font-bold text-red-400 mb-4 tracking-wider">致命弱点</h3>
+                    <div class="space-y-3" id="result-risks"></div>
                 </div>
 
-                <div class="glass rounded-2xl p-6 mb-8">
-                    <h3 class="text-sm font-semibold text-gray-400 mb-4">发展建议</h3>
+                <!-- 发展建议 -->
+                <div class="glass rounded-2xl p-6 mb-8" style="border-left: 2px solid var(--accent-gold);">
+                    <h3 class="text-sm font-bold text-yellow-400 mb-4 tracking-wider">破局之道</h3>
                     <p class="text-sm text-gray-300 leading-relaxed" id="result-advice"></p>
                 </div>
 
                 <!-- 行动按钮 -->
-                <button onclick="showSharePage()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-4">
-                    生成报告卡片 · 分享给朋友
+                <button onclick="showSharePage()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-3">
+                    生成报告卡片 · 发给老板看看
                 </button>
                 <button onclick="startAssessment()" class="w-full py-3 rounded-2xl text-sm text-gray-500 hover:text-white transition">
-                    重新测评
+                    再来一次
                 </button>
             </div>
         </div>
@@ -410,28 +471,30 @@
         <div class="page min-h-screen" id="page-share">
             <div class="max-w-md mx-auto px-6 py-8">
                 <div class="flex justify-between items-center mb-6">
-                    <button onclick="goResult()" class="text-gray-500 hover:text-white transition text-sm">← 返回</button>
-                    <span class="text-xs text-gray-600">长按或点击保存</span>
+                    <button onclick="goResult()" class="text-gray-400 hover:text-white transition text-sm">
+                        ← 返回报告
+                    </button>
+                    <span class="text-xs text-gray-600">长按保存图片</span>
                 </div>
 
                 <!-- 报告卡片 -->
                 <div class="share-card mb-8" id="share-card">
                     <div class="relative z-10">
-                        <div class="text-center mb-6">
-                            <div class="text-xs text-gray-500 tracking-widest mb-3">职场权力人格报告</div>
-                            <div class="text-5xl mb-3" id="share-icon"></div>
-                            <h2 class="text-2xl font-black text-gradient" id="share-name"></h2>
-                            <p class="text-xs text-gray-500 mt-1" id="share-tagline"></p>
+                        <div class="text-center mb-5">
+                            <div class="text-xs text-gray-500 tracking-widest mb-4">职场权力人格报告</div>
+                            <div class="text-5xl mb-4" id="share-icon"></div>
+                            <h2 class="text-3xl font-black text-gradient mb-1" id="share-name"></h2>
+                            <p class="text-xs text-gray-500 mt-2" id="share-tagline"></p>
                         </div>
                         <div class="border-t border-gray-800 my-4"></div>
-                        <p class="text-sm text-gray-300 leading-relaxed italic text-center mb-4" id="share-quote"></p>
+                        <p class="text-sm text-gray-300 leading-relaxed italic text-center mb-4 px-2" id="share-quote"></p>
                         <div class="border-t border-gray-800 my-4"></div>
-                        <div class="flex justify-between items-center text-xs text-gray-600">
+                        <div class="flex justify-between items-center text-xs text-gray-500">
                             <span id="share-date"></span>
-                            <span>扫码测测你的类型 →</span>
+                            <span class="text-yellow-500">扫码测你的类型 →</span>
                         </div>
-                        <div class="mt-4 flex justify-center">
-                            <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2" id="qr-container">
+                        <div class="mt-5 flex justify-center">
+                            <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-lg" id="qr-container">
                                 <canvas id="qr-canvas" width="72" height="72"></canvas>
                             </div>
                         </div>
@@ -440,14 +503,14 @@
 
                 <!-- 分享操作 -->
                 <div class="space-y-3">
-                    <button onclick="saveShareImage()" id="save-btn" class="w-full py-3 rounded-2xl text-sm font-semibold glass text-white hover:border-yellow-600 transition">
-                        💾 保存报告图片
+                    <button onclick="saveShareImage()" id="save-btn" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition">
+                        保存报告图片
                     </button>
-                    <button onclick="copyShareLink()" class="w-full py-3 rounded-2xl text-sm font-semibold glass text-white hover:border-yellow-600 transition">
-                        🔗 复制分享链接
+                    <button onclick="copyShareLink()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition">
+                        复制分享链接
                     </button>
-                    <button onclick="shareViaWechat()" class="w-full py-3 rounded-2xl text-sm font-semibold glass text-white hover:border-yellow-600 transition" id="wechat-share-btn">
-                        💬 分享到微信
+                    <button onclick="shareViaWechat()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition" id="wechat-share-btn">
+                        分享到微信
                     </button>
                 </div>
             </div>
@@ -464,38 +527,33 @@
         }
 
         function generateQRCode(text, size = 72) {
-            // 简化版二维码（在实际项目中会使用qrcode库）
             const canvas = document.getElementById('qr-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             canvas.width = size;
             canvas.height = size;
 
-            // 绘制简单的占位图案（实际应使用QR库）
             ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, size, size);
             ctx.fillStyle = '#fff';
-            
-            // 简单的可视化占位符
+
             const margin = 6;
             const blockSize = (size - margin * 2) / 7;
-            
-            // 定位图案
+
             for (let corner = 0; corner < 3; corner++) {
                 let cx, cy;
                 if (corner === 0) { cx = margin; cy = margin; }
                 else if (corner === 1) { cx = size - margin - blockSize * 3; cy = margin; }
                 else { cx = margin; cy = size - margin - blockSize * 3; }
-                
+
                 ctx.fillStyle = '#fff';
                 ctx.fillRect(cx + blockSize, cy + blockSize, blockSize, blockSize);
             }
 
-            // 文字提示
             ctx.fillStyle = '#fff';
-            ctx.font = '8px sans-serif';
+            ctx.font = '9px Inter, PingFang SC, sans-serif';
             ctx.textAlign = 'center';
-            ctx.fillText('扫码', size/2, size - 4);
+            ctx.fillText('扫码', size/2, size - 3);
         }
 
         // ==================== 全局状态 ====================
@@ -513,130 +571,70 @@
         // ==================== 题库数据 ====================
         const QUESTION_BANK = {
             power: [
-                { id: 1, text: '团队讨论陷入僵局时，你通常选择：', options: ['提出方案并推动执行', '等待更有经验的同事决定', '指出大家思考的局限性', '主动承担最难说服的部分', '观察各方立场后提出建议', '建议暂停讨论，冷却情绪'] },
-                { id: 2, text: '当你的方案被质疑时，你的第一反应是：', options: ['用更多数据支撑观点', '立即反思是否理解有误', '质疑对方方案的漏洞', '享受这种智力交锋', '根据质疑者身份调整回应', '要求质疑必须基于事实'] },
-                { id: 3, text: '分配团队任务时，你倾向于：', options: ['根据能力特长分配', '按领导指示分配', '分配时设定较高目标', '自己承担最困难的部分', '先询问成员意愿再分配', '确保分配公平透明'] },
-                { id: 4, text: '面对不确定性的项目，你的态度是：', options: ['制定多个预案', '寻求明确指导', '视为展示能力的机会', '享受探索未知的过程', '根据进展调整策略', '明确风险边界'] },
-                { id: 5, text: '你如何看待职场中的"权威"：', options: ['需要时建立，必要时挑战', '尊重并服从', '用实力赢得权威', '在权威压力下成长', '权威是情境性的', '警惕权威滥用'] },
-                { id: 6, text: '当同事意见不合时，你的处理方式是：', options: ['仲裁并做出决定', '记录双方观点上报', '指出更高目标化解分歧', '在冲突中寻找共识', '分别沟通，找到平衡点', '防止冲突升级'] },
-                { id: 7, text: '你更喜欢的工作环境是：', options: ['自主决策空间大的', '流程规范清晰的', '竞争激烈、标准高的', '挑战不断、变化快的', '灵活多元的', '尊重个人边界的'] },
-                { id: 8, text: '面对突发危机，你的第一反应是：', options: ['立即接管指挥权', '按应急预案执行', '思考根本解决方案', '肾上腺素飙升，准备应战', '评估形势再行动', '确保人员安全第一'] },
-                { id: 9, text: '你如何对待领导的工作指令：', options: ['理解意图后自主执行', '严格执行，不擅自改动', '思考如何超越指令要求', '复杂指令更有挑战性', '根据实际情况调整', '确认指令合理合法'] },
-                { id: 10, text: '在权力阶梯中，你理想的位置是：', options: ['顶端或快速上升中', '稳定中层', '技术或专业权威', '关键执行者', '灵活移动者', '监督制衡者'] },
-                { id: 11, text: '公司推出新政策时，你首先：', options: ['分析如何利用政策优势', '仔细学习政策内容', '思考政策背后的高标准', '适应新政策带来的变化', '评估政策对不同部门影响', '关注政策可能的问题'] },
-                { id: 12, text: '当规则明显阻碍效率时，你：', options: ['寻找规则漏洞或例外', '仍按规则执行', '推动修改规则', '在规则内寻找最优解', '灵活解释规则', '正式提出规则修改建议'] },
-                { id: 13, text: '你如何看待职场"潜规则"：', options: ['比明规则更重要', '尽量不触碰', '用实力打破潜规则', '在潜规则中磨练', '理解并选择性利用', '努力使其透明化'] },
-                { id: 14, text: '面对模糊的职责边界，你：', options: ['主动扩展自己的边界', '明确询问职责范围', '用工作成果定义边界', '承担模糊地带工作', '根据利益调整边界', '推动明确职责划分'] },
-                { id: 15, text: '你更认同哪种管理哲学：', options: ['结果导向，过程自由', '流程规范，责任清晰', '高标准严要求', '压力产生动力', '因材施教，灵活管理', '尊重个体，明确边界'] },
-                { id: 16, text: '当你的下属犯错时，你首先：', options: ['分析原因并指导改进', '按制度处理', '指出问题并要求更高标准', '承担部分责任', '根据错误性质决定', '明确错误影响和后果'] },
-                { id: 17, text: '你如何看待"越级汇报"：', options: ['必要时可以接受', '严格按层级汇报', '用业绩说话无所谓层级', '在压力下可能发生', '视情况而定', '应建立明确规则'] },
-                { id: 18, text: '当你的权力受到挑战时，你：', options: ['正面回应并巩固地位', '反思自身不足', '用更强表现回应', '享受这种挑战', '评估挑战的合理性', '明确权力边界'] },
-                { id: 19, text: '你如何建立自己的职场影响力：', options: ['通过决策和成果', '通过可靠和忠诚', '通过专业和标准', '通过抗压和担当', '通过适应和沟通', '通过公正和边界'] },
-                { id: 20, text: '关于权力，你的核心信念是：', options: ['权力是达成目标的工具', '权力意味着责任', '权力来自能力', '权力在压力中锻造', '权力是流动的', '权力需要制衡'] },
-                { id: 21, text: '当团队需要有人站出来时，你：', options: ['第一个站出来', '等待被指定', '用高标准要求团队', '承担最困难的部分', '评估是否需要站出来', '确保站出来的人合适'] },
-                { id: 22, text: '你如何看待"服从"这个词：', options: ['必要时的手段', '职场基本素养', '服从强者是自然法则', '在压力下学会服从', '服从是情境性的', '服从应有底线'] },
-                { id: 23, text: '当你的意见被否决时，你：', options: ['寻找其他方式推进', '接受并执行决定', '用数据证明自己正确', '在否决中学习', '根据否决者调整策略', '要求明确否决理由'] },
-                { id: 24, text: '你更愿意成为哪种角色：', options: ['决策者', '执行者', '标准制定者', '攻坚者', '协调者', '监督者'] },
-                { id: 25, text: '面对强势的同事，你的策略是：', options: ['正面竞争', '配合协作', '用专业能力对抗', '在压力中成长', '灵活应对', '保持距离'] },
-                { id: 26, text: '你如何看待职场中的"控制"：', options: ['有效控制的艺术', '必要的管理手段', '控制是能力的体现', '在控制中寻找突破', '控制应适度', '控制需要边界'] },
-                { id: 27, text: '当项目方向需要调整时，你：', options: ['主动提出调整方案', '等待上级指示', '提出更高标准的方向', '承担调整的阵痛', '评估各方意见后建议', '确保调整有充分理由'] },
-                { id: 28, text: '你如何定义职场成功：', options: ['拥有决策权和影响力', '稳定可靠的职业发展', '成为行业标杆', '不断突破自我极限', '在不同角色中游刃有余', '在规则内实现价值'] },
-                { id: 29, text: '当领导给你不合理的任务时，你：', options: ['重新定义任务目标', '尽力完成', '用更高标准完成', '挑战不合理之处', '沟通调整任务', '明确不合理之处'] },
-                { id: 30, text: '你如何看待"权力距离"：', options: ['可以缩短的距离', '应保持适当距离', '能力决定距离', '压力缩短距离', '距离是动态的', '距离需要尊重'] },
-                { id: 31, text: '当团队士气低落时，你：', options: ['制定激励方案', '按流程安抚', '用更高目标激励', '以身作则带头冲锋', '根据不同成员调整', '关注根本原因'] },
-                { id: 32, text: '你如何看待职场中的"站队"：', options: ['选择强者阵营', '保持中立', '用实力让自己成为一队', '在压力下被迫选择', '根据利益选择', '拒绝站队文化'] },
-                { id: 33, text: '当你的决策导致失败时，你：', options: ['承担责任并调整', '按流程复盘', '用更大成功弥补', '在失败中淬炼', '分析多方原因', '建立防错机制'] },
-                { id: 34, text: '你更看重哪种职场资源：', options: ['决策权和信息权', '稳定的职位和收入', '专业声誉和标准', '挑战性任务和机会', '人脉和关系网络', '规则和制度保障'] },
-                { id: 35, text: '当同事试图挑战你的权威时，你：', options: ['正面回应挑战', '用制度维护权威', '用专业能力回应', '享受这种竞争', '评估挑战动机', '明确权威边界'] },
-                { id: 36, text: '你如何看待"授权"：', options: ['授权的艺术很重要', '按制度授权', '授权但保持高标准', '授权意味着信任', '根据情况授权', '授权需要明确边界'] },
-                { id: 37, text: '当你的团队需要变革时，你：', options: ['主导变革进程', '按上级要求变革', '设定变革高标准', '承担变革阵痛', '协调各方推进变革', '确保变革合理有序'] },
-                { id: 38, text: '你如何看待职场中的"服从性测试"：', options: ['理解并选择性通过', '按要求通过测试', '用能力超越测试', '在测试中证明自己', '根据测试性质应对', '质疑测试合理性'] },
-                { id: 39, text: '当你的权力范围被压缩时，你：', options: ['寻找新的权力空间', '接受并适应', '用业绩重新争取', '在压缩中寻找突破', '调整策略应对', '明确权力边界'] },
-                { id: 40, text: '关于职场权力，你最认同的是：', options: ['权力是争取来的', '权力是赋予的', '权力是赢得的', '权力是承受来的', '权力是流动的', '权力需要约束'] }
+                { id: 1, text: '团队讨论陷入僵局时，你通常选择：', options: ['拍板定方案，推着大家走', '等更有经验的人拍板', '一针见血指出思考盲区', '主动扛最难啃的骨头', '观察各方立场后给方案', '建议暂停，先冷一冷'] },
+                { id: 2, text: '你的方案被人当众质疑时，第一反应是：', options: ['甩数据，让对方闭嘴', '立刻反思自己哪里错了', '揪出对方方案的硬伤', '享受这种智力对决', '看对方是谁，再决定怎么回', '要求质疑必须拿证据'] },
+                { id: 3, text: '分配团队任务时，你倾向于：', options: ['按能力特长分配，我说了算', '完全按领导指示分配', '每人目标都定高一点', '最难的部分自己来', '先问成员想做什么再分', '确保公平，流程透明'] },
+                { id: 4, text: '面对不确定性极大的项目，你的态度是：', options: ['做好 ABC 三套预案', '找领导要明确方向', '这是我展示能力的机会', '越不确定越有意思', '走一步看一步，动态调整', '先把风险边界划清楚'] },
+                { id: 5, text: '你怎么看职场里的"权威"：', options: ['需要时建立，必要时掀翻', '尊重并服从', '我的权威我凭本事打出来', '在权威的压力下进化', '权威看场景，不是绝对的', '警惕一切不受约束的权威'] },
+                { id: 6, text: '两个同事吵得不可开交时，你：', options: ['直接仲裁，给出最终方案', '记下双方观点上报领导', '指出更高目标压住分歧', '在冲突里找共识点', '分开聊，各退一步', '防止事态升级到不可控'] },
+                { id: 7, text: '你骨子里喜欢的工作环境是：', options: ['给我空间，别管我怎么干', '流程清晰，指令明确', '竞争激烈，强者通吃', '变化快到让人喘不过气', '灵活多元，怎么都行', '底线清晰，互相尊重'] },
+                { id: 8, text: '突发危机，你的本能反应是：', options: ['直接接管，所有人听我指挥', '翻应急预案，按流程来', '想根本性解决方案', '肾上腺素狂飙，来吧', '先看形势，再决定怎么动', '确保所有人安全第一'] },
+                { id: 9, text: '领导给你下指令，你习惯：', options: ['理解意图，然后自己发挥', '严格照做，一字不改', '心里想怎么做得比指令更好', '越复杂的指令越过瘾', '根据实际情况灵活调整', '先确认指令本身是否合理'] },
+                { id: 10, text: '权力阶梯中，你想站在哪个位置：', options: ['顶端，或者正在冲向顶端', '稳定中层，安心做事', '技术/专业上的绝对权威', '关键执行者，不可替代', '在各个层级间自由穿梭', '站在制衡者的位置'] },
+                { id: 11, text: '公司出新政策，你先想到的是：', options: ['怎么利用新政策扩大优势', '认真研读每一条细则', '政策背后的高标准是什么', '适应变化，没什么大不了', '不同部门会受什么影响', '政策有没有漏洞或问题'] },
+                { id: 12, text: '规则明显在拖后腿，你怎么办：', options: ['找规则的漏洞，绕过去', '照规则执行，这是纪律', '推动修改规则本身', '在规则框架内找最优解', '灵活解释，看人下菜', '正式提案要求改规则'] },
+                { id: 13, text: '面对职场"潜规则"，你的态度是：', options: ['比明规则更值得研究', '尽量不碰，保持干净', '凭实力打破一切潜规则', '在潜规则里磨炼自己', '理解它，选择性利用它', '让它见光，透明化'] },
+                { id: 14, text: '职责边界模糊不清时，你：', options: ['主动把边界往外扩', '找领导把职责问清楚', '用工作成果重新定义边界', '模糊地带我全接', '根据利益决定边界在哪', '推动明确职责划分'] },
+                { id: 15, text: '哪种管理哲学最接近你的本能：', options: ['结果说话，过程别管我', '流程规范，责任到人', '高标准，严要求，不接受凑合', '压力逼出最好的自己', '因人而异，灵活施策', '尊重个体，边界清晰'] },
+                { id: 16, text: '下属犯错，你的第一反应是：', options: ['分析原因，告诉他怎么改', '按制度该怎么处理就怎么处理', '指出问题，要求做到更好', '我先扛一部分责任', '看什么性质的错，区别对待', '明确错误的后果和边界'] },
+                { id: 17, text: '怎么看"越级汇报"这件事：', options: ['必要时完全可以接受', '严格走层级，这是规矩', '业绩好的人不在乎层级', '在极度压力下可能发生', '看具体情况，不是绝对的', '应该有明确的规则约束'] },
+                { id: 18, text: '你的权力被人挑战时，你：', options: ['正面回击，巩固阵地', '反思是不是自己哪里不够好', '用碾压级的表现回应', '很好，终于有人来踢馆了', '看看挑战是否合理再说', '把权力边界重新画清楚'] },
+                { id: 19, text: '你怎么建立职场影响力：', options: ['靠决策质量和结果说话', '靠可靠和忠诚积累', '靠专业标准让人服气', '靠扛事和担当让人依赖', '靠沟通适应在不同人之间建网', '靠公正和边界让人尊敬'] },
+                { id: 20, text: '关于权力，你内心的真实信念是：', options: ['权力是达成一切目标的工具', '权力意味着责任，不是享受', '权力来源于碾压级的能力', '权力是在压力中锻出来的', '权力是流动的，没有永恒的王', '任何权力都必须被制衡'] }
             ],
             stress: [
-                { id: 41, text: '临近deadline但进展缓慢时，你会：', options: ['重新规划，加速推进', '按原计划尽力完成', '提高效率标准', '享受时间紧迫感', '调整目标优先级', '评估是否需要延期'] },
-                { id: 42, text: '面对多重任务压力，你的策略是：', options: ['统筹安排，分轻重缓急', '按接收顺序处理', '每项都追求完美', '同时推进多项任务', '根据精力分配时间', '明确任务承载上限'] },
-                { id: 43, text: '当工作明显超出负荷时，你：', options: ['优化工作方法', '加班完成', '提高单位时间产出', '挑战极限', '选择性完成', '沟通调整工作量'] },
-                { id: 44, text: '你如何看待加班：', options: ['必要时的手段', '工作的一部分', '追求卓越的代价', '证明投入度的机会', '视项目重要性而定', '应有合理补偿'] },
-                { id: 45, text: '面对持续高压的工作状态，你：', options: ['更加专注高效', '坚持但疲惫', '压力越大要求越高', '进入"战斗状态"', '周期性调整状态', '关注身心健康'] },
-                { id: 46, text: '当压力开始影响健康时，你：', options: ['调整工作方式', '忍耐到项目结束', '认为值得付出', '视为成长的勋章', '寻找平衡点', '立即采取措施'] },
-                { id: 47, text: '你缓解压力的方式最接近：', options: ['解决问题根源', '按部就班处理', '用更高成就抵消', '转化为动力', '切换不同活动', '彻底休息放松'] },
-                { id: 48, text: '面对看似不可能完成的任务：', options: ['重新定义"可能"', '尽力而为', '挑战极限尝试', '享受这种绝望感', '寻找替代方案', '明确说明不可能'] },
-                { id: 49, text: '你如何应对失败带来的压力：', options: ['分析原因，重新开始', '接受结果，改进方法', '用更大成功弥补', '在失败中学习成长', '调整期望值', '防止失败扩大化'] },
-                { id: 50, text: '关于工作压力，你的核心理念是：', options: ['压力是成长的催化剂', '压力需要合理管理', '没有压力就没有进步', '压力是能力的试金石', '压力应适度', '过度压力有害'] },
-                { id: 51, text: '面对全新的工作挑战，你的心态是：', options: ['快速学习掌握', '寻求指导支持', '设定高学习标准', '享受从零开始', '根据难度调整策略', '评估学习成本'] },
-                { id: 52, text: '当任务难度远超预期时，你：', options: ['分解为可执行步骤', '寻求更多资源', '提高努力程度', '难度越大越兴奋', '调整任务目标', '重新评估可行性'] },
-                { id: 53, text: '你如何看待工作中的"痛苦"感受：', options: ['暂时的，很快过去', '必须忍受的部分', '卓越的代价', '成长的必经之路', '可管理的痛苦', '应尽量减少的痛苦'] },
-                { id: 54, text: '面对批评和否定，你的反应是：', options: ['分析并选择性接受', '认真反思改进', '用更好表现回应', '在批评中磨练', '区分建设性和破坏性', '要求具体事实依据'] },
-                { id: 55, text: '当感到力不从心时，你：', options: ['寻找新方法突破', '承认局限寻求帮助', '更加严格要求自己', '挑战自我极限', '调整目标或方法', '暂停避免错误'] },
-                { id: 56, text: '面对职场PUA，你的反应是：', options: ['识别并反击', '忍耐并适应', '用实力证明对方错误', '在打压中成长', '根据情况应对', '明确拒绝并设边界'] },
-                { id: 57, text: '当多个领导同时给你压力时，你：', options: ['统筹协调优先级', '按层级顺序处理', '每项都做到最好', '享受多重挑战', '沟通协调期望', '明确承载上限'] },
-                { id: 58, text: '你如何看待"996"工作制：', options: ['创业期的必要选择', '遵守公司制度', '追求卓越的体现', '证明自己的机会', '视行业和阶段而定', '应受法律约束'] },
-                { id: 59, text: '当你的努力不被认可时，你：', options: ['调整策略争取认可', '继续默默努力', '用更大成果证明', '在否定中坚持', '寻找认可你的人', '要求明确评价标准'] },
-                { id: 60, text: '面对职场倦怠，你的应对是：', options: ['寻找新的挑战', '按部就班坚持', '提高工作标准', '在倦怠中突破', '调整工作内容', '给自己放假'] },
-                { id: 61, text: '当同事比你更受器重时，你：', options: ['分析差距迎头赶上', '做好本职工作', '用更高标准要求自己', '在竞争中激发斗志', '调整心态和策略', '关注公平性'] },
-                { id: 62, text: '你如何看待"内卷"：', options: ['主动参与竞争', '按规则参与', '用创新超越内卷', '在内卷中磨练', '选择性参与', '抵制无效内卷'] },
-                { id: 63, text: '当项目失败时，你的心态是：', options: ['快速复盘重新开始', '接受结果总结经验', '用下次成功弥补', '失败是成长的养分', '分析多方因素', '建立防失败机制'] },
-                { id: 64, text: '面对职场不确定性，你：', options: ['主动创造确定性', '寻求稳定保障', '在不确定中追求卓越', '享受不确定性', '灵活适应变化', '建立安全边界'] },
-                { id: 65, text: '当你的职业发展遇到瓶颈时，你：', options: ['寻找突破路径', '在现有岗位深耕', '提高专业标准', '在瓶颈中磨练', '调整发展方向', '评估是否换赛道'] },
-                { id: 66, text: '你如何看待"狼性文化"：', options: ['认同并践行', '理解但保持距离', '用专业能力竞争', '在竞争中成长', '视情况参与', '反对过度竞争'] },
-                { id: 67, text: '当你的工作成果被他人占有，你：', options: ['争取应得认可', '按流程申诉', '用更大成果证明', '在挫折中成长', '根据情况应对', '建立成果保护机制'] },
-                { id: 68, text: '面对职场中的不公平，你：', options: ['争取公平待遇', '接受现实', '用实力改变现状', '在不公平中磨练', '选择性抗争', '推动制度公平'] },
-                { id: 69, text: '当你的能力被低估时，你：', options: ['创造机会展示能力', '继续积累等待机会', '用卓越表现证明', '在被低估中爆发', '寻找欣赏你的人', '要求客观评估'] },
-                { id: 70, text: '你如何看待"舒适区"：', options: ['需要不断突破', '舒适区是积累期', '舒适区意味着平庸', '在舒适区外成长', '适度停留再突破', '舒适区需要保护'] },
-                { id: 71, text: '当你的工作节奏被打乱时，你：', options: ['快速重建节奏', '按新节奏适应', '提高效率弥补', '在混乱中找到节奏', '灵活调整计划', '保护核心工作时间'] },
-                { id: 72, text: '面对职场中的"背锅"风险，你：', options: ['主动管理风险', '按流程规避', '用业绩对冲风险', '承担风险换取成长', '评估风险再决定', '建立责任边界'] },
-                { id: 73, text: '当你的职业规划被打乱时，你：', options: ['重新规划路径', '接受并适应变化', '设定更高目标', '在变化中寻找机会', '调整规划方向', '评估变化影响'] },
-                { id: 74, text: '你如何看待"末位淘汰"：', options: ['激励自己保持领先', '遵守制度', '用卓越表现避免', '在压力中生存', '视情况应对', '反对过度竞争'] },
-                { id: 75, text: '当你的工作热情消退时，你：', options: ['寻找新的意义', '坚持完成职责', '用高标准要求自己', '在低谷中坚持', '调整工作内容', '给自己充电'] },
-                { id: 76, text: '面对职场中的"玻璃天花板"，你：', options: ['寻找突破路径', '接受现实', '用卓越打破天花板', '在限制中成长', '调整职业方向', '推动制度变革'] },
-                { id: 77, text: '当你的工作与生活失衡时，你：', options: ['优化时间管理', '接受暂时失衡', '追求更高效率', '在失衡中坚持', '寻找平衡点', '明确生活底线'] },
-                { id: 78, text: '你如何看待"35岁危机"：', options: ['提前布局应对', '按部就班发展', '用专业能力化解', '在危机中寻找机会', '根据行业调整', '建立多元收入'] },
-                { id: 79, text: '当你的职业安全感降低时，你：', options: ['提升核心竞争力', '寻求稳定平台', '提高专业壁垒', '在不安中成长', '多元化发展', '建立安全储备'] },
-                { id: 80, text: '关于职场压力，你最想说的是：', options: ['压力让我更强大', '压力需要管理', '没有压力就没有成长', '我享受压力', '压力因人而异', '压力不应成为常态'] }
+                { id: 41, text: 'deadline 逼近但进度稀烂，你：', options: ['重新规划，加速碾压', '按原计划硬着头皮完成', '效率标准拉到最高', 'deadline 越紧我越兴奋', '调整优先级，该砍的砍', '评估要不要申请延期'] },
+                { id: 42, text: '多重任务像山一样压过来，你：', options: ['统筹安排，分清轻重缓急', '按接到任务的顺序处理', '每一项都力求完美', '同时推进，多线作战', '根据精力波动分配时间', '明确告知我的承载上限'] },
+                { id: 43, text: '工作量明显超出人类极限时，你：', options: ['优化方法，提高单位产出', '加班，硬扛', '逼自己效率再翻一倍', '挑战极限，不设上限', '选择性完成核心任务', '沟通调整工作量'] },
+                { id: 44, text: '对加班的真实态度是：', options: ['必要时的工具，不是常态', '工作的一部分，没什么好说', '追求卓越必须付出的代价', '证明我比谁都拼的机会', '看项目值不值得', '加班可以，补偿得到位'] },
+                { id: 45, text: '持续高压工作状态下，你：', options: ['越压越专注，效率反增', '硬撑，但身心俱疲', '压力越大我对自己的要求越高', '进入"战斗模式"，燃起来了', '周期性调整，不能一直绷着', '关注身体信号，不能倒下'] },
+                { id: 46, text: '压力开始伤身体了，你：', options: ['调整工作方式，不能硬来', '扛到项目结束再说', '这份代价是值得的', '这是我的勋章，说明我在成长', '在拼搏和健康之间找平衡', '立刻采取措施保护自己'] },
+                { id: 47, text: '你缓解压力的方式最接近：', options: ['直接把压力源头干掉', '按部就班一件件处理', '用一个更大的成就冲掉', '把压力转化为杀红眼的动力', '切换活动，换换脑子', '彻底躺平，什么都不想'] },
+                { id: 48, text: '面对"不可能完成"的任务：', options: ['重新定义什么叫"不可能"', '尽力而为，结果随缘', '挑战极限，试试看', '绝望感让我兴奋', '找替代方案，绕过去', '明确告诉各方这不现实'] },
+                { id: 49, text: '失败带来的压力，你怎么消化：', options: ['分析原因，马上重新开始', '接受结果，改进方法再来', '下次用更大的成功盖过去', '失败是最好的老师', '降低期望，调整心态', '建立防失败机制'] },
+                { id: 50, text: '关于工作压力，你的底层信念是：', options: ['压力催生强者，舒服是留给死人的', '压力需要被合理管理', '没有压力就没有真正的进步', '压力是检验能力的唯一标准', '适度的压力是最好的状态', '过度压力有毒，必须清除'] },
+                { id: 51, text: '全新的工作挑战摆在你面前时：', options: ['快速学习，迅速掌控', '找人带，稳妥起步', '给自己设定极高学习标准', '从零开始的感觉很棒', '根据难度调整投入策略', '先评估学习成本值不值'] },
+                { id: 52, text: '任务难度远超预期时，你：', options: ['拆解成可执行的步骤', '申请更多资源支持', '投入翻倍，硬啃下来', '难度越大我越来劲', '调整目标，不要硬刚', '重新评估这事能不能干'] },
+                { id: 53, text: '工作中的"痛苦"对你意味着：', options: ['暂时的，很快就翻篇', '必须忍受的一部分', '卓越必须付出的代价', '成长的必经之路', '可以被管理的对象', '应该被尽量减少的东西'] },
+                { id: 54, text: '被批评否定时，你的反应：', options: ['分析批评里有多少是真的', '认真反思，哪里可以改进', '用下一次的碾压表现回应', '在批评中磨得更锋利', '区分建设性和恶意的', '要求对方拿出具体事实'] },
+                { id: 55, text: '感觉自己力不从心时，你：', options: ['找新方法突破瓶颈', '承认局限，向外求助', '对自己更狠一点', '挑战极限，看看到底有多大', '调整目标或方法', '停下来，避免犯错'] },
+                { id: 56, text: '遭遇职场 PUA，你的本能反应：', options: ['识别出来，狠狠反击', '忍耐，慢慢适应', '用实力证明对方是错的', '打压让我更强', '根据具体情况决定对策', '明确拒绝，设立红线'] },
+                { id: 57, text: '多个领导同时施压，你：', options: ['统筹协调所有优先级', '按层级顺序一个个来', '每一个都做到极致', '多重挑战让我更兴奋', '沟通协调，管理预期', '明确告知承载上限'] },
+                { id: 58, text: '对"996"的真实态度：', options: ['创业期可以接受，长期不行', '遵守公司制度，让干什么干什么', '追求卓越的人不在乎时间', '这是在证明自己', '看行业和公司阶段', '这本该被法律约束'] },
+                { id: 59, text: '你拼命努力但没人认可时，你：', options: ['调整策略，让人看到', '继续默默干，总有一天', '用一个更大的成果炸场', '在否定中坚持到底', '换一个会认可你的人', '要求明确的评价标准'] },
+                { id: 60, text: '职场倦怠感袭来，你：', options: ['寻找新的挑战重新点燃', '按部就班，该干嘛干嘛', '提高标准，逼自己一把', '在倦怠中突破舒适区', '调整工作内容或节奏', '给自己放个假'] }
             ],
             relation: [
-                { id: 81, text: '与强势领导相处，你的策略是：', options: ['展示能力赢得尊重', '明确指令精准执行', '用专业表现应对', '适应其领导风格', '根据情境调整策略', '保持专业距离'] },
-                { id: 82, text: '当领导决策明显错误时，你：', options: ['私下提出替代方案', '仍按决策执行', '用数据证明错误', '在执行中弥补', '评估是否值得指出', '明确表达担忧'] },
-                { id: 83, text: '你希望领导如何管理你：', options: ['给予自主空间', '提供清晰指导', '设定高期望值', '给予挑战性任务', '根据情况调整', '尊重个人边界'] },
-                { id: 84, text: '面对能力不足的领导，你：', options: ['主动补位', '做好本职工作', '用业绩证明自己', '在困境中成长', '寻找其他支持', '明确职责范围'] },
-                { id: 85, text: '你获得领导信任的方式是：', options: ['展示决策执行力', '可靠完成工作', '超出期望表现', '承担困难任务', '理解领导需求', '建立透明沟通'] },
-                { id: 86, text: '当领导对你过度干预时，你：', options: ['用成果证明能力', '按领导要求调整', '展示专业自主性', '适应干预节奏', '选择性接受干预', '沟通干预影响'] },
-                { id: 87, text: '你更喜欢哪种领导风格：', options: ['授权型', '指导型', '挑战型', '高压型', '灵活型', '尊重型'] },
-                { id: 88, text: '面对领导批评，你的心态是：', options: ['分析批评合理性', '认真接受改进', '用更好表现回应', '在批评中进步', '区分批评性质', '要求具体改进建议'] },
-                { id: 89, text: '你如何管理向上关系：', options: ['主动汇报进展', '按需汇报', '用数据说话', '在压力中沟通', '根据领导风格调整', '保持适度沟通频率'] },
-                { id: 90, text: '关于上下级关系，你认为：', options: ['相互成就的关系', '明确的职责关系', '能力决定的关系', '压力传递的关系', '动态调整的关系', '有边界的关系'] },
-                { id: 91, text: '与竞争型同事相处，你的态度是：', options: ['正面竞争', '保持合作', '用业绩说话', '享受竞争氛围', '根据情况调整', '明确竞争边界'] },
-                { id: 92, text: '当同事试图推卸责任时，你：', options: ['明确责任划分', '按流程处理', '用更高标准要求', '主动承担责任', '评估是否值得追究', '防止责任扩散'] },
-                { id: 93, text: '你建立同事信任的方式是：', options: ['展示合作价值', '可靠完成承诺', '专业表现赢得尊重', '共度困难时刻', '根据不同同事建立', '明确合作边界'] },
-                { id: 94, text: '面对办公室政治，你的策略是：', options: ['理解并选择性参与', '尽量远离', '用业绩超越政治', '在政治中学习', '根据利益调整', '保持政治中立'] },
-                { id: 95, text: '当同事请求额外帮助时，你：', options: ['评估后选择性帮助', '尽力帮助', '帮助时设定高标准', '享受被需要感', '根据关系决定', '明确帮助边界'] },
-                { id: 96, text: '你如何看待职场友谊：', options: ['可以建立但保持清醒', '珍惜职场友谊', '友谊建立在能力之上', '在共患难中建立', '根据情况发展', '保持适度距离'] },
-                { id: 97, text: '当同事在背后议论你时，你：', options: ['正面沟通解决', '不予理会', '用实力让议论闭嘴', '在议论中反思', '根据情况应对', '明确表达不满'] },
-                { id: 98, text: '你如何对待职场新人：', options: ['给予指导和机会', '按流程带教', '设定高标准要求', '分享自己的经验', '根据新人特点调整', '明确带教边界'] },
-                { id: 99, text: '当团队内部出现矛盾时，你：', options: ['主动调解矛盾', '按流程处理', '用更高目标统一', '在矛盾中寻找共识', '分别沟通化解', '防止矛盾升级'] },
-                { id: 100, text: '你如何看待"职场导师"关系：', options: ['主动寻找并建立', '等待被指定', '用能力吸引导师', '在压力中建立', '根据需求建立', '保持适度关系'] },
-                { id: 101, text: '当你的下属能力不足时，你：', options: ['制定提升计划', '按制度处理', '设定更高标准', '亲自带教', '根据情况决定', '明确能力要求'] },
-                { id: 102, text: '你如何看待跨部门合作：', options: ['主动推动合作', '按流程协作', '用专业能力主导', '在合作中学习', '根据项目调整', '明确合作边界'] },
-                { id: 103, text: '当你的意见在团队中被忽视时，你：', options: ['寻找更有力的表达方式', '接受并继续工作', '用成果证明观点', '在被忽视中坚持', '调整表达策略', '要求被倾听'] },
-                { id: 104, text: '你如何看待职场中的"人情"：', options: ['人情是重要资源', '按规则处理人情', '用能力超越人情', '在人情中成长', '根据情况处理', '人情应有边界'] },
-                { id: 105, text: '当团队需要牺牲个人利益时，你：', options: ['评估后选择性牺牲', '服从团队需要', '用更高标准要求自己', '愿意为团队牺牲', '根据情况决定', '明确牺牲边界'] },
-                { id: 106, text: '你如何看待"职场社交"：', options: ['必要的投资', '按需参与', '用专业能力社交', '在社交中学习', '选择性参与', '保持适度社交'] },
-                { id: 107, text: '当你的同事获得晋升时，你：', options: ['分析原因提升自己', '祝贺并继续努力', '用更好表现竞争', '在竞争中成长', '调整心态和策略', '关注晋升公平性'] },
-                { id: 108, text: '你如何看待"职场联盟"：', options: ['建立自己的联盟', '不参与联盟', '用能力成为核心', '在联盟中生存', '根据利益选择', '保持独立'] },
-                { id: 109, text: '当你的团队文化与你价值观冲突时，你：', options: ['尝试影响团队文化', '适应团队文化', '用业绩证明自己', '在冲突中坚持', '寻找平衡点', '考虑是否离开'] },
-                { id: 110, text: '你如何看待"职场忠诚"：', options: ['忠诚是相互的', '忠诚是基本素养', '忠诚建立在能力上', '忠诚在考验中体现', '忠诚是情境性的', '忠诚应有边界'] },
-                { id: 111, text: '当你的同事情绪低落时，你：', options: ['主动提供支持', '按需给予帮助', '用高标准激励', '分享自己的经历', '根据关系决定', '尊重对方空间'] },
-                { id: 112, text: '你如何看待"职场竞争"：', options: ['竞争是进步的动力', '按规则竞争', '用卓越赢得竞争', '享受竞争过程', '根据情况参与', '竞争应有底线'] },
-                { id: 113, text: '当你的团队面临裁员风险时，你：', options: ['提升不可替代性', '做好本职工作', '用卓越表现保位', '在压力中证明', '准备备选方案', '了解裁员规则'] },
-                { id: 114, text: '你如何看待"职场人设"：', options: ['精心打造人设', '保持真实自我', '用能力定义人设', '在压力中塑造', '根据环境调整', '人设不应虚假'] },
-                { id: 115, text: '当你的同事向你倾诉职场困扰时，你：', options: ['给予建议和支持', '倾听但不介入', '用高标准激励对方', '分享自己的经验', '根据关系决定', '保持适度距离'] },
-                { id: 116, text: '你如何看待"职场道歉"：', options: ['必要时果断道歉', '按需道歉', '用行动弥补', '在压力下学会道歉', '根据情况决定', '道歉应有边界'] },
-                { id: 117, text: '当你的团队需要创新时，你：', options: ['主导创新方向', '按流程推进创新', '设定创新高标准', '承担创新风险', '协调各方推进', '确保创新有序'] },
-                { id: 118, text: '你如何看待"职场感恩"：', options: ['感恩是双向的', '感恩是基本态度', '用成果表达感恩', '在困难中学会感恩', '根据情况表达', '感恩不应成为负担'] },
-                { id: 119, text: '当你的职业价值观受到挑战时，你：', options: ['坚持并捍卫价值观', '反思价值观合理性', '用行动证明价值观', '在挑战中坚守', '根据情况调整', '明确价值观底线'] },
-                { id: 120, text: '关于职场关系，你最认同的是：', options: ['关系是权力的延伸', '关系需要规则', '关系建立在能力上', '关系在压力中锻造', '关系是动态的', '关系需要边界'] }
+                { id: 81, text: '和强势领导相处，你的策略是：', options: ['展示能力，让他离不开你', '明确指令，精准执行', '用专业碾压获得话语权', '适应他的风格，顺势而为', '根据情境灵活调整', '保持专业距离，不越界'] },
+                { id: 82, text: '领导决策明显错误，你怎么办：', options: ['私下拿出替代方案', '照做，这是纪律', '用数据把错误摊开', '在执行中想办法弥补', '看值不值得指出来', '明确表达我的担忧'] },
+                { id: 83, text: '你希望领导怎么管你：', options: ['给我空间，别管细节', '给清晰指令，我精准执行', '给我高期望和挑战', '扔给我最难的任务', '根据我的状态灵活调整', '尊重我的专业边界'] },
+                { id: 84, text: '面对能力明显不如你的领导，你：', options: ['主动补位，填补他的盲区', '做好本职工作就够了', '用业绩让他意识到差距', '在这种困境中磨练', '在别处找支持系统', '明确职责范围，不过界'] },
+                { id: 85, text: '你赢得领导信任的方式：', options: ['展示决策力和执行力', '可靠地完成每一项工作', '持续超出他的期望', '主动承担最难的活', '精准理解他真正需要什么', '建立透明直接的沟通'] },
+                { id: 86, text: '领导过度干预你的工作，你：', options: ['用成果让他闭嘴', '按他要求调整风格', '展示专业自主性让他放心', '适应他的干预节奏', '选择性接受，关键处坚持', '沟通让他知道干预的代价'] },
+                { id: 87, text: '你骨子里喜欢哪种领导风格：', options: ['授权型：信我就别盯着我', '指导型：告诉我怎么干', '挑战型：不断推高我的上限', '高压型：压力下我才能爆发', '灵活型：按需切换模式', '尊重型：守住我的底线'] },
+                { id: 88, text: '被领导当众批评，你的心态：', options: ['分析批评有没有道理', '认真接受，尽快改进', '下次用表现让他无话可说', '批评让人进步', '区分是就事论事还是针对人', '要求给我具体改进建议'] },
+                { id: 89, text: '你怎么管理向上关系：', options: ['主动汇报进展，掌控节奏', '按需汇报，不打扰', '用数据和成果说话', '在压力场景下建立信任', '根据领导风格切换沟通方式', '保持适度频率，不过度'] },
+                { id: 90, text: '上下级关系，你骨子里认为：', options: ['相互成就，各取所需', '职责清晰的关系', '谁能力强谁说了算', '压力传递和承接的关系', '动态变化的，没有永恒上下级', '有清晰边界的关系'] },
+                { id: 91, text: '和竞争型同事相处，你：', options: ['正面对抗，强者生存', '保持合作，不撕破脸', '用业绩碾压，让他无话可说', '有竞争的空气才新鲜', '该竞争竞争，该合作合作', '明确竞争边界，不过线'] },
+                { id: 92, text: '同事想推卸责任给你时，你：', options: ['当场把责任边界画清楚', '走流程，让制度说话', '用更高标准让责任无所遁形', '我主动扛下来，后面再说', '看不值得追究再说', '防止责任被扩散出去'] },
+                { id: 93, text: '你建立同事信任的方式：', options: ['展示合作能带来的价值', '说到做到，从不掉链子', '专业能力让人信服', '一起扛过事就是兄弟', '对不同的人用不同的方式', '合作边界清楚，不让人猜'] },
+                { id: 94, text: '面对办公室政治，你的策略是：', options: ['理解规则，选择性参与', '尽量远离，保持干净', '用业绩超越一切政治', '在政治博弈中学习成长', '根据利益决定站位', '保持中立，不站队'] },
+                { id: 95, text: '同事找你额外帮忙，你：', options: ['评估值不值得再决定', '尽力帮，能帮就帮', '帮的时候也按高标准来', '被需要的感觉很好', '看和这个人的关系', '帮可以，但不越界'] },
+                { id: 96, text: '职场友谊，你的态度是：', options: ['可以有，但脑子要清醒', '真诚对待每一段', '友谊建立在实力对等上', '一起扛过难的才是真朋友', '看情况发展，不刻意', '保持适度距离，不过密'] },
+                { id: 97, text: '同事在背后议论你，你：', options: ['正面找对方聊清楚', '不理会，不值当', '用实力让所有议论闭嘴', '反思自己是不是真有问题', '看情况，该怼就怼', '明确表达我的不满'] },
+                { id: 98, text: '对职场新人，你的风格是：', options: ['给指导也给机会', '按流程规矩带', '高标准要求，不惯着', '分享自己怎么扛过来的', '根据新人的特点调整', '带教边界清楚'] },
+                { id: 99, text: '团队内部有矛盾，你：', options: ['主动介入调解', '按流程该怎么处理怎么处理', '用一个更高目标把大家拉回来', '在矛盾中寻找共识', '分开沟通，逐个化解', '防止矛盾升级到不可收拾'] },
+                { id: 100, text: '"职场导师"关系，你怎么看：', options: ['主动寻找并建立', '等组织安排', '能力够了导师自然会来', '在共同扛压中自然形成', '按需建立，不强求', '保持适度关系'] }
             ]
         };
 
@@ -648,7 +646,6 @@
             APP.currentPage = pageName;
             window.scrollTo(0, 0);
 
-            // 跟踪页面浏览
             if (window.analytics) {
                 analytics.trackPageView(pageName);
             }
@@ -672,7 +669,7 @@
 
         function confirmExit() {
             if (APP.answers.length > 0 && APP.answers.length < 30) {
-                if (confirm('确定要退出测评吗？当前进度将丢失。')) {
+                if (confirm('确定退出吗？当前进度将丢失。')) {
                     goHome();
                 }
             } else {
@@ -689,7 +686,6 @@
             APP.scores = null;
             APP.assessmentStartTime = Date.now();
 
-            // 从题库池随机抽取
             const selectedQuestions = [];
             ['power', 'stress', 'relation'].forEach(dim => {
                 const pool = [...QUESTION_BANK[dim]];
@@ -711,7 +707,6 @@
             APP.currentQuestionIndex = 0;
             APP.selectedOption = null;
 
-            // 跟踪测评开始
             if (window.analytics) {
                 analytics.trackAssessmentStart();
             }
@@ -724,7 +719,7 @@
             const q = APP.questions[APP.currentQuestionIndex];
             const dimNames = { power: '权力偏好', stress: '压力应对', relation: '关系模式' };
 
-            document.getElementById('dimension-tag').textContent = 
+            document.getElementById('dimension-tag').textContent =
                 '▎' + (dimNames[q.dimension] || '');
             document.getElementById('question-text').textContent = q.text;
             document.getElementById('current-q').textContent = APP.currentQuestionIndex + 1;
@@ -740,10 +735,9 @@
                 const div = document.createElement('div');
                 div.className = 'option-card rounded-xl p-4 flex items-center';
                 div.innerHTML = `
-                    <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-700 mr-3 flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
-                    <span class="text-sm">${opt}</span>
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-600 mr-3 flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span class="text-sm text-gray-200">${opt}</span>
                 `;
-                // 用 touch 事件区分滑动与点击，避免滚动时误触选项
                 let touchStartY = 0;
                 div.addEventListener('touchstart', (e) => {
                     touchStartY = e.touches[0].clientY;
@@ -761,8 +755,9 @@
             nextBtn.className = 'w-full py-4 rounded-2xl text-lg font-bold bg-gray-800 text-gray-600 transition-all duration-300';
             nextBtn.textContent = APP.currentQuestionIndex === 29 ? '查看结果' : '下一题';
 
-            // 滚动到题目区域顶部
-            document.getElementById('question-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Scroll question area to top
+            const scrollArea = document.querySelector('#page-assessment .assessment-scroll');
+            if (scrollArea) scrollArea.scrollTop = 0;
         }
 
         function selectOption(idx) {
@@ -812,65 +807,87 @@
             });
 
             const typeColors = {
-                Dominant: '#D4AF37', Submissive: '#4A90D9', Sadist: '#E74C3C',
-                Masochist: '#E67E22', Switch: '#2ECC71', Safeword: '#9B59B6'
+                Dominant: '#c9a227', Submissive: '#3b82f6', Sadist: '#e63946',
+                Masochist: '#f97316', Switch: '#10b981', Safeword: '#a855f7'
             };
             const typeGradients = {
                 Dominant: 'text-gradient', Submissive: 'text-gradient-blue',
                 Sadist: 'text-gradient-red', Masochist: 'text-gradient-orange',
                 Switch: 'text-gradient-green', Safeword: 'text-gradient-purple'
             };
+            const typeGlows = {
+                Dominant: 'glow-gold', Submissive: 'glow-blue',
+                Sadist: 'glow-red', Masochist: 'glow-orange',
+                Switch: 'glow-green', Safeword: 'glow-purple'
+            };
 
             const PERSONALITY_CONFIG = {
                 Dominant: {
-                    name: '支配者', tagline: '掌权者 · 天生的指挥官', icon: '👑',
-                    desc: '会议室里，话语权自然流向你；项目中，你下意识地统筹全局。权力对你不是负担，是让你最自在的氧气。',
-                    traits: ['决策果断', '目标导向', '善于掌控', '领导力强'],
-                    risks: ['可能忽视团队感受，过度控制会抑制自主性', '遇到更强硬的对手时容易陷入权力斗争'],
-                    advice: '学会授权，培养倾听能力。真正的掌控力不是让别人服从，而是让别人愿意跟随。'
+                    name: '支配者',
+                    tagline: '你的规则就是规则',
+                    icon: '👑',
+                    desc: '你天生就该坐在主位。会议室里话语权自动流向你，危机时刻所有人看向你。你对掌控感的饥渴不是毛病——那是你呼吸的方式。',
+                    traits: ['杀伐果断', '目标碾压一切', '掌控力爆表', '危机指挥官'],
+                    risks: ['你的控制欲会让团队窒息', '你听不进"不"字，直到撞墙'],
+                    advice: '真正的王不需要每场仗都亲自打。学会信任副手，你的帝国才能扩张。记住：让人害怕和让人追随，是两种完全不同的权力。'
                 },
                 Submissive: {
-                    name: '服从者', tagline: '执行者 · 规则中的安心者', icon: '🛡️',
-                    desc: '清晰指令是你的安心剂，模糊期待是你的焦虑源。你不是没有能力，而是享受在强者引领下的确定性。',
-                    traits: ['可靠细致', '执行力强', '遵守纪律', '善于配合'],
-                    risks: ['缺乏主动性，可能错失机会', '在模糊情境中容易焦虑，需要明确指引'],
-                    advice: '在安全范围内尝试自主决策。你的执行力是宝贵的，但偶尔也需要学会给自己下指令。'
+                    name: '服从者',
+                    tagline: '完美的指令接收器',
+                    icon: '🛡️',
+                    desc: '清晰指令是你最需要的安全感。模糊期待让你焦虑，明确规则让你释放全部战斗力。你不是没有主见——你只是需要一个值得你交付忠诚的人。',
+                    traits: ['极致可靠', '执行力凶猛', '纪律性强迫症', '团队定海神针'],
+                    risks: ['过度依赖指令会让你丧失自我判断力', '随波逐流的尽头是被遗忘'],
+                    advice: '你的执行力是稀缺资源。但记住：最好的执行者不是机器人，而是能在关键时刻给出自己判断的人。偶尔，对自己下一个指令。'
                 },
                 Sadist: {
-                    name: '施压者', tagline: '鞭策者 · 卓越的追求者', icon: '⚡',
-                    desc: '高标准是你的信仰，推动他人突破舒适区是你的乐趣。别人眼中的"苛刻"，在你看来只是基本要求。',
-                    traits: ['追求卓越', '激发潜力', '质量至上', '高标准'],
-                    risks: ['可能造成团队过度疲劳', '高标准可能脱离实际，需要关注团队承受力'],
-                    advice: '区分"追求卓越"和"完美主义"。最好的鞭策者是那些知道什么时候该松手的人。'
+                    name: '施压者',
+                    tagline: '不够好就是不够好',
+                    icon: '⚡',
+                    desc: '你眼里容不下"差不多"。你的标准是别人眼中的天花板，你的鞭策是团队前进的引擎。他们说你苛刻——但他们不知道，卓越从来不是靠温柔换来的。',
+                    traits: ['标准即信仰', '零容忍凑合', '质量暴君', '潜能挖掘机'],
+                    risks: ['团队在你手下可能集体 burnout', '你的"基本要求"对别人已是极限'],
+                    advice: '鞭子挥得好，千里马才能跑。但学会在关键时刻松手——最高级的鞭策，是让人自己感受到不够好的痛，而不是被你逼着痛。'
                 },
                 Masochist: {
-                    name: '承压者', tagline: '淬炼者 · 压力中的绽放者', icon: '🔥',
-                    desc: 'Deadline越紧你越兴奋，难题越大你越来劲。别人逃避的"苦差事"，在你看来是证明自己的机会。',
-                    traits: ['抗压极强', '享受挑战', '不断突破', '韧性十足'],
-                    risks: ['可能主动寻求不必要的压力', '容易忽视工作生活平衡和长期健康'],
-                    advice: '区分"成长性压力"和"消耗性压力"。不是所有痛苦都值得承受，学会在合适的时候停下来。'
+                    name: '承压者',
+                    tagline: '痛苦是我的燃料',
+                    icon: '🔥',
+                    desc: '别人躲的压力，你主动迎上去。Deadline 越近你越清醒，难题越大你越兴奋。你不是自虐——你只是在压力中找到了别人找不到的能量。',
+                    traits: ['抗压怪物', '越难越燃', '极限突破者', '韧性天花板'],
+                    risks: ['你会主动制造不必要的痛苦', '你的身体和关系可能在替你的野心买单'],
+                    advice: '能扛是天赋，但别把"能扛"当成唯一的筹码。有些仗不值得打，有些痛不值得受。最强的承压者，是那些知道什么时候该停的人。'
                 },
                 Switch: {
-                    name: '切换者', tagline: '变色龙 · 权力的舞者', icon: '🦎',
-                    desc: '你是职场变色龙。对上能精准承接压力，对下能果断掌控局面。你的天赋是读懂权力场的暗流，随时调整姿态。',
-                    traits: ['适应性强', '情商高', '角色灵活', '善于沟通'],
-                    risks: ['可能被视为"没有原则"', '在不同角色间频繁切换会消耗心理能量'],
-                    advice: '明确核心职业身份。灵活是你的优势，但在关键原则上保持一致性会让你更有分量。'
+                    name: '切换者',
+                    tagline: '权力游戏的操盘手',
+                    icon: '🦎',
+                    desc: '向上承接压力，向下释放掌控——你不属于任何一个固定角色。读懂环境的暗流，随时调整姿态，这才是你真正的天赋。别人觉得你善变，其实你只是在不同的棋局里选择了最优走法。',
+                    traits: ['情商天花板', '角色无缝切换', '权力场变色龙', '暗流洞察者'],
+                    risks: ['频繁切换会消耗你的心理电量', '别人可能觉得你"没有立场"'],
+                    advice: '灵活是你最大的武器，但偶尔需要让人看到你的底色。没有底色的变色龙，在权力游戏里只能当配角。在关键原则上亮出你的不妥协。'
                 },
                 Safeword: {
-                    name: '安全词持有者', tagline: '边界者 · 清醒的守护者', icon: '🧿',
-                    desc: '你是办公室最清醒的人。深知任何权力关系都需要边界，敢于对不合理要求说"不"，也懂得保护团队的底线。',
-                    traits: ['边界清晰', '理性冷静', '保护团队', '公正客观'],
-                    risks: ['可能被视为"不合群"或"难合作"', '在需要突破常规时可能过于谨慎'],
-                    advice: '区分"合理边界"和"过度防御"。你的边界意识是团队的宝贵资产，但偶尔也需要柔软一些。'
+                    name: '安全词持有者',
+                    tagline: '你的红线就是死线',
+                    icon: '🧿',
+                    desc: '你是办公室里最清醒的那个人。任何权力关系在你看来都有边界，任何不合理的试探在你这里都会撞墙。他们说你不合群——但他们不知道，一个没有边界的人是权力场里最危险的变量。',
+                    traits: ['边界感拉满', '冷静到让人害怕', '团队守护神', '原则寸步不让'],
+                    risks: ['过度防御会让你孤立', '在需要冒险时可能过于保守'],
+                    advice: '边界是你的盾牌，但别让盾牌变成牢笼。最好的守护者不仅会画红线，更懂得在红线内创造让人自由发挥的空间。柔软一点并不会削弱你的力量。'
                 }
             };
 
-            APP.result = { ...PERSONALITY_CONFIG[resultType], typeId: resultType, color: typeColors[resultType], gradientClass: typeGradients[resultType] };
+            APP.result = {
+                ...PERSONALITY_CONFIG[resultType],
+                typeId: resultType,
+                color: typeColors[resultType],
+                gradientClass: typeGradients[resultType],
+                glowClass: typeGlows[resultType]
+            };
 
             const duration = Date.now() - APP.assessmentStartTime;
 
-            // 跟踪结果
             if (window.analytics) {
                 analytics.trackAssessmentComplete(resultType, APP.scores, duration);
             }
@@ -878,40 +895,35 @@
             setTimeout(() => {
                 renderResult();
                 showPage('result');
-            }, 3000);
+            }, 2800);
         }
 
         function renderResult() {
             const r = APP.result;
             document.getElementById('result-icon').textContent = r.icon;
-            
+
             const nameEl = document.getElementById('result-name');
             nameEl.textContent = r.name;
-            nameEl.className = 'text-3xl font-black tracking-tight ' + (r.gradientClass || 'text-gradient');
-            
+            nameEl.className = 'text-4xl font-black tracking-tight ' + (r.gradientClass || 'text-gradient');
+
             document.getElementById('result-tagline').textContent = r.tagline;
             document.getElementById('result-desc').textContent = r.desc;
 
-            // 彩色竖条
             const bar = document.getElementById('result-accent-bar');
             if (bar && r.color) {
                 bar.style.background = 'linear-gradient(to bottom, ' + r.color + ', transparent)';
             }
 
-            // 特质标签
             document.getElementById('result-traits').innerHTML = r.traits.map(t =>
-                `<span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-gray-800 text-gray-300 border border-gray-700">${t}</span>`
+                `<span class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-800/80 text-gray-200 border border-gray-700">${t}</span>`
             ).join('');
 
-            // 风险提示
             document.getElementById('result-risks').innerHTML = r.risks.map(risk =>
-                `<div class="flex items-start"><span class="text-red-500 mr-2 text-xs mt-0.5">⚠</span><span class="text-sm text-gray-400">${risk}</span></div>`
+                `<div class="flex items-start"><span class="text-red-500 mr-2 text-sm mt-0.5">▸</span><span class="text-sm text-gray-300">${risk}</span></div>`
             ).join('');
 
-            // 建议
             document.getElementById('result-advice').textContent = r.advice;
 
-            // 雷达图
             setTimeout(drawRadar, 300);
         }
 
@@ -921,7 +933,7 @@
             const ctx = canvas.getContext('2d');
             const types = ['Dominant', 'Submissive', 'Sadist', 'Masochist', 'Switch', 'Safeword'];
             const labels = ['支配者', '服从者', '施压者', '承压者', '切换者', '安全词'];
-            const colors = ['#D4AF37', '#4A90D9', '#E74C3C', '#E67E22', '#2ECC71', '#9B59B6'];
+            const colors = ['#c9a227', '#3b82f6', '#e63946', '#f97316', '#10b981', '#a855f7'];
             const maxScore = 10;
             const values = types.map(t => (APP.scores[t] / 30 * 10));
 
@@ -932,7 +944,6 @@
 
             ctx.clearRect(0, 0, size, size);
 
-            // 网格
             for (let i = 1; i <= 4; i++) {
                 ctx.beginPath();
                 for (let j = 0; j < 6; j++) {
@@ -943,22 +954,20 @@
                     else ctx.lineTo(x, y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
                 ctx.lineWidth = 1;
                 ctx.stroke();
             }
 
-            // 轴线
             for (let i = 0; i < 6; i++) {
                 const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
                 ctx.beginPath();
                 ctx.moveTo(cx, cy);
                 ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
-                ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+                ctx.strokeStyle = 'rgba(255,255,255,0.04)';
                 ctx.stroke();
             }
 
-            // 数据区域
             ctx.beginPath();
             values.forEach((v, i) => {
                 const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
@@ -969,17 +978,15 @@
             });
             ctx.closePath();
 
-            // 渐变填充
             const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-            gradient.addColorStop(0, 'rgba(212, 175, 55, 0.25)');
-            gradient.addColorStop(1, 'rgba(212, 175, 55, 0.05)');
+            gradient.addColorStop(0, 'rgba(201, 162, 39, 0.3)');
+            gradient.addColorStop(1, 'rgba(201, 162, 39, 0.04)');
             ctx.fillStyle = gradient;
             ctx.fill();
-            ctx.strokeStyle = 'rgba(212, 175, 55, 0.5)';
+            ctx.strokeStyle = 'rgba(201, 162, 39, 0.6)';
             ctx.lineWidth = 2;
             ctx.stroke();
 
-            // 数据点
             values.forEach((v, i) => {
                 const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
                 const x = cx + r * (v / 4) * Math.cos(angle);
@@ -988,19 +995,18 @@
                 ctx.arc(x, y, 4, 0, Math.PI * 2);
                 ctx.fillStyle = colors[i];
                 ctx.fill();
-                ctx.strokeStyle = 'rgba(255,255,255,0.3)';
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.lineWidth = 1.5;
                 ctx.stroke();
             });
 
-            // 标签
-            ctx.font = '10px Inter, PingFang SC, sans-serif';
+            ctx.font = 'bold 10px Inter, PingFang SC, sans-serif';
             ctx.textAlign = 'center';
             labels.forEach((label, i) => {
                 const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
-                const x = cx + (r + 22) * Math.cos(angle);
-                const y = cy + (r + 22) * Math.sin(angle);
-                ctx.fillStyle = '#a0a0b0';
+                const x = cx + (r + 24) * Math.cos(angle);
+                const y = cy + (r + 24) * Math.sin(angle);
+                ctx.fillStyle = '#b0b0c0';
                 ctx.fillText(label, x, y + 4);
             });
         }
@@ -1019,18 +1025,15 @@
             document.getElementById('share-quote').textContent = '"' + r.desc + '"';
 
             const now = new Date();
-            document.getElementById('share-date').textContent = 
+            document.getElementById('share-date').textContent =
                 now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + String(now.getDate()).padStart(2, '0');
 
             showPage('share');
 
-            // 生成二维码
             setTimeout(() => generateQRCode(window.location.href), 200);
 
-            // 检测微信环境
             detectWechatEnv();
 
-            // 跟踪分享页浏览
             if (window.analytics) {
                 analytics.track('share_page_view', { type: r.typeId });
             }
@@ -1040,7 +1043,7 @@
             const isWechat = /MicroMessenger/i.test(navigator.userAgent);
             const btn = document.getElementById('wechat-share-btn');
             if (isWechat) {
-                btn.textContent = '💬 点击右上角分享给朋友';
+                btn.textContent = '点击右上角分享给朋友';
                 btn.onclick = function() {
                     showToast('请点击右上角"..."按钮分享');
                 };
@@ -1058,11 +1061,10 @@
                 const canvas = await html2canvas(card, {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: '#1a1a2e',
+                    backgroundColor: '#14142a',
                     logging: false
                 });
 
-                // 创建下载链接
                 const link = document.createElement('a');
                 link.download = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
                 link.href = canvas.toDataURL('image/png');
@@ -1070,7 +1072,6 @@
 
                 showToast('报告图片已保存！');
 
-                // 跟踪保存行为
                 if (window.analytics) {
                     analytics.trackImageSave();
                 }
@@ -1086,12 +1087,11 @@
         function copyShareLink() {
             const url = window.location.href;
             navigator.clipboard.writeText(url).then(() => {
-                showToast('链接已复制，快去分享吧！');
+                showToast('链接已复制，快发出去！');
                 if (window.analytics) {
                     analytics.trackLinkCopy();
                 }
             }).catch(() => {
-                // 降级方案
                 const input = document.createElement('input');
                 input.value = url;
                 document.body.appendChild(input);
@@ -1107,7 +1107,6 @@
             if (isWechat) {
                 showToast('请点击右上角"..."按钮分享');
             } else {
-                // 非微信环境，提示用户
                 showToast('请保存图片后分享到微信');
             }
 
@@ -1118,16 +1117,14 @@
 
         // ==================== 初始化 ====================
         function init() {
-            // 更新用户数（从本地统计获取）
             try {
                 if (window.analytics) {
                     const stats = analytics.getLocalStats();
-                    const total = 12847 + stats.totalCompletions;
+                    const total = 15847 + stats.totalCompletions;
                     document.getElementById('total-users').textContent = total.toLocaleString();
                 }
             } catch(e) {}
 
-            // 注册Service Worker
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
                     navigator.serviceWorker.register('service-worker.js').catch(() => {});
@@ -1135,10 +1132,8 @@
             }
         }
 
-        // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', init);
 
-        // 处理浏览器后退
         window.addEventListener('popstate', (e) => {
             if (APP.currentPage === 'assessment' && APP.answers.length > 0) {
                 confirmExit();
