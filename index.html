@@ -48,16 +48,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
         body {
             font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -webkit-tap-highlight-color: transparent;
-            touch-action: pan-y;
-            -webkit-overflow-scrolling: touch;
         }
 
         .bg-noise {
@@ -212,13 +212,11 @@
         }
         .text-reveal { animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
 
-        .page { display: none; opacity: 0; transition: opacity 0.35s ease; }
+        .page { display: none; opacity: 0; transition: opacity 0.35s ease; position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .page.active { display: block; opacity: 1; }
 
         /* Assessment page: fixed layout, only content scrolls */
         #page-assessment {
-            height: 100vh;
-            height: 100dvh;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -390,7 +388,7 @@
         </div>
 
         <!-- ==================== 加载页 ==================== -->
-        <div class="page min-h-screen flex flex-col justify-center items-center px-6" id="page-loading">
+        <div class="page flex flex-col justify-center items-center px-6" id="page-loading">
             <div class="text-center">
                 <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto mb-8 animate-pulse-slow text-5xl border-pulse">
                     ⚙️
@@ -408,7 +406,7 @@
         </div>
 
         <!-- ==================== 结果页 ==================== -->
-        <div class="page min-h-screen" id="page-result">
+        <div class="page" id="page-result">
             <div class="max-w-md mx-auto px-6 py-8">
                 <div class="flex justify-between items-center mb-8">
                     <button onclick="startAssessment()" class="text-gray-500 hover:text-white transition text-sm">
@@ -468,7 +466,7 @@
         </div>
 
         <!-- ==================== 分享页 ==================== -->
-        <div class="page min-h-screen" id="page-share">
+        <div class="page" id="page-share">
             <div class="max-w-md mx-auto px-6 py-8">
                 <div class="flex justify-between items-center mb-6">
                     <button onclick="goResult()" class="text-gray-400 hover:text-white transition text-sm">
