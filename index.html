@@ -1245,12 +1245,14 @@
             APP.selectedOption = null;
 
             const optionLabels = q.options && q.options.length === 5 ? q.options : ['非常符合', '比较符合', '一般', '不太符合', '完全不符合'];
-            q.scores.forEach((score, idx) => {
+            // 随机打乱选项顺序（origIdx 映射 scores 数组索引）
+            const order = [0, 1, 2, 3, 4].sort(() => Math.random() - 0.5);
+            order.forEach((origIdx, displayPos) => {
                 const div = document.createElement('div');
                 div.className = 'option-card rounded-xl p-4 flex items-center';
                 div.innerHTML = `
-                    <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-600 mr-3 flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
-                    <span class="text-sm text-gray-200">${optionLabels[idx]}</span>
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-600 mr-3 flex-shrink-0">${String.fromCharCode(65 + displayPos)}</span>
+                    <span class="text-sm text-gray-200">${optionLabels[origIdx]}</span>
                 `;
                 let touchStartY = 0;
                 div.addEventListener('touchstart', (e) => {
@@ -1258,9 +1260,9 @@
                 }, { passive: true });
                 div.addEventListener('touchend', (e) => {
                     const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
-                    if (dy < 10) selectOption(idx);
+                    if (dy < 10) selectOption(origIdx);
                 });
-                div.addEventListener('click', () => selectOption(idx));
+                div.addEventListener('click', () => selectOption(origIdx));
                 container.appendChild(div);
             });
 
