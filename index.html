@@ -214,32 +214,19 @@
 
         .page { display: none; opacity: 0; transition: opacity 0.35s ease; }
         .page.active { display: block; opacity: 1; }
-
-        /* Homepage */
+        /* Override for specific pages that need flex layout */
         #page-home.active { display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        #page-assessment.active { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+        #page-loading.active { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+        #page-result.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        #page-share.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
-        /* Assessment page: fixed layout, only content scrolls */
-        #page-assessment.active {
-            height: 100%;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
         #page-assessment .assessment-scroll {
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
-
-        /* Loading page */
-        #page-loading.active { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
-
-        /* Result page */
-        #page-result.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-
-        /* Share page */
-        #page-share.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
