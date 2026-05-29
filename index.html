@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="30个问题，揭开你的职场权力人格。你不是你以为的那个人——测测就知道。">
-    <meta property="og:title" content="职场权力人格测评 | 你到底是什么类型？">
-    <meta property="og:description" content="测测你的职场权力属性，6种人格，总有一种描述得让你坐不住。">
+    <meta name="description" content="30题测出你在职场食物链的位置。8维度12人格，测完你会想发给同事对比谁更危险。">
+    <meta property="og:title" content="职场生存人格诊断 | 你在食物链哪一层？">
+    <meta property="og:description" content="别装了，测完你就知道自己是猎人还是猎物。12种生存人格，总有一种让你坐立不安。">
     <meta property="og:image" content="og-image.png">
     <meta property="og:type" content="website">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,27 +19,27 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
-    <title>职场权力人格测评 | 不要骗自己</title>
+    <title>职场生存人格诊断 | 你是猎人还是猎物？</title>
     <script src="assets/tailwind.js"></script>
     <script src="assets/html2canvas.min.js"></script>
     <script src="assets/analytics.js"></script>
     <style>
         :root {
-            --bg-primary: #050508;
-            --bg-secondary: #0d0d18;
-            --bg-card: #14142a;
+            --bg-primary: #020203;
+            --bg-secondary: #0a0a0f;
+            --bg-card: #0a0a0f;
             --text-primary: #ffffff;
             --text-secondary: #b0b0c0;
             --text-muted: #5a5a6e;
-            --accent-gold: #c9a227;
-            --accent-red: #e63946;
+            --accent-red: #ff0066;
+            --accent-red2: #ff1a75;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
             --accent-purple: #a855f7;
             --accent-orange: #f97316;
-            --border: #1e1e3a;
-            --glow-gold: rgba(201, 162, 39, 0.35);
-            --glow-red: rgba(230, 57, 70, 0.35);
+            --border: #1a1a2e;
+            --glow-red: rgba(255, 0, 102, 0.35);
+            --glow-red2: rgba(255, 26, 117, 0.35);
             --glow-blue: rgba(59, 130, 246, 0.3);
             --glow-green: rgba(16, 185, 129, 0.3);
             --glow-purple: rgba(168, 85, 247, 0.3);
@@ -65,27 +65,26 @@
         }
 
         .glass {
-            background: rgba(20, 20, 42, 0.7);
+            background: rgba(10, 10, 15, 0.7);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .glow-gold { box-shadow: 0 0 30px var(--glow-gold), 0 0 80px rgba(201, 162, 39, 0.08); }
-        .glow-red { box-shadow: 0 0 30px var(--glow-red), 0 0 80px rgba(230, 57, 70, 0.08); }
+        .glow-red { box-shadow: 0 0 30px var(--glow-red), 0 0 80px rgba(255, 0, 102, 0.08); }
         .glow-blue { box-shadow: 0 0 30px var(--glow-blue), 0 0 60px rgba(59, 130, 246, 0.08); }
         .glow-green { box-shadow: 0 0 30px var(--glow-green), 0 0 60px rgba(16, 185, 129, 0.08); }
         .glow-purple { box-shadow: 0 0 30px var(--glow-purple), 0 0 60px rgba(168, 85, 247, 0.08); }
         .glow-orange { box-shadow: 0 0 30px var(--glow-orange), 0 0 60px rgba(249, 115, 22, 0.08); }
 
         .text-gradient {
-            background: linear-gradient(135deg, #c9a227, #f5d77a, #c9a227);
+            background: linear-gradient(135deg, #ff0066, #ff1a75, #ff0066);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .text-gradient-red {
-            background: linear-gradient(135deg, #e63946, #ff6b6b, #e63946);
+            background: linear-gradient(135deg, #ff0066, #ff1a75, #ff0066);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -127,9 +126,9 @@
         .option-card:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
         .option-card:active { transform: scale(0.985); }
         .option-card.active {
-            border-color: var(--accent-gold);
-            background: rgba(201, 162, 39, 0.12);
-            box-shadow: 0 0 20px rgba(201, 162, 39, 0.12), inset 0 0 30px rgba(201, 162, 39, 0.05);
+            border-color: var(--accent-red);
+            background: rgba(255, 0, 102, 0.12);
+            box-shadow: 0 0 20px rgba(255, 0, 102, 0.12), inset 0 0 30px rgba(255, 0, 102, 0.05);
         }
 
         .progress-bar {
@@ -139,7 +138,7 @@
             overflow: hidden;
         }
         .progress-fill {
-            background: linear-gradient(90deg, #c9a227, #f5d77a, #c9a227);
+            background: linear-gradient(90deg, #ff0066, #ff1a75, #ff0066);
             background-size: 200% 100%;
             animation: shimmer 2s linear infinite;
             height: 100%;
@@ -152,7 +151,7 @@
         }
 
         .share-card {
-            background: linear-gradient(155deg, #14142a, #0f1f3d);
+            background: linear-gradient(155deg, #0a0a0f, #0f0f1a);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 20px;
             padding: 32px 28px;
@@ -167,7 +166,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(201,162,39,0.08) 0%, transparent 50%);
+            background: radial-gradient(circle at 30% 20%, rgba(255,0,102,0.08) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -184,8 +183,8 @@
         .fade-in-up { animation: fadeInUp 0.5s ease forwards; }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px var(--glow-gold); }
-            50% { box-shadow: 0 0 50px var(--glow-gold), 0 0 100px rgba(201,162,39,0.12); }
+            0%, 100% { box-shadow: 0 0 20px var(--glow-red); }
+            50% { box-shadow: 0 0 50px var(--glow-red), 0 0 100px rgba(255,0,102,0.12); }
         }
         .glow-animate { animation: glow 2.2s ease-in-out infinite; }
 
@@ -196,8 +195,8 @@
         .scale-in { animation: scaleIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 
         @keyframes borderPulse {
-            0%, 100% { border-color: rgba(201, 162, 39, 0.3); }
-            50% { border-color: rgba(201, 162, 39, 0.7); }
+            0%, 100% { border-color: rgba(255, 0, 102, 0.3); }
+            50% { border-color: rgba(255, 0, 102, 0.7); }
         }
         .border-pulse { animation: borderPulse 2s ease-in-out infinite; }
 
@@ -214,7 +213,6 @@
 
         .page { display: none; opacity: 0; transition: opacity 0.35s ease; }
         .page.active { display: block; opacity: 1; }
-        /* Override for specific pages that need flex layout */
         #page-home.active { display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         #page-assessment.active { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
         #page-loading.active { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
@@ -233,7 +231,7 @@
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
 
         .typing-text {
-            border-right: 2px solid var(--accent-gold);
+            border-right: 2px solid var(--accent-red);
             animation: blink 0.7s step-end infinite;
         }
         @keyframes blink { 50% { border-color: transparent; } }
@@ -243,8 +241,8 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(20, 20, 42, 0.95);
-            border: 1px solid var(--accent-gold);
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid var(--accent-red);
             color: white;
             padding: 12px 24px;
             border-radius: 12px;
@@ -256,7 +254,7 @@
             pointer-events: none;
         }
         .toast.show { opacity: 1; }
-        .toast.error { border-color: var(--accent-red); }
+        .toast.error { border-color: var(--accent-orange); }
 
         .btn-loading {
             position: relative;
@@ -305,45 +303,45 @@
 
                     <!-- 主标题 -->
                     <h1 class="text-4xl font-black mb-2 tracking-tighter">
-                        <span class="text-gradient">你到底是什么</span>
+                        <span class="text-gradient">你到底是猎物</span>
                     </h1>
                     <h1 class="text-4xl font-black mb-2 tracking-tighter">
-                        <span class="text-gradient-red">权力人格？</span>
+                        <span class="text-gradient-red">还是猎人？</span>
                     </h1>
 
                     <!-- 副标题 -->
                     <p class="text-lg text-gray-300 mb-1 font-bold">
-                        别骗自己，测了再说
+                        别装，测完你就知道自己在食物链哪一层
                     </p>
                     <p class="text-sm text-gray-500 mb-10">
-                        30题 · 5分钟 · 比你更懂你
+                        30题 · 5分钟 · 测出你的职场生存率
                     </p>
 
                     <!-- 数据展示 -->
                     <div class="glass rounded-2xl p-5 mb-8 flex justify-around text-center">
                         <div>
-                            <div class="text-2xl font-bold text-gradient" id="total-users">15,847</div>
+                            <div class="text-2xl font-bold text-gradient" id="total-users">28,456</div>
                             <div class="text-xs text-gray-500 mt-1">已测</div>
                         </div>
                         <div class="w-px bg-gray-800"></div>
                         <div>
-                            <div class="text-2xl font-bold text-gradient-red">6</div>
-                            <div class="text-xs text-gray-500 mt-1">型人格</div>
+                            <div class="text-2xl font-bold text-gradient-red">12</div>
+                            <div class="text-xs text-gray-500 mt-1">种生存人格</div>
                         </div>
                         <div class="w-px bg-gray-800"></div>
                         <div>
-                            <div class="text-2xl font-bold text-gradient">93%</div>
-                            <div class="text-xs text-gray-500 mt-1">说"太准了"</div>
+                            <div class="text-2xl font-bold text-gradient">91%</div>
+                            <div class="text-xs text-gray-500 mt-1">测完想发给同事</div>
                         </div>
                     </div>
 
                     <!-- 开始按钮 -->
-                    <button onclick="startAssessment()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97]">
-                        敢不敢测一下？
+                    <button onclick="startAssessment()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-red-600 to-pink-500 text-white glow-red hover:from-red-500 hover:to-pink-400 transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.97]">
+                        测测你的职场生存率
                     </button>
 
                     <p class="mt-8 text-xs text-gray-700 italic">
-                        "测完你可能想发给老板"
+                        "测完发给老板，让他知道你在想什么"
                     </p>
                 </div>
         </div>
@@ -354,7 +352,7 @@
             <div class="glass px-4 py-3 flex-shrink-0">
                 <div class="flex items-center justify-between max-w-md mx-auto">
                     <button onclick="confirmExit()" class="text-gray-400 hover:text-white transition px-2 py-1 text-sm">
-                        ← 退出
+                        ← 放弃测评
                     </button>
                     <div class="text-sm text-gray-500 font-mono">
                         <span id="current-q">1</span>/30
@@ -389,16 +387,16 @@
         <div class="page px-6" id="page-loading">
             <div class="text-center">
                 <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto mb-8 animate-pulse-slow text-5xl border-pulse">
-                    ⚙️
+                    🔪
                 </div>
-                <h2 class="text-2xl font-bold mb-6">正在解码你的权力DNA</h2>
+                <h2 class="text-2xl font-bold mb-6">正在解剖你的职场人格</h2>
                 <div class="space-y-4 text-sm text-gray-400">
-                    <p class="fade-in-up" style="animation-delay: 0.3s">拆解你的权力本能...</p>
-                    <p class="fade-in-up" style="animation-delay: 1.2s">匹配 6 种人格原型...</p>
-                    <p class="fade-in-up" style="animation-delay: 2.1s">生成你的专属权力档案...</p>
+                    <p class="fade-in-up" style="animation-delay: 0.3s">扫描你的控制欲与服从性...</p>
+                    <p class="fade-in-up" style="animation-delay: 1.2s">匹配 12 种职场生存人格...</p>
+                    <p class="fade-in-up" style="animation-delay: 2.1s">生成你的职场生存风险评估...</p>
                 </div>
                 <p class="mt-10 text-xs text-gray-600 animate-pulse-slow italic">
-                    "结果可能会让你不舒服。这是好事。"
+                    "结果可能让你坐立不安。这就对了。"
                 </p>
             </div>
         </div>
@@ -408,17 +406,17 @@
             <div class="max-w-md mx-auto px-6 py-8">
                 <div class="flex justify-between items-center mb-8">
                     <button onclick="startAssessment()" class="text-gray-500 hover:text-white transition text-sm">
-                        ← 重新测评
+                        ← 重新评估生存率
                     </button>
-                    <button onclick="showSharePage()" class="text-yellow-500 hover:text-yellow-400 transition text-sm font-bold">
-                        分享报告 ↗
+                    <button onclick="showSharePage()" class="text-red-500 hover:text-red-400 transition text-sm font-bold">
+                        生成生存报告 · 发给同事看看
                     </button>
                 </div>
 
                 <!-- 人格展示 -->
                 <div class="text-center mb-6">
                     <div class="w-24 h-24 rounded-full glass flex items-center justify-center mx-auto mb-4 text-6xl scale-in" id="result-icon"></div>
-                    <div class="text-xs text-gray-500 tracking-widest uppercase mb-2">你的职场权力人格</div>
+                    <div class="text-xs text-gray-500 tracking-widest uppercase mb-2">你的职场生存人格</div>
                     <h1 class="text-4xl font-black tracking-tight" id="result-name"></h1>
                     <p class="text-sm text-gray-400 mt-2" id="result-tagline"></p>
                 </div>
@@ -429,10 +427,10 @@
                     <p class="text-lg font-bold leading-relaxed italic text-gray-200" id="result-desc"></p>
                 </div>
 
-                <!-- 雷达图 -->
+                <!-- 雷达图（8轴） -->
                 <div class="glass rounded-2xl p-6 mb-6">
-                    <h3 class="text-sm font-bold text-gray-400 mb-4 text-center tracking-wider">人格维度分布</h3>
-                    <canvas id="radar-canvas" class="w-full" style="max-width: 280px; margin: 0 auto; display: block;"></canvas>
+                    <h3 class="text-sm font-bold text-gray-400 mb-4 text-center tracking-wider">8维人格雷达</h3>
+                    <canvas id="radar-canvas" class="w-full" style="max-width: 300px; margin: 0 auto; display: block;"></canvas>
                 </div>
 
                 <!-- 核心特质 -->
@@ -441,24 +439,42 @@
                     <div class="flex flex-wrap gap-2" id="result-traits"></div>
                 </div>
 
-                <!-- 风险提示 -->
+                <!-- 危险关系 -->
                 <div class="glass rounded-2xl p-6 mb-6" style="border-left: 2px solid var(--accent-red);">
-                    <h3 class="text-sm font-bold text-red-400 mb-4 tracking-wider">致命弱点</h3>
+                    <h3 class="text-sm font-bold text-red-400 mb-4 tracking-wider">职场食物链关系</h3>
+                    <div class="space-y-3 text-sm" id="result-relations"></div>
+                </div>
+
+                <!-- 生存风险 -->
+                <div class="glass rounded-2xl p-6 mb-6" style="border-left: 2px solid var(--accent-orange);">
+                    <h3 class="text-sm font-bold text-orange-400 mb-4 tracking-wider">生存风险</h3>
                     <div class="space-y-3" id="result-risks"></div>
                 </div>
 
-                <!-- 发展建议 -->
-                <div class="glass rounded-2xl p-6 mb-8" style="border-left: 2px solid var(--accent-gold);">
-                    <h3 class="text-sm font-bold text-yellow-400 mb-4 tracking-wider">破局之道</h3>
+                <!-- 生存策略 -->
+                <div class="glass rounded-2xl p-6 mb-6" style="border-left: 2px solid var(--accent-red);">
+                    <h3 class="text-sm font-bold text-red-400 mb-4 tracking-wider">生存策略</h3>
                     <p class="text-sm text-gray-300 leading-relaxed" id="result-advice"></p>
                 </div>
 
+                <!-- 黑化终局 -->
+                <div class="glass rounded-2xl p-6 mb-6" style="border-left: 2px solid #8b5cf6;">
+                    <h3 class="text-sm font-bold text-purple-400 mb-4 tracking-wider">你的黑化时间表</h3>
+                    <div id="result-darkening" class="text-sm text-gray-300 leading-relaxed"></div>
+                </div>
+
+                <!-- 高薪后的你 -->
+                <div class="glass rounded-2xl p-6 mb-8" style="border-left: 2px solid var(--accent-green);">
+                    <h3 class="text-sm font-bold text-green-400 mb-4 tracking-wider">金钱驯化指数</h3>
+                    <div id="result-salary" class="text-sm text-gray-300 leading-relaxed"></div>
+                </div>
+
                 <!-- 行动按钮 -->
-                <button onclick="showSharePage()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 glow-gold hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-3">
-                    生成报告卡片 · 发给老板看看
+                <button onclick="showSharePage()" class="w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-red-600 to-pink-500 text-white glow-red hover:from-red-500 hover:to-pink-400 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] mb-3">
+                    生成生存报告 · 发给同事看看谁更危险
                 </button>
                 <button onclick="startAssessment()" class="w-full py-3 rounded-2xl text-sm text-gray-500 hover:text-white transition">
-                    再来一次
+                    重新评估你的生存率
                 </button>
             </div>
         </div>
@@ -477,7 +493,7 @@
                 <div class="share-card mb-8" id="share-card">
                     <div class="relative z-10">
                         <div class="text-center mb-5">
-                            <div class="text-xs text-gray-500 tracking-widest mb-4">职场权力人格报告</div>
+                            <div class="text-xs text-gray-500 tracking-widest mb-4">职场生存人格诊断报告</div>
                             <div class="text-5xl mb-4" id="share-icon"></div>
                             <h2 class="text-3xl font-black text-gradient mb-1" id="share-name"></h2>
                             <p class="text-xs text-gray-500 mt-2" id="share-tagline"></p>
@@ -487,7 +503,7 @@
                         <div class="border-t border-gray-800 my-4"></div>
                         <div class="flex justify-between items-center text-xs text-gray-500">
                             <span id="share-date"></span>
-                            <span class="text-yellow-500">扫码测你的类型 →</span>
+                            <span class="text-red-500">扫码测你的类型 →</span>
                         </div>
                         <div class="mt-5 flex justify-center">
                             <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center overflow-hidden shadow-lg" id="qr-container">
@@ -499,14 +515,14 @@
 
                 <!-- 分享操作 -->
                 <div class="space-y-3">
-                    <button onclick="saveShareImage()" id="save-btn" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition">
-                        保存报告图片
+                    <button onclick="saveShareImage()" id="save-btn" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-red-600 transition">
+                        保存诊断报告
                     </button>
-                    <button onclick="copyShareLink()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition">
-                        复制分享链接
+                    <button onclick="copyShareLink()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-red-600 transition">
+                        复制诊断链接
                     </button>
-                    <button onclick="shareViaWechat()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-yellow-600 transition" id="wechat-share-btn">
-                        分享到微信
+                    <button onclick="shareViaWechat()" class="w-full py-3.5 rounded-2xl text-sm font-bold glass text-white hover:border-red-600 transition" id="wechat-share-btn">
+                        分享到工作群
                     </button>
                 </div>
             </div>
@@ -564,74 +580,501 @@
             assessmentStartTime: 0
         };
 
-        // ==================== 题库数据 ====================
-        const QUESTION_BANK = {
-            power: [
-                { id: 1, text: '团队讨论陷入僵局时，你通常选择：', options: ['拍板定方案，推着大家走', '等更有经验的人拍板', '一针见血指出思考盲区', '主动扛最难啃的骨头', '观察各方立场后给方案', '建议暂停，先冷一冷'] },
-                { id: 2, text: '你的方案被人当众质疑时，第一反应是：', options: ['甩数据，让对方闭嘴', '立刻反思自己哪里错了', '揪出对方方案的硬伤', '享受这种智力对决', '看对方是谁，再决定怎么回', '要求质疑必须拿证据'] },
-                { id: 3, text: '分配团队任务时，你倾向于：', options: ['按能力特长分配，我说了算', '完全按领导指示分配', '每人目标都定高一点', '最难的部分自己来', '先问成员想做什么再分', '确保公平，流程透明'] },
-                { id: 4, text: '面对不确定性极大的项目，你的态度是：', options: ['做好 ABC 三套预案', '找领导要明确方向', '这是我展示能力的机会', '越不确定越有意思', '走一步看一步，动态调整', '先把风险边界划清楚'] },
-                { id: 5, text: '你怎么看职场里的"权威"：', options: ['需要时建立，必要时掀翻', '尊重并服从', '我的权威我凭本事打出来', '在权威的压力下进化', '权威看场景，不是绝对的', '警惕一切不受约束的权威'] },
-                { id: 6, text: '两个同事吵得不可开交时，你：', options: ['直接仲裁，给出最终方案', '记下双方观点上报领导', '指出更高目标压住分歧', '在冲突里找共识点', '分开聊，各退一步', '防止事态升级到不可控'] },
-                { id: 7, text: '你骨子里喜欢的工作环境是：', options: ['给我空间，别管我怎么干', '流程清晰，指令明确', '竞争激烈，强者通吃', '变化快到让人喘不过气', '灵活多元，怎么都行', '底线清晰，互相尊重'] },
-                { id: 8, text: '突发危机，你的本能反应是：', options: ['直接接管，所有人听我指挥', '翻应急预案，按流程来', '想根本性解决方案', '肾上腺素狂飙，来吧', '先看形势，再决定怎么动', '确保所有人安全第一'] },
-                { id: 9, text: '领导给你下指令，你习惯：', options: ['理解意图，然后自己发挥', '严格照做，一字不改', '心里想怎么做得比指令更好', '越复杂的指令越过瘾', '根据实际情况灵活调整', '先确认指令本身是否合理'] },
-                { id: 10, text: '权力阶梯中，你想站在哪个位置：', options: ['顶端，或者正在冲向顶端', '稳定中层，安心做事', '技术/专业上的绝对权威', '关键执行者，不可替代', '在各个层级间自由穿梭', '站在制衡者的位置'] },
-                { id: 11, text: '公司出新政策，你先想到的是：', options: ['怎么利用新政策扩大优势', '认真研读每一条细则', '政策背后的高标准是什么', '适应变化，没什么大不了', '不同部门会受什么影响', '政策有没有漏洞或问题'] },
-                { id: 12, text: '规则明显在拖后腿，你怎么办：', options: ['找规则的漏洞，绕过去', '照规则执行，这是纪律', '推动修改规则本身', '在规则框架内找最优解', '灵活解释，看人下菜', '正式提案要求改规则'] },
-                { id: 13, text: '面对职场"潜规则"，你的态度是：', options: ['比明规则更值得研究', '尽量不碰，保持干净', '凭实力打破一切潜规则', '在潜规则里磨炼自己', '理解它，选择性利用它', '让它见光，透明化'] },
-                { id: 14, text: '职责边界模糊不清时，你：', options: ['主动把边界往外扩', '找领导把职责问清楚', '用工作成果重新定义边界', '模糊地带我全接', '根据利益决定边界在哪', '推动明确职责划分'] },
-                { id: 15, text: '哪种管理哲学最接近你的本能：', options: ['结果说话，过程别管我', '流程规范，责任到人', '高标准，严要求，不接受凑合', '压力逼出最好的自己', '因人而异，灵活施策', '尊重个体，边界清晰'] },
-                { id: 16, text: '下属犯错，你的第一反应是：', options: ['分析原因，告诉他怎么改', '按制度该怎么处理就怎么处理', '指出问题，要求做到更好', '我先扛一部分责任', '看什么性质的错，区别对待', '明确错误的后果和边界'] },
-                { id: 17, text: '怎么看"越级汇报"这件事：', options: ['必要时完全可以接受', '严格走层级，这是规矩', '业绩好的人不在乎层级', '在极度压力下可能发生', '看具体情况，不是绝对的', '应该有明确的规则约束'] },
-                { id: 18, text: '你的权力被人挑战时，你：', options: ['正面回击，巩固阵地', '反思是不是自己哪里不够好', '用碾压级的表现回应', '很好，终于有人来踢馆了', '看看挑战是否合理再说', '把权力边界重新画清楚'] },
-                { id: 19, text: '你怎么建立职场影响力：', options: ['靠决策质量和结果说话', '靠可靠和忠诚积累', '靠专业标准让人服气', '靠扛事和担当让人依赖', '靠沟通适应在不同人之间建网', '靠公正和边界让人尊敬'] },
-                { id: 20, text: '关于权力，你内心的真实信念是：', options: ['权力是达成一切目标的工具', '权力意味着责任，不是享受', '权力来源于碾压级的能力', '权力是在压力中锻出来的', '权力是流动的，没有永恒的王', '任何权力都必须被制衡'] }
-            ],
-            stress: [
-                { id: 41, text: 'deadline 逼近但进度稀烂，你：', options: ['重新规划，加速碾压', '按原计划硬着头皮完成', '效率标准拉到最高', 'deadline 越紧我越兴奋', '调整优先级，该砍的砍', '评估要不要申请延期'] },
-                { id: 42, text: '多重任务像山一样压过来，你：', options: ['统筹安排，分清轻重缓急', '按接到任务的顺序处理', '每一项都力求完美', '同时推进，多线作战', '根据精力波动分配时间', '明确告知我的承载上限'] },
-                { id: 43, text: '工作量明显超出人类极限时，你：', options: ['优化方法，提高单位产出', '加班，硬扛', '逼自己效率再翻一倍', '挑战极限，不设上限', '选择性完成核心任务', '沟通调整工作量'] },
-                { id: 44, text: '对加班的真实态度是：', options: ['必要时的工具，不是常态', '工作的一部分，没什么好说', '追求卓越必须付出的代价', '证明我比谁都拼的机会', '看项目值不值得', '加班可以，补偿得到位'] },
-                { id: 45, text: '持续高压工作状态下，你：', options: ['越压越专注，效率反增', '硬撑，但身心俱疲', '压力越大我对自己的要求越高', '进入"战斗模式"，燃起来了', '周期性调整，不能一直绷着', '关注身体信号，不能倒下'] },
-                { id: 46, text: '压力开始伤身体了，你：', options: ['调整工作方式，不能硬来', '扛到项目结束再说', '这份代价是值得的', '这是我的勋章，说明我在成长', '在拼搏和健康之间找平衡', '立刻采取措施保护自己'] },
-                { id: 47, text: '你缓解压力的方式最接近：', options: ['直接把压力源头干掉', '按部就班一件件处理', '用一个更大的成就冲掉', '把压力转化为杀红眼的动力', '切换活动，换换脑子', '彻底躺平，什么都不想'] },
-                { id: 48, text: '面对"不可能完成"的任务：', options: ['重新定义什么叫"不可能"', '尽力而为，结果随缘', '挑战极限，试试看', '绝望感让我兴奋', '找替代方案，绕过去', '明确告诉各方这不现实'] },
-                { id: 49, text: '失败带来的压力，你怎么消化：', options: ['分析原因，马上重新开始', '接受结果，改进方法再来', '下次用更大的成功盖过去', '失败是最好的老师', '降低期望，调整心态', '建立防失败机制'] },
-                { id: 50, text: '关于工作压力，你的底层信念是：', options: ['压力催生强者，舒服是留给死人的', '压力需要被合理管理', '没有压力就没有真正的进步', '压力是检验能力的唯一标准', '适度的压力是最好的状态', '过度压力有毒，必须清除'] },
-                { id: 51, text: '全新的工作挑战摆在你面前时：', options: ['快速学习，迅速掌控', '找人带，稳妥起步', '给自己设定极高学习标准', '从零开始的感觉很棒', '根据难度调整投入策略', '先评估学习成本值不值'] },
-                { id: 52, text: '任务难度远超预期时，你：', options: ['拆解成可执行的步骤', '申请更多资源支持', '投入翻倍，硬啃下来', '难度越大我越来劲', '调整目标，不要硬刚', '重新评估这事能不能干'] },
-                { id: 53, text: '工作中的"痛苦"对你意味着：', options: ['暂时的，很快就翻篇', '必须忍受的一部分', '卓越必须付出的代价', '成长的必经之路', '可以被管理的对象', '应该被尽量减少的东西'] },
-                { id: 54, text: '被批评否定时，你的反应：', options: ['分析批评里有多少是真的', '认真反思，哪里可以改进', '用下一次的碾压表现回应', '在批评中磨得更锋利', '区分建设性和恶意的', '要求对方拿出具体事实'] },
-                { id: 55, text: '感觉自己力不从心时，你：', options: ['找新方法突破瓶颈', '承认局限，向外求助', '对自己更狠一点', '挑战极限，看看到底有多大', '调整目标或方法', '停下来，避免犯错'] },
-                { id: 56, text: '遭遇职场 PUA，你的本能反应：', options: ['识别出来，狠狠反击', '忍耐，慢慢适应', '用实力证明对方是错的', '打压让我更强', '根据具体情况决定对策', '明确拒绝，设立红线'] },
-                { id: 57, text: '多个领导同时施压，你：', options: ['统筹协调所有优先级', '按层级顺序一个个来', '每一个都做到极致', '多重挑战让我更兴奋', '沟通协调，管理预期', '明确告知承载上限'] },
-                { id: 58, text: '对"996"的真实态度：', options: ['创业期可以接受，长期不行', '遵守公司制度，让干什么干什么', '追求卓越的人不在乎时间', '这是在证明自己', '看行业和公司阶段', '这本该被法律约束'] },
-                { id: 59, text: '你拼命努力但没人认可时，你：', options: ['调整策略，让人看到', '继续默默干，总有一天', '用一个更大的成果炸场', '在否定中坚持到底', '换一个会认可你的人', '要求明确的评价标准'] },
-                { id: 60, text: '职场倦怠感袭来，你：', options: ['寻找新的挑战重新点燃', '按部就班，该干嘛干嘛', '提高标准，逼自己一把', '在倦怠中突破舒适区', '调整工作内容或节奏', '给自己放个假'] }
-            ],
-            relation: [
-                { id: 81, text: '和强势领导相处，你的策略是：', options: ['展示能力，让他离不开你', '明确指令，精准执行', '用专业碾压获得话语权', '适应他的风格，顺势而为', '根据情境灵活调整', '保持专业距离，不越界'] },
-                { id: 82, text: '领导决策明显错误，你怎么办：', options: ['私下拿出替代方案', '照做，这是纪律', '用数据把错误摊开', '在执行中想办法弥补', '看值不值得指出来', '明确表达我的担忧'] },
-                { id: 83, text: '你希望领导怎么管你：', options: ['给我空间，别管细节', '给清晰指令，我精准执行', '给我高期望和挑战', '扔给我最难的任务', '根据我的状态灵活调整', '尊重我的专业边界'] },
-                { id: 84, text: '面对能力明显不如你的领导，你：', options: ['主动补位，填补他的盲区', '做好本职工作就够了', '用业绩让他意识到差距', '在这种困境中磨练', '在别处找支持系统', '明确职责范围，不过界'] },
-                { id: 85, text: '你赢得领导信任的方式：', options: ['展示决策力和执行力', '可靠地完成每一项工作', '持续超出他的期望', '主动承担最难的活', '精准理解他真正需要什么', '建立透明直接的沟通'] },
-                { id: 86, text: '领导过度干预你的工作，你：', options: ['用成果让他闭嘴', '按他要求调整风格', '展示专业自主性让他放心', '适应他的干预节奏', '选择性接受，关键处坚持', '沟通让他知道干预的代价'] },
-                { id: 87, text: '你骨子里喜欢哪种领导风格：', options: ['授权型：信我就别盯着我', '指导型：告诉我怎么干', '挑战型：不断推高我的上限', '高压型：压力下我才能爆发', '灵活型：按需切换模式', '尊重型：守住我的底线'] },
-                { id: 88, text: '被领导当众批评，你的心态：', options: ['分析批评有没有道理', '认真接受，尽快改进', '下次用表现让他无话可说', '批评让人进步', '区分是就事论事还是针对人', '要求给我具体改进建议'] },
-                { id: 89, text: '你怎么管理向上关系：', options: ['主动汇报进展，掌控节奏', '按需汇报，不打扰', '用数据和成果说话', '在压力场景下建立信任', '根据领导风格切换沟通方式', '保持适度频率，不过度'] },
-                { id: 90, text: '上下级关系，你骨子里认为：', options: ['相互成就，各取所需', '职责清晰的关系', '谁能力强谁说了算', '压力传递和承接的关系', '动态变化的，没有永恒上下级', '有清晰边界的关系'] },
-                { id: 91, text: '和竞争型同事相处，你：', options: ['正面对抗，强者生存', '保持合作，不撕破脸', '用业绩碾压，让他无话可说', '有竞争的空气才新鲜', '该竞争竞争，该合作合作', '明确竞争边界，不过线'] },
-                { id: 92, text: '同事想推卸责任给你时，你：', options: ['当场把责任边界画清楚', '走流程，让制度说话', '用更高标准让责任无所遁形', '我主动扛下来，后面再说', '看不值得追究再说', '防止责任被扩散出去'] },
-                { id: 93, text: '你建立同事信任的方式：', options: ['展示合作能带来的价值', '说到做到，从不掉链子', '专业能力让人信服', '一起扛过事就是兄弟', '对不同的人用不同的方式', '合作边界清楚，不让人猜'] },
-                { id: 94, text: '面对办公室政治，你的策略是：', options: ['理解规则，选择性参与', '尽量远离，保持干净', '用业绩超越一切政治', '在政治博弈中学习成长', '根据利益决定站位', '保持中立，不站队'] },
-                { id: 95, text: '同事找你额外帮忙，你：', options: ['评估值不值得再决定', '尽力帮，能帮就帮', '帮的时候也按高标准来', '被需要的感觉很好', '看和这个人的关系', '帮可以，但不越界'] },
-                { id: 96, text: '职场友谊，你的态度是：', options: ['可以有，但脑子要清醒', '真诚对待每一段', '友谊建立在实力对等上', '一起扛过难的才是真朋友', '看情况发展，不刻意', '保持适度距离，不过密'] },
-                { id: 97, text: '同事在背后议论你，你：', options: ['正面找对方聊清楚', '不理会，不值当', '用实力让所有议论闭嘴', '反思自己是不是真有问题', '看情况，该怼就怼', '明确表达我的不满'] },
-                { id: 98, text: '对职场新人，你的风格是：', options: ['给指导也给机会', '按流程规矩带', '高标准要求，不惯着', '分享自己怎么扛过来的', '根据新人的特点调整', '带教边界清楚'] },
-                { id: 99, text: '团队内部有矛盾，你：', options: ['主动介入调解', '按流程该怎么处理怎么处理', '用一个更高目标把大家拉回来', '在矛盾中寻找共识', '分开沟通，逐个化解', '防止矛盾升级到不可收拾'] },
-                { id: 100, text: '"职场导师"关系，你怎么看：', options: ['主动寻找并建立', '等组织安排', '能力够了导师自然会来', '在共同扛压中自然形成', '按需建立，不强求', '保持适度关系'] }
-            ]
+        // ==================== 8维度定义 ====================
+        const DIMENSIONS = {
+            dominance: '权力饥渴度',
+            submission: '服从驯化度',
+            money: '利益现实主义',
+            idealism: '理想主义残留',
+            emotion: '情绪依赖指数',
+            rebellion: '反骨指数',
+            politics: '办公室政治力',
+            darkness: '黑化倾向'
+        };
+
+        // ==================== 题库数据（30题 × 8维度评分）====================
+        // 每题5个选项，每个选项映射到8个维度的分数
+        const QUESTION_BANK = [
+            {
+                q: '老板凌晨1点让你重做方案，你会？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 4, submission: 0, money: 2, idealism: 0, emotion: 1, rebellion: 0, politics: 2, darkness: 1 },
+                    { dominance: 1, submission: 3, money: 1, idealism: 0, emotion: 2, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 4, politics: 1, darkness: 1 },
+                    { dominance: 1, submission: 1, money: 0, idealism: 0, emotion: 0, rebellion: 3, politics: 1, darkness: 2 },
+                    { dominance: 2, submission: 0, money: 4, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 1 }
+                ]
+            },
+            {
+                q: '如果工资翻倍，但每天加班到11点，你会？',
+                dimension: 'money',
+                scores: [
+                    { dominance: 2, submission: 1, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 4, idealism: 0, emotion: 1, rebellion: 1, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 2, emotion: 0, rebellion: 3, politics: 1, darkness: 1 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 2, emotion: 0, rebellion: 1, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '在团队合作中，你更习惯？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 1, idealism: 1, emotion: 0, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 1, idealism: 1, emotion: 0, rebellion: 0, politics: 3, darkness: 0 },
+                    { dominance: 1, submission: 3, money: 1, idealism: 1, emotion: 1, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 1, idealism: 2, emotion: 1, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 1, emotion: 0, rebellion: 3, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '面对明确规则时，你通常？',
+                dimension: 'submission',
+                scores: [
+                    { dominance: 0, submission: 5, money: 1, idealism: 1, emotion: 0, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 4, politics: 1, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 0, emotion: 1, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 3, money: 1, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 1, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 3, politics: 3, darkness: 1 }
+                ]
+            },
+            {
+                q: '你觉得职场里最真实的东西是？',
+                dimension: 'money',
+                scores: [
+                    { dominance: 2, submission: 0, money: 5, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 2, idealism: 3, emotion: 0, rebellion: 1, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 2, idealism: 1, emotion: 1, rebellion: 0, politics: 4, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 1, emotion: 4, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 4, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 3 }
+                ]
+            },
+            {
+                q: '领导夸你一句，会影响你多久？',
+                dimension: 'emotion',
+                scores: [
+                    { dominance: 1, submission: 2, money: 0, idealism: 1, emotion: 2, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 0, submission: 3, money: 0, idealism: 1, emotion: 3, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 0, submission: 2, money: 0, idealism: 1, emotion: 4, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 0, submission: 1, money: 0, idealism: 0, emotion: 5, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 0, submission: 2, money: 2, idealism: 0, emotion: 5, rebellion: 0, politics: 0, darkness: 0 }
+                ]
+            },
+            {
+                q: '同事总把工作甩给你，你会？',
+                dimension: 'submission',
+                scores: [
+                    { dominance: 4, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 4, politics: 2, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 0, emotion: 1, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 0, submission: 4, money: 0, idealism: 0, emotion: 2, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 0, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 1 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 1, politics: 4, darkness: 1 }
+                ]
+            },
+            {
+                q: '你最渴望获得的是？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 1 },
+                    { dominance: 1, submission: 1, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 2, submission: 0, money: 1, idealism: 3, emotion: 0, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 1, emotion: 4, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 3, money: 2, idealism: 1, emotion: 1, rebellion: 0, politics: 1, darkness: 0 }
+                ]
+            },
+            {
+                q: '面对强势同事时，你会？',
+                dimension: 'rebellion',
+                scores: [
+                    { dominance: 4, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 5, politics: 2, darkness: 2 },
+                    { dominance: 1, submission: 4, money: 0, idealism: 0, emotion: 1, rebellion: 0, politics: 2, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 0, idealism: 0, emotion: 0, rebellion: 4, politics: 3, darkness: 2 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 3, politics: 4, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 2, politics: 4, darkness: 1 }
+                ]
+            },
+            {
+                q: '哪句话更像你？',
+                dimension: 'money',
+                scores: [
+                    { dominance: 2, submission: 0, money: 5, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 5, emotion: 1, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 4, submission: 0, money: 2, idealism: 2, emotion: 0, rebellion: 1, politics: 2, darkness: 1 },
+                    { dominance: 2, submission: 1, money: 2, idealism: 1, emotion: 2, rebellion: 0, politics: 4, darkness: 1 },
+                    { dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 1, rebellion: 2, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '被领导批评后，你通常？',
+                dimension: 'emotion',
+                scores: [
+                    { dominance: 1, submission: 3, money: 0, idealism: 1, emotion: 2, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 0, idealism: 0, emotion: 3, rebellion: 1, politics: 1, darkness: 0 },
+                    { dominance: 0, submission: 3, money: 0, idealism: 0, emotion: 4, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 0, idealism: 0, emotion: 2, rebellion: 3, politics: 1, darkness: 1 },
+                    { dominance: 3, submission: 1, money: 2, idealism: 1, emotion: 1, rebellion: 2, politics: 2, darkness: 2 }
+                ]
+            },
+            {
+                q: '你会因为一个好领导长期留下吗？',
+                dimension: 'emotion',
+                scores: [
+                    { dominance: 1, submission: 2, money: 1, idealism: 1, emotion: 4, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 0, submission: 2, money: 1, idealism: 1, emotion: 4, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 4, idealism: 0, emotion: 1, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 2, submission: 3, money: 1, idealism: 1, emotion: 2, rebellion: 1, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 2, idealism: 3, emotion: 2, rebellion: 1, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '做项目时最让你焦虑的是？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 1, politics: 1, darkness: 1 },
+                    { dominance: 3, submission: 2, money: 0, idealism: 0, emotion: 3, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 0, money: 4, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 4, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 1 }
+                ]
+            },
+            {
+                q: '你对"团建"的真实想法是？',
+                dimension: 'rebellion',
+                scores: [
+                    { dominance: 2, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 5, politics: 1, darkness: 1 },
+                    { dominance: 0, submission: 4, money: 0, idealism: 0, emotion: 1, rebellion: 0, politics: 2, darkness: 0 },
+                    { dominance: 1, submission: 1, money: 2, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 0, idealism: 0, emotion: 1, rebellion: 3, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 4, darkness: 1 }
+                ]
+            },
+            {
+                q: '你在哪种情况下最容易妥协？',
+                dimension: 'submission',
+                scores: [
+                    { dominance: 1, submission: 2, money: 4, idealism: 0, emotion: 0, rebellion: 0, politics: 2, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 0, emotion: 0, rebellion: 0, politics: 2, darkness: 1 },
+                    { dominance: 0, submission: 3, money: 1, idealism: 0, emotion: 4, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 3, money: 2, idealism: 1, emotion: 1, rebellion: 0, politics: 2, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 1, politics: 4, darkness: 1 }
+                ]
+            },
+            {
+                q: '如果长期被压榨，你最终可能？',
+                dimension: 'darkness',
+                scores: [
+                    { dominance: 1, submission: 4, money: 0, idealism: 0, emotion: 1, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 4, politics: 1, darkness: 3 },
+                    { dominance: 4, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 4 },
+                    { dominance: 2, submission: 1, money: 0, idealism: 0, emotion: 1, rebellion: 1, politics: 1, darkness: 3 },
+                    { dominance: 3, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 3, politics: 2, darkness: 4 }
+                ]
+            },
+            {
+                q: '你更习惯哪种领导？',
+                dimension: 'submission',
+                scores: [
+                    { dominance: 4, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 },
+                    { dominance: 0, submission: 4, money: 1, idealism: 1, emotion: 3, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 0, idealism: 0, emotion: 1, rebellion: 3, politics: 1, darkness: 0 },
+                    { dominance: 4, submission: 0, money: 3, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 }
+                ]
+            },
+            {
+                q: '你会主动经营办公室关系吗？',
+                dimension: 'politics',
+                scores: [
+                    { dominance: 2, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 0, politics: 5, darkness: 1 },
+                    { dominance: 1, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 0, politics: 4, darkness: 0 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 0, emotion: 1, rebellion: 1, politics: 3, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 0, idealism: 1, emotion: 1, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 0, politics: 5, darkness: 1 }
+                ]
+            },
+            {
+                q: '你更相信？',
+                dimension: 'politics',
+                scores: [
+                    { dominance: 3, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 1, politics: 4, darkness: 2 },
+                    { dominance: 2, submission: 0, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 3, darkness: 2 },
+                    { dominance: 2, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 0, politics: 3, darkness: 1 },
+                    { dominance: 2, submission: 1, money: 1, idealism: 0, emotion: 2, rebellion: 1, politics: 3, darkness: 1 },
+                    { dominance: 1, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 }
+                ]
+            },
+            {
+                q: '当任务不合理时，你会？',
+                dimension: 'rebellion',
+                scores: [
+                    { dominance: 1, submission: 4, money: 0, idealism: 1, emotion: 1, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 0, idealism: 2, emotion: 0, rebellion: 2, politics: 2, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 0, idealism: 0, emotion: 0, rebellion: 4, politics: 2, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 3, politics: 3, darkness: 2 },
+                    { dominance: 2, submission: 1, money: 4, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 1 }
+                ]
+            },
+            {
+                q: '你容易对哪种人产生追随感？',
+                dimension: 'submission',
+                scores: [
+                    { dominance: 4, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 },
+                    { dominance: 1, submission: 3, money: 0, idealism: 2, emotion: 3, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 2, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 1 },
+                    { dominance: 2, submission: 2, money: 1, idealism: 1, emotion: 3, rebellion: 0, politics: 2, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 4, idealism: 0, emotion: 1, rebellion: 0, politics: 2, darkness: 1 }
+                ]
+            },
+            {
+                q: '你享受竞争吗？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 1, emotion: 0, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 1, emotion: 0, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 1, submission: 3, money: 0, idealism: 1, emotion: 1, rebellion: 3, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 4, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '你最常见的职场状态是？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 1 },
+                    { dominance: 0, submission: 4, money: 1, idealism: 1, emotion: 3, rebellion: 0, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 2, idealism: 1, emotion: 1, rebellion: 2, politics: 3, darkness: 1 },
+                    { dominance: 1, submission: 3, money: 3, idealism: 0, emotion: 2, rebellion: 1, politics: 2, darkness: 1 },
+                    { dominance: 3, submission: 1, money: 2, idealism: 2, emotion: 1, rebellion: 2, politics: 3, darkness: 1 }
+                ]
+            },
+            // 补充6道高质量题目
+            {
+                q: '如果团队集体反对你的方案，你会？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 4, submission: 0, money: 0, idealism: 1, emotion: 0, rebellion: 2, politics: 3, darkness: 1 },
+                    { dominance: 1, submission: 3, money: 0, idealism: 2, emotion: 1, rebellion: 0, politics: 2, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 0, idealism: 1, emotion: 0, rebellion: 3, politics: 3, darkness: 2 },
+                    { dominance: 2, submission: 2, money: 0, idealism: 2, emotion: 1, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 0, idealism: 3, emotion: 1, rebellion: 2, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '看到同事靠拍马屁升职，你？',
+                dimension: 'idealism',
+                scores: [
+                    { dominance: 2, submission: 1, money: 2, idealism: 0, emotion: 0, rebellion: 3, politics: 3, darkness: 2 },
+                    { dominance: 1, submission: 2, money: 1, idealism: 1, emotion: 1, rebellion: 2, politics: 3, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 4, politics: 2, darkness: 3 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 1 },
+                    { dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 1, rebellion: 1, politics: 3, darkness: 0 }
+                ]
+            },
+            {
+                q: '你愿意为了理想薪资接受不喜欢的岗位吗？',
+                dimension: 'money',
+                scores: [
+                    { dominance: 1, submission: 1, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 1, submission: 2, money: 4, idealism: 1, emotion: 1, rebellion: 1, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 },
+                    { dominance: 3, submission: 0, money: 2, idealism: 3, emotion: 0, rebellion: 3, politics: 1, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 3, idealism: 2, emotion: 1, rebellion: 1, politics: 2, darkness: 0 }
+                ]
+            },
+            {
+                q: '如果公司要求你做违背原则的事，你？',
+                dimension: 'idealism',
+                scores: [
+                    { dominance: 2, submission: 3, money: 2, idealism: 0, emotion: 1, rebellion: 1, politics: 2, darkness: 2 },
+                    { dominance: 3, submission: 1, money: 1, idealism: 0, emotion: 0, rebellion: 4, politics: 2, darkness: 3 },
+                    { dominance: 4, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 3, politics: 3, darkness: 4 },
+                    { dominance: 2, submission: 2, money: 0, idealism: 4, emotion: 1, rebellion: 2, politics: 1, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 3, idealism: 1, emotion: 0, rebellion: 2, politics: 3, darkness: 2 }
+                ]
+            },
+            {
+                q: '你在职场中最怕失去的是？',
+                dimension: 'dominance',
+                scores: [
+                    { dominance: 5, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 1 },
+                    { dominance: 1, submission: 0, money: 5, idealism: 0, emotion: 0, rebellion: 0, politics: 1, darkness: 1 },
+                    { dominance: 0, submission: 1, money: 1, idealism: 0, emotion: 5, rebellion: 0, politics: 0, darkness: 0 },
+                    { dominance: 2, submission: 2, money: 1, idealism: 3, emotion: 1, rebellion: 1, politics: 2, darkness: 0 },
+                    { dominance: 3, submission: 1, money: 2, idealism: 1, emotion: 1, rebellion: 2, politics: 3, darkness: 1 }
+                ]
+            },
+            {
+                q: '如果可以黑化一次且不被发现，你会？',
+                dimension: 'darkness',
+                scores: [
+                    { dominance: 2, submission: 1, money: 3, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 3 },
+                    { dominance: 3, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 3, politics: 3, darkness: 4 },
+                    { dominance: 4, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 2, politics: 3, darkness: 5 },
+                    { dominance: 1, submission: 3, money: 1, idealism: 2, emotion: 2, rebellion: 1, politics: 1, darkness: 1 },
+                    { dominance: 2, submission: 2, money: 2, idealism: 3, emotion: 1, rebellion: 2, politics: 2, darkness: 2 }
+                ]
+            }
+        ];
+
+        // ==================== 12种人格完整配置 ====================
+        const PERSONALITIES = {
+            '权杖者 Dominant': {
+                name: '权杖者 Dominant',
+                tag: '资源掠夺型上位者',
+                icon: '👑',
+                traits: ['强控制欲', '结果至上', '天然支配感'],
+                risks: ['控制欲过强把团队逼到窒息', '听不进"不"字直到撞南墙'],
+                advice: '真正的王不需要每场仗都亲自打。学会信任副手，你的帝国才能扩张。记住：让人害怕和让人追随，是两种完全不同的权力。',
+                color: '#ff0066'
+            },
+            '驯化师 Trainer': {
+                name: '驯化师 Trainer',
+                tag: '情绪操控与依赖制造者',
+                icon: '🎯',
+                traits: ['擅长培养', '精通情绪价值', '制造依赖关系'],
+                risks: ['把控制欲包装成"为你好"', '过度干预他人成长节奏'],
+                advice: '适合带团队，但不要把控制欲包装成关怀。真正的培养是让人最终不再需要你。',
+                color: '#ff1a75'
+            },
+            '高敏执行者': {
+                name: '高敏执行者',
+                tag: '被压榨型执行工具',
+                icon: '⚙️',
+                traits: ['超强执行力', '恐惧犯错', '指令依赖症'],
+                risks: ['过度依赖指令会彻底丧失自我判断', '随波逐流的尽头是被遗忘和替代'],
+                advice: '适合流程型组织，但需建立边界感。最好的执行者不是机器人，而是能在关键时刻给出自己判断的人。',
+                color: '#3b82f6'
+            },
+            '认可依赖型': {
+                name: '认可依赖型',
+                tag: '情绪价值交易型人格',
+                icon: '💝',
+                traits: ['极度渴望认可', '自我评价靠外援', '愿意超额付出'],
+                risks: ['自我价值完全绑定他人评价', '领导一句否定能摧毁你一整周'],
+                advice: '不要把自我价值完全绑定绩效。你的价值不取决于任何人的评价，而是你自己的标准。',
+                color: '#f97316'
+            },
+            '变色龙 Switch': {
+                name: '变色龙 Switch',
+                tag: '机会主义立场切换者',
+                icon: '🦎',
+                traits: ['超强适应力', '精准识别权力结构', '无底线情境切换'],
+                risks: ['频繁切换会快速消耗心理电量', '别人最终会觉得你"没有立场"且不值得深交'],
+                advice: '适合中层管理，但需避免双标。灵活是你最大的武器，但偶尔需要让人看到你的底色。',
+                color: '#10b981'
+            },
+            '利益切换者': {
+                name: '利益切换者',
+                tag: '金钱决定一切的现实主义者',
+                icon: '💰',
+                traits: ['彻底现实主义', '利益敏感度极高', '无情感决策'],
+                risks: ['价值观容易彻底失衡', '别人觉得你不可深交，只可短期利用'],
+                advice: '适合商业岗位，但需避免价值观失衡。利益是重要的，但它不应该成为你唯一的导航仪。',
+                color: '#eab308'
+            },
+            '反骨打工人 Brat': {
+                name: '反骨打工人 Brat',
+                tag: '高成本反抗型职场刺头',
+                icon: '😈',
+                traits: ['天生反权威', '边骂边做', '情绪极度外露'],
+                risks: ['容易在关键时刻硬刚导致自毁', '不擅长隐藏真实想法，容易被人利用'],
+                advice: '需要自由度高的团队与创意环境。你的反骨是天赋，但学会在正确的时间正确地反抗。',
+                color: '#a855f7'
+            },
+            '阴阳大师': {
+                name: '阴阳大师',
+                tag: '隐性攻击与内耗制造者',
+                icon: '🎭',
+                traits: ['绝不正面冲突', '精通情绪攻击', '专业级内耗'],
+                risks: ['长期压抑情绪终会全面爆发', '持续消耗自己和周围人的能量'],
+                advice: '避免长期压抑情绪，及时表达真实需求。阴阳不是解决问题的方式，直接沟通才是。',
+                color: '#8b5cf6'
+            },
+            '冷血操盘者': {
+                name: '冷血操盘者',
+                tag: '黑化后的终极资源博弈者',
+                icon: '🧊',
+                traits: ['极度理性冷血', '结果唯一优先', '精通资源博弈'],
+                risks: ['可能彻底失去同理心', '人际关系高度功利化，无人真心相待'],
+                advice: '适合高竞争环境，但需警惕失去同理心。冷血让你赢，但也可能让你孤独地赢。',
+                color: '#06b6d4'
+            },
+            '情绪供养者': {
+                name: '情绪供养者',
+                tag: '被消耗型团队情绪血包',
+                icon: '🤗',
+                traits: ['超强共情力', '习惯性照顾别人', '极易被情绪榨干'],
+                risks: ['承担所有人的情绪直到自己崩溃', '自己的需求长期被系统性忽略'],
+                advice: '建立边界感，不要承担所有人的情绪。你能照顾别人是天赋，但先照顾好自己。',
+                color: '#ec4899'
+            },
+            'KPI施虐狂': {
+                name: 'KPI施虐狂',
+                tag: '数据压迫型高压管理者',
+                icon: '📊',
+                traits: ['目标唯一导向', '效率宗教信徒', '高压推进机器'],
+                risks: ['团队在持续高压下快速burnout', '只看数据不看人，失去最优秀的下属'],
+                advice: '结果重要，但别让团队窒息。KPI是工具，不是目的。人比数据更重要。',
+                color: '#ef4444'
+            },
+            '工资依赖型 Sub': {
+                name: '工资依赖型 Sub',
+                tag: '被高薪彻底驯化的打工人',
+                icon: '💳',
+                traits: ['极度现实', '超强忍耐力', '稳定优先一切'],
+                risks: ['为了薪资长期牺牲身心健康', '彻底失去说"不"的勇气和能力'],
+                advice: '不要为了薪资长期牺牲身心状态。高薪是奖励，不是锁链。',
+                color: '#f59e0b'
+            }
+        };
+
+        // ==================== 人格关系配置 ====================
+        const PERSONALITY_RELATIONS = {
+            '权杖者 Dominant': { bestMatch: '高敏执行者', enemy: '反骨打工人 Brat', dangerous: '冷血操盘者' },
+            '驯化师 Trainer': { bestMatch: '认可依赖型', enemy: '阴阳大师', dangerous: '冷血操盘者' },
+            '高敏执行者': { bestMatch: '权杖者 Dominant', enemy: '反骨打工人 Brat', dangerous: 'KPI施虐狂' },
+            '认可依赖型': { bestMatch: '驯化师 Trainer', enemy: '冷血操盘者', dangerous: '工资依赖型 Sub' },
+            '变色龙 Switch': { bestMatch: '利益切换者', enemy: '阴阳大师', dangerous: '冷血操盘者' },
+            '利益切换者': { bestMatch: '变色龙 Switch', enemy: '认可依赖型', dangerous: 'KPI施虐狂' },
+            '反骨打工人 Brat': { bestMatch: '驯化师 Trainer', enemy: '权杖者 Dominant', dangerous: '工资依赖型 Sub' },
+            '阴阳大师': { bestMatch: '情绪供养者', enemy: '变色龙 Switch', dangerous: 'KPI施虐狂' },
+            '冷血操盘者': { bestMatch: '利益切换者', enemy: '认可依赖型', dangerous: '权杖者 Dominant' },
+            '情绪供养者': { bestMatch: '认可依赖型', enemy: 'KPI施虐狂', dangerous: '阴阳大师' },
+            'KPI施虐狂': { bestMatch: '高敏执行者', enemy: '情绪供养者', dangerous: '反骨打工人 Brat' },
+            '工资依赖型 Sub': { bestMatch: '驯化师 Trainer', enemy: '反骨打工人 Brat', dangerous: '冷血操盘者' }
+        };
+
+        // ==================== 黑化系统 ====================
+        const DARKENING_SYSTEM = {
+            '权杖者 Dominant': '孤独的暴君：最终身边只剩下害怕你的人。权力让你失去所有真心朋友，你以为这是代价，其实这是报应。',
+            '驯化师 Trainer': '控制狂：把所有人都当成需要"调教"的对象。你以为你在帮人成长，其实你在制造一群没有独立人格的傀儡。',
+            '高敏执行者': '冷血操盘者：经历长期压榨后彻底黑化。你从受害者变成了加害者，最讽刺的是——你开始用同样的方式对待新人。',
+            '认可依赖型': '情绪控制者：用情绪绑架他人来满足自己的需求。你曾经渴望被认可，现在你靠操控别人的情绪来获得存在感。',
+            '变色龙 Switch': '利益操盘手：彻底沦为利益的傀儡，没有自我。你切换了太多次，已经忘了自己原本是什么颜色。',
+            '利益切换者': '冷血操盘者：为了利益可以牺牲任何人。包括曾经信任你的人。你最终会发现自己也成了别人利益计算里的一枚棋子。',
+            '反骨打工人 Brat': '毁灭型Brat：反抗变成破坏，最终毁掉自己也毁掉团队。你的反骨是天赋，但你用错了地方，变成了自毁按钮。',
+            '阴阳大师': '职场毒瘤：用阴招毁掉每一个比自己优秀的人。你以为你在保护自己，其实你在亲手埋葬自己的职业生涯。',
+            '冷血操盘者': '终极Boss：没有任何软肋，也没有任何人能靠近你。你赢了所有人，但你一个人坐在空荡荡的会议室里，连庆祝的人都没有。',
+            '情绪供养者': '情绪吸血鬼：耗尽所有人来填补自己的黑洞。你曾经是团队的情绪稳定器，现在你变成了每个人想逃离的黑洞。',
+            'KPI施虐狂': '数据暴君：把每个人当成数字，把团队逼到绝境。你的KPI完成了，但你的团队散了，你的口碑烂了，你的良心也没了。',
+            '工资依赖型 Sub': '彻底奴化：失去所有自我，成为高薪的奴隶。你用自由换了钱，然后发现钱买不回自由。这是你自己的选择。'
+        };
+
+        // ==================== 金钱驯化系统 ====================
+        const SALARY_TRANSFORMATION = {
+            '权杖者 Dominant': { low: '还在为话语权挣扎，控制欲被死死压抑。', high: '高薪让你更肆无忌惮，控制欲全面释放，开始把人当资源收割。' },
+            '驯化师 Trainer': { low: '用情绪价值换取一点认可。', high: '高薪让你更有底气"驯化"他人，手段更精明，操控更隐蔽。' },
+            '高敏执行者': { low: '默默承受，不敢发声，怕丢工作。', high: '高薪让你稍微有了说"不"的底气，但依然选择服从——因为不想失去这笔钱。' },
+            '认可依赖型': { low: '拼命工作只为领导一句夸，自我价值感为零。', high: '高薪让你更依赖认可，因为"他们给我这么高薪，说明我很棒"——这是最危险的自我欺骗。' },
+            '变色龙 Switch': { low: '为了生存不断切换姿态，累到崩溃。', high: '高薪让你切换得更精准，哪里给钱多就往哪里倒，底线？那是什么？' },
+            '利益切换者': { low: '利益敏感但机会有限，只能忍。', high: '高薪彻底激活你的现实主义，一切向钱看，连灵魂都可以打折出售。' },
+            '反骨打工人 Brat': { low: '边骂边做，反骨铮铮，至少还有点自我。', high: '高薪驯化了你的反骨，你开始"理性地"选择战斗——其实就是选择性地认怂。' },
+            '阴阳大师': { low: '暗中使绊子，但不敢明着来，怕丢工作。', high: '高薪给了你更多资源和底气去"阴"人，你的阴招开始升级换代。' },
+            '冷血操盘者': { low: '已经在冷血边缘，但还有点顾虑。', high: '高薪让你彻底放下道德包袱，冷血到底，终于可以毫无心理负担地碾压任何人。' },
+            '情绪供养者': { low: '过度付出，把自己耗尽，还觉得自己很伟大。', high: '高薪让你继续付出，但开始学会设置边界（一点点）——不过主要还是继续被榨干。' },
+            'KPI施虐狂': { low: '高压但还有人性，偶尔会心软。', high: '高薪让你变本加厉，KPI就是你的宗教，数据就是你的上帝，人算什么？' },
+            '工资依赖型 Sub': { low: '忍耐力已到极限，每天都在想辞职。', high: '高薪彻底驯化你，你愿意为钱接受任何不合理——你已经不是打工人了，你是高薪的奴隶。' }
         };
 
         // ==================== 页面导航 ====================
@@ -682,24 +1125,8 @@
             APP.scores = null;
             APP.assessmentStartTime = Date.now();
 
-            const selectedQuestions = [];
-            ['power', 'stress', 'relation'].forEach(dim => {
-                const pool = [...QUESTION_BANK[dim]];
-                const shuffled = pool.sort(() => Math.random() - 0.5);
-                const selected = shuffled.slice(0, 10);
-                selected.forEach(q => {
-                    const indices = [0, 1, 2, 3, 4, 5];
-                    const shuffledIndices = indices.sort(() => Math.random() - 0.5);
-                    selectedQuestions.push({
-                        ...q,
-                        dimension: dim,
-                        shuffledIndices: shuffledIndices,
-                        shuffledOptions: shuffledIndices.map(i => q.options[i])
-                    });
-                });
-            });
-
-            APP.questions = selectedQuestions.sort(() => Math.random() - 0.5);
+            // 从30题中随机选取30题（即全部使用），打乱顺序
+            APP.questions = [...QUESTION_BANK].sort(() => Math.random() - 0.5);
             APP.currentQuestionIndex = 0;
             APP.selectedOption = null;
 
@@ -713,11 +1140,15 @@
 
         function renderQuestion() {
             const q = APP.questions[APP.currentQuestionIndex];
-            const dimNames = { power: '权力偏好', stress: '压力应对', relation: '关系模式' };
+            const dimNames = {
+                dominance: '权力饥渴度', submission: '服从驯化度', money: '利益现实主义',
+                idealism: '理想主义残留', emotion: '情绪依赖指数', rebellion: '反骨指数',
+                politics: '办公室政治力', darkness: '黑化倾向'
+            };
 
             document.getElementById('dimension-tag').textContent =
                 '▎' + (dimNames[q.dimension] || '');
-            document.getElementById('question-text').textContent = q.text;
+            document.getElementById('question-text').textContent = q.q;
             document.getElementById('current-q').textContent = APP.currentQuestionIndex + 1;
 
             const progress = ((APP.currentQuestionIndex) / 30) * 100;
@@ -727,12 +1158,13 @@
             container.innerHTML = '';
             APP.selectedOption = null;
 
-            q.shuffledOptions.forEach((opt, idx) => {
+            const optionLabels = ['非常符合', '比较符合', '一般', '不太符合', '完全不符合'];
+            q.scores.forEach((score, idx) => {
                 const div = document.createElement('div');
                 div.className = 'option-card rounded-xl p-4 flex items-center';
                 div.innerHTML = `
                     <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-600 mr-3 flex-shrink-0">${String.fromCharCode(65 + idx)}</span>
-                    <span class="text-sm text-gray-200">${opt}</span>
+                    <span class="text-sm text-gray-200">${optionLabels[idx]}</span>
                 `;
                 let touchStartY = 0;
                 div.addEventListener('touchstart', (e) => {
@@ -764,16 +1196,19 @@
 
             const nextBtn = document.getElementById('next-btn');
             nextBtn.disabled = false;
-            nextBtn.className = 'w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-gray-900 hover:from-yellow-500 hover:to-yellow-300 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] glow-gold';
+            nextBtn.className = 'w-full py-4 rounded-2xl text-lg font-bold bg-gradient-to-r from-red-600 to-pink-500 text-white hover:from-red-500 hover:to-pink-400 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] glow-red';
         }
 
         function nextQuestion() {
             if (APP.selectedOption === null) return;
 
+            // 记录答案（存储选项索引和对应分数）
             const q = APP.questions[APP.currentQuestionIndex];
-            const originalIndex = q.shuffledIndices[APP.selectedOption];
-            const typeMap = ['Dominant', 'Submissive', 'Sadist', 'Masochist', 'Switch', 'Safeword'];
-            APP.answers.push(typeMap[originalIndex]);
+            APP.answers.push({
+                questionIndex: APP.currentQuestionIndex,
+                optionIndex: APP.selectedOption,
+                scores: q.scores[APP.selectedOption]
+            });
 
             if (APP.currentQuestionIndex < 29) {
                 APP.currentQuestionIndex++;
@@ -784,108 +1219,100 @@
             }
         }
 
-        // ==================== 结果计算 ====================
+        // ==================== 结果计算（8维度 → 坐标轴 → 人格判定）====================
         function calculateResult() {
             showPage('loading');
 
-            const types = ['Dominant', 'Submissive', 'Sadist', 'Masochist', 'Switch', 'Safeword'];
-            APP.scores = {};
-            types.forEach(t => APP.scores[t] = 0);
-            APP.answers.forEach(a => APP.scores[a]++);
+            // 初始化8维度分数
+            const scores = {
+                dominance: 0,
+                submission: 0,
+                money: 0,
+                idealism: 0,
+                emotion: 0,
+                rebellion: 0,
+                politics: 0,
+                darkness: 0
+            };
 
-            let maxScore = 0;
-            let resultType = 'Dominant';
-            types.forEach(t => {
-                if (APP.scores[t] > maxScore) {
-                    maxScore = APP.scores[t];
-                    resultType = t;
-                }
+            // 累加所有答案的分数
+            APP.answers.forEach(answer => {
+                const s = answer.scores;
+                Object.keys(scores).forEach(dim => {
+                    scores[dim] += (s[dim] || 0);
+                });
             });
 
-            const typeColors = {
-                Dominant: '#c9a227', Submissive: '#3b82f6', Sadist: '#e63946',
-                Masochist: '#f97316', Switch: '#10b981', Safeword: '#a855f7'
-            };
-            const typeGradients = {
-                Dominant: 'text-gradient', Submissive: 'text-gradient-blue',
-                Sadist: 'text-gradient-red', Masochist: 'text-gradient-orange',
-                Switch: 'text-gradient-green', Safeword: 'text-gradient-purple'
-            };
-            const typeGlows = {
-                Dominant: 'glow-gold', Submissive: 'glow-blue',
-                Sadist: 'glow-red', Masochist: 'glow-orange',
-                Switch: 'glow-green', Safeword: 'glow-purple'
-            };
+            // 归一化到0-100（每题最高5分，30题最高150分，除以1.5得到0-100）
+            Object.keys(scores).forEach(dim => {
+                scores[dim] = Math.round((scores[dim] / 1.5) * 10) / 10;
+            });
 
-            const PERSONALITY_CONFIG = {
-                Dominant: {
-                    name: '支配者',
-                    tagline: '你的规则就是规则',
-                    icon: '👑',
-                    desc: '你天生就该坐在主位。会议室里话语权自动流向你，危机时刻所有人看向你。你对掌控感的饥渴不是毛病——那是你呼吸的方式。',
-                    traits: ['杀伐果断', '目标碾压一切', '掌控力爆表', '危机指挥官'],
-                    risks: ['你的控制欲会让团队窒息', '你听不进"不"字，直到撞墙'],
-                    advice: '真正的王不需要每场仗都亲自打。学会信任副手，你的帝国才能扩张。记住：让人害怕和让人追随，是两种完全不同的权力。'
-                },
-                Submissive: {
-                    name: '服从者',
-                    tagline: '完美的指令接收器',
-                    icon: '🛡️',
-                    desc: '清晰指令是你最需要的安全感。模糊期待让你焦虑，明确规则让你释放全部战斗力。你不是没有主见——你只是需要一个值得你交付忠诚的人。',
-                    traits: ['极致可靠', '执行力凶猛', '纪律性强迫症', '团队定海神针'],
-                    risks: ['过度依赖指令会让你丧失自我判断力', '随波逐流的尽头是被遗忘'],
-                    advice: '你的执行力是稀缺资源。但记住：最好的执行者不是机器人，而是能在关键时刻给出自己判断的人。偶尔，对自己下一个指令。'
-                },
-                Sadist: {
-                    name: '施压者',
-                    tagline: '不够好就是不够好',
-                    icon: '⚡',
-                    desc: '你眼里容不下"差不多"。你的标准是别人眼中的天花板，你的鞭策是团队前进的引擎。他们说你苛刻——但他们不知道，卓越从来不是靠温柔换来的。',
-                    traits: ['标准即信仰', '零容忍凑合', '质量暴君', '潜能挖掘机'],
-                    risks: ['团队在你手下可能集体 burnout', '你的"基本要求"对别人已是极限'],
-                    advice: '鞭子挥得好，千里马才能跑。但学会在关键时刻松手——最高级的鞭策，是让人自己感受到不够好的痛，而不是被你逼着痛。'
-                },
-                Masochist: {
-                    name: '承压者',
-                    tagline: '痛苦是我的燃料',
-                    icon: '🔥',
-                    desc: '别人躲的压力，你主动迎上去。Deadline 越近你越清醒，难题越大你越兴奋。你不是自虐——你只是在压力中找到了别人找不到的能量。',
-                    traits: ['抗压怪物', '越难越燃', '极限突破者', '韧性天花板'],
-                    risks: ['你会主动制造不必要的痛苦', '你的身体和关系可能在替你的野心买单'],
-                    advice: '能扛是天赋，但别把"能扛"当成唯一的筹码。有些仗不值得打，有些痛不值得受。最强的承压者，是那些知道什么时候该停的人。'
-                },
-                Switch: {
-                    name: '切换者',
-                    tagline: '权力游戏的操盘手',
-                    icon: '🦎',
-                    desc: '向上承接压力，向下释放掌控——你不属于任何一个固定角色。读懂环境的暗流，随时调整姿态，这才是你真正的天赋。别人觉得你善变，其实你只是在不同的棋局里选择了最优走法。',
-                    traits: ['情商天花板', '角色无缝切换', '权力场变色龙', '暗流洞察者'],
-                    risks: ['频繁切换会消耗你的心理电量', '别人可能觉得你"没有立场"'],
-                    advice: '灵活是你最大的武器，但偶尔需要让人看到你的底色。没有底色的变色龙，在权力游戏里只能当配角。在关键原则上亮出你的不妥协。'
-                },
-                Safeword: {
-                    name: '安全词持有者',
-                    tagline: '你的红线就是死线',
-                    icon: '🧿',
-                    desc: '你是办公室里最清醒的那个人。任何权力关系在你看来都有边界，任何不合理的试探在你这里都会撞墙。他们说你不合群——但他们不知道，一个没有边界的人是权力场里最危险的变量。',
-                    traits: ['边界感拉满', '冷静到让人害怕', '团队守护神', '原则寸步不让'],
-                    risks: ['过度防御会让你孤立', '在需要冒险时可能过于保守'],
-                    advice: '边界是你的盾牌，但别让盾牌变成牢笼。最好的守护者不仅会画红线，更懂得在红线内创造让人自由发挥的空间。柔软一点并不会削弱你的力量。'
-                }
-            };
+            APP.scores = scores;
 
+            // 计算坐标轴
+            const xAxis = scores.dominance - scores.submission;
+            const yAxis = scores.idealism - scores.money;
+
+            // 判定逻辑（按优先级）
+            let resultName = '';
+
+            if (scores.rebellion > 85 && scores.money > 75) {
+                resultName = '工资驯化型Brat';
+            } else if (scores.dominance > 80 && scores.darkness > 70) {
+                resultName = '冷血操盘者';
+            } else if (scores.submission > 80 && scores.emotion > 75) {
+                resultName = '认可依赖型';
+            } else if (Math.abs(xAxis) < 10) {
+                resultName = '变色龙 Switch';
+            } else if (xAxis > 0 && yAxis < 0) {
+                resultName = '权杖者 Dominant';
+            } else if (xAxis < 0 && yAxis > 0) {
+                resultName = '高敏执行者';
+            } else {
+                resultName = '利益切换者';
+            }
+
+            // 特殊处理：某些高分情况
+            if (scores.rebellion > 80 && resultName === '利益切换者') {
+                resultName = '反骨打工人 Brat';
+            }
+            if (scores.politics > 80 && resultName === '利益切换者') {
+                resultName = '阴阳大师';
+            }
+            if (scores.darkness > 75 && resultName === '利益切换者') {
+                resultName = '冷血操盘者';
+            }
+            if (scores.emotion > 80 && resultName === '高敏执行者') {
+                resultName = '认可依赖型';
+            }
+
+            // 确保结果在12种人格内
+            const validNames = Object.keys(PERSONALITIES);
+            if (!validNames.includes(resultName)) {
+                // 映射到最接近的
+                if (resultName === '工资驯化型Brat') resultName = '反骨打工人 Brat';
+                else resultName = '利益切换者';
+            }
+
+            const person = PERSONALITIES[resultName];
             APP.result = {
-                ...PERSONALITY_CONFIG[resultType],
-                typeId: resultType,
-                color: typeColors[resultType],
-                gradientClass: typeGradients[resultType],
-                glowClass: typeGlows[resultType]
+                name: person.name,
+                tag: person.tag,
+                icon: person.icon,
+                traits: person.traits,
+                risks: person.risks,
+                advice: person.advice,
+                color: person.color,
+                scores: scores,
+                xAxis: xAxis,
+                yAxis: yAxis
             };
 
             const duration = Date.now() - APP.assessmentStartTime;
 
             if (window.analytics) {
-                analytics.trackAssessmentComplete(resultType, APP.scores, duration);
+                analytics.trackAssessmentComplete(resultName, scores, duration);
             }
 
             setTimeout(() => {
@@ -900,50 +1327,100 @@
 
             const nameEl = document.getElementById('result-name');
             nameEl.textContent = r.name;
-            nameEl.className = 'text-4xl font-black tracking-tight ' + (r.gradientClass || 'text-gradient');
+            nameEl.className = 'text-4xl font-black tracking-tight text-gradient';
 
-            document.getElementById('result-tagline').textContent = r.tagline;
-            document.getElementById('result-desc').textContent = r.desc;
+            document.getElementById('result-tagline').textContent = r.tag;
+            document.getElementById('result-desc').textContent = getResultDescription(r);
 
             const bar = document.getElementById('result-accent-bar');
             if (bar && r.color) {
                 bar.style.background = 'linear-gradient(to bottom, ' + r.color + ', transparent)';
             }
 
+            // 核心特质
             document.getElementById('result-traits').innerHTML = r.traits.map(t =>
                 `<span class="px-3 py-1.5 rounded-full text-xs font-bold bg-gray-800/80 text-gray-200 border border-gray-700">${t}</span>`
             ).join('');
 
+            // 危险关系
+            const rel = PERSONALITY_RELATIONS[r.name];
+            if (rel) {
+                document.getElementById('result-relations').innerHTML = `
+                    <div class="flex items-start"><span class="text-green-400 mr-2 text-sm">♥</span><span class="text-gray-300">最佳搭档：<strong class="text-green-400">${rel.bestMatch}</strong></span></div>
+                    <div class="flex items-start"><span class="text-red-400 mr-2 text-sm">✖</span><span class="text-gray-300">宿敌：<strong class="text-red-400">${rel.enemy}</strong></span></div>
+                    <div class="flex items-start"><span class="text-purple-400 mr-2 text-sm">⚠</span><span class="text-gray-300">危险关系：<strong class="text-purple-400">${rel.dangerous}</strong></span></div>
+                `;
+            }
+
+            // 致命弱点
             document.getElementById('result-risks').innerHTML = r.risks.map(risk =>
-                `<div class="flex items-start"><span class="text-red-500 mr-2 text-sm mt-0.5">▸</span><span class="text-sm text-gray-300">${risk}</span></div>`
+                `<div class="flex items-start"><span class="text-orange-500 mr-2 text-sm mt-0.5">▸</span><span class="text-sm text-gray-300">${risk}</span></div>`
             ).join('');
 
+            // 破局之道
             document.getElementById('result-advice').textContent = r.advice;
+
+            // 黑化终局
+            const darkText = DARKENING_SYSTEM[r.name];
+            if (darkText) {
+                document.getElementById('result-darkening').innerHTML = `<p>${darkText}</p>`;
+            }
+
+            // 高薪后的你
+            const salary = SALARY_TRANSFORMATION[r.name];
+            if (salary) {
+                document.getElementById('result-salary').innerHTML = `
+                    <p class="mb-2"><span class="text-red-400">低薪时：</span>${salary.low}</p>
+                    <p><span class="text-green-400">高薪后：</span>${salary.high}</p>
+                `;
+            }
 
             setTimeout(drawRadar, 300);
         }
 
+        function getResultDescription(r) {
+            const descs = {
+                '权杖者 Dominant': '你天生就该坐在主位。会议室里话语权自动流向你，危机时刻所有人看向你。你对掌控感的饥渴不是毛病——那是你呼吸的方式。问题是：你身边的人是在追随你，还是只是害怕你？',
+                '驯化师 Trainer': '你精通用情绪价值和激励机制操控他人，让人不知不觉对你产生依赖。你的"培养"其实是最高级的操控——你以为你在帮人成长，实际上你在制造对你的依赖。',
+                '高敏执行者': '清晰指令是你唯一的安全感来源。模糊期待让你焦虑，明确规则让你释放全部战斗力。你不是没有主见——你只是需要一个值得交付忠诚的人。但那个"值得"的人，可能正在利用你的忠诚压榨你。',
+                '认可依赖型': '一句夸奖能让你开心三天，一句批评能让你自我怀疑一周。你的自我价值感像风筝，线在别人手里。你以为你在追求认可，实际你在进行一场不平等的情感交易。',
+                '变色龙 Switch': '向上承接压力，向下释放掌控——你不属于任何一个固定角色。读懂环境的暗流，随时调整姿态。但别人看你也像在看天气：你到底是哪一边的？',
+                '利益切换者': '你从不在"钱"这件事上装清高。谁给钱多你就往哪倒，这就是你最真实的生存哲学。不丢人，但也别假装你还有什么不能交易的底线。',
+                '反骨打工人 Brat': '权威在你眼里就是用来挑战的。你边骂边做，嘴硬心软。你的反骨让你保持自我，但也让你成为老板眼里"需要被解决"的问题。反抗有成本，你算过吗？',
+                '阴阳大师': '你从不当面撕破脸，但背后从不手软。你的"委婉"是最高级的攻击，用最软的语气说最狠的话。但长期玩这套，最先内耗死的是你自己。',
+                '冷血操盘者': '经历长期博弈后，你已经学会把情绪当成累赘丢掉。结果至上，效率第一。你是最可怕的那类人——因为你没有软肋。但也没有人能真正靠近你。',
+                '情绪供养者': '你是团队的情绪稳定器，每个人的负面情绪都能被你接住。但你自己的需求呢？你像一块海绵，吸收所有人的情绪污水，总有一天会饱和溢出。',
+                'KPI施虐狂': '数据是你的宗教，KPI是你的圣经。你用数字压迫他人，也用数字证明自己。你的团队又爱又恨你——但更多的是恨。数据不会背叛你，人会。',
+                '工资依赖型 Sub': '高薪是你最大的锁链，你自己亲手戴上的。为了维持收入水平，你愿意忍受任何不合理。你以为自己在做明智的选择，其实你早就被金钱彻底驯化了。'
+            };
+            return descs[r.name] || '你是一种独特的职场生物，连这个测试都没法完全定义你。';
+        }
+
+        // ==================== 8维雷达图 ====================
         function drawRadar() {
             const canvas = document.getElementById('radar-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            const types = ['Dominant', 'Submissive', 'Sadist', 'Masochist', 'Switch', 'Safeword'];
-            const labels = ['支配者', '服从者', '施压者', '承压者', '切换者', '安全词'];
-            const colors = ['#c9a227', '#3b82f6', '#e63946', '#f97316', '#10b981', '#a855f7'];
-            const maxScore = 10;
-            const values = types.map(t => (APP.scores[t] / 30 * 10));
+            const scores = APP.scores;
+            if (!scores) return;
 
-            const size = Math.min(canvas.parentElement.clientWidth - 32, 280);
+            const dimensions = ['dominance', 'submission', 'money', 'idealism', 'emotion', 'rebellion', 'politics', 'darkness'];
+            const labels = ['权力饥渴', '服从驯化', '利益现实', '理想残留', '情绪依赖', '反骨指数', '政治力', '黑化倾向'];
+            const colors = ['#ff0066', '#3b82f6', '#eab308', '#10b981', '#f97316', '#a855f7', '#06b6d4', '#8b5cf6'];
+            const values = dimensions.map(d => (scores[d] || 0) / 100 * 4); // 归一化到0-4
+
+            const size = Math.min(canvas.parentElement.clientWidth - 32, 300);
             canvas.width = size;
             canvas.height = size;
             const cx = size / 2, cy = size / 2, r = size * 0.33;
 
             ctx.clearRect(0, 0, size, size);
 
+            // 绘制网格线
             for (let i = 1; i <= 4; i++) {
                 ctx.beginPath();
-                for (let j = 0; j < 6; j++) {
-                    const angle = (Math.PI * 2 / 6) * j - Math.PI / 2;
+                for (let j = 0; j < 8; j++) {
+                    const angle = (Math.PI * 2 / 8) * j - Math.PI / 2;
                     const x = cx + r * (i / 4) * Math.cos(angle);
                     const y = cy + r * (i / 4) * Math.sin(angle);
                     if (j === 0) ctx.moveTo(x, y);
@@ -955,8 +1432,9 @@
                 ctx.stroke();
             }
 
-            for (let i = 0; i < 6; i++) {
-                const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+            // 绘制轴线
+            for (let i = 0; i < 8; i++) {
+                const angle = (Math.PI * 2 / 8) * i - Math.PI / 2;
                 ctx.beginPath();
                 ctx.moveTo(cx, cy);
                 ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
@@ -964,9 +1442,10 @@
                 ctx.stroke();
             }
 
+            // 绘制数据区域
             ctx.beginPath();
             values.forEach((v, i) => {
-                const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+                const angle = (Math.PI * 2 / 8) * i - Math.PI / 2;
                 const x = cx + r * (v / 4) * Math.cos(angle);
                 const y = cy + r * (v / 4) * Math.sin(angle);
                 if (i === 0) ctx.moveTo(x, y);
@@ -975,16 +1454,17 @@
             ctx.closePath();
 
             const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-            gradient.addColorStop(0, 'rgba(201, 162, 39, 0.3)');
-            gradient.addColorStop(1, 'rgba(201, 162, 39, 0.04)');
+            gradient.addColorStop(0, 'rgba(255, 0, 102, 0.3)');
+            gradient.addColorStop(1, 'rgba(255, 0, 102, 0.04)');
             ctx.fillStyle = gradient;
             ctx.fill();
-            ctx.strokeStyle = 'rgba(201, 162, 39, 0.6)';
+            ctx.strokeStyle = 'rgba(255, 0, 102, 0.6)';
             ctx.lineWidth = 2;
             ctx.stroke();
 
+            // 绘制数据点
             values.forEach((v, i) => {
-                const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+                const angle = (Math.PI * 2 / 8) * i - Math.PI / 2;
                 const x = cx + r * (v / 4) * Math.cos(angle);
                 const y = cy + r * (v / 4) * Math.sin(angle);
                 ctx.beginPath();
@@ -996,10 +1476,11 @@
                 ctx.stroke();
             });
 
+            // 绘制标签
             ctx.font = 'bold 10px Inter, PingFang SC, sans-serif';
             ctx.textAlign = 'center';
             labels.forEach((label, i) => {
-                const angle = (Math.PI * 2 / 6) * i - Math.PI / 2;
+                const angle = (Math.PI * 2 / 8) * i - Math.PI / 2;
                 const x = cx + (r + 24) * Math.cos(angle);
                 const y = cy + (r + 24) * Math.sin(angle);
                 ctx.fillStyle = '#b0b0c0';
@@ -1017,8 +1498,8 @@
 
             document.getElementById('share-icon').textContent = r.icon;
             document.getElementById('share-name').textContent = r.name;
-            document.getElementById('share-tagline').textContent = r.tagline;
-            document.getElementById('share-quote').textContent = '"' + r.desc + '"';
+            document.getElementById('share-tagline').textContent = r.tag;
+            document.getElementById('share-quote').textContent = '"' + getResultDescription(r) + '"';
 
             const now = new Date();
             document.getElementById('share-date').textContent =
@@ -1031,7 +1512,7 @@
             detectWechatEnv();
 
             if (window.analytics) {
-                analytics.track('share_page_view', { type: r.typeId });
+                analytics.track('share_page_view', { type: r.name });
             }
         }
 
@@ -1057,7 +1538,7 @@
                 const canvas = await html2canvas(card, {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: '#14142a',
+                    backgroundColor: '#0a0a0f',
                     logging: false
                 });
 
