@@ -48,7 +48,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html, body {
+        html, body, #app {
             height: 100%;
             overflow: hidden;
         }
@@ -213,7 +213,10 @@
         .text-reveal { animation: textReveal 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
 
         .page { display: none; opacity: 0; transition: opacity 0.35s ease; }
-        .page.active { display: flex; opacity: 1; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+        .page.active { display: block; opacity: 1; }
+
+        /* Homepage */
+        #page-home.active { display: flex; flex-direction: column; align-items: center; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
         /* Assessment page: fixed layout, only content scrolls */
         #page-assessment.active {
@@ -227,6 +230,15 @@
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
         }
+
+        /* Loading page */
+        #page-loading.active { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+
+        /* Result page */
+        #page-result.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+        /* Share page */
+        #page-share.active { display: flex; flex-direction: column; height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: transparent; }
