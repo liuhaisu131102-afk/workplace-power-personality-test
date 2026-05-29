@@ -1340,45 +1340,45 @@
             const xAxis = scores.dominance - scores.submission;
             const yAxis = scores.idealism - scores.money;
 
-            // 判定逻辑（按优先级）
+            // 判定逻辑：按8维度得分分布判定
             let resultName = '';
 
-            if (scores.rebellion > 85 && scores.money > 75) {
-                resultName = '工资驯化型Brat';
-            } else if (scores.dominance > 80 && scores.darkness > 70) {
-                resultName = '冷血操盘者';
-            } else if (scores.submission > 80 && scores.emotion > 75) {
-                resultName = '认可依赖型';
-            } else if (Math.abs(xAxis) < 10) {
-                resultName = '变色龙 Switch';
-            } else if (xAxis > 0 && yAxis < 0) {
-                resultName = '权杖者 Dominant';
-            } else if (xAxis < 0 && yAxis > 0) {
-                resultName = '高敏执行者';
+            // 找出最高分和次高分的维度
+            const dims = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            const top2 = dims.slice(0, 2).map(d => d[0]);
+
+            // 主判定矩阵：最高分维度 → 人格
+            const PRIMARY_MAP = {
+                dominance: { default: '权杖者 Dominant', dark: '冷血操盘者', rebel: 'KPI施虐狂' },
+                submission: { default: '高敏执行者', emotion: '认可依赖型', dark: '工资依赖型 Sub' },
+                money: { default: '利益切换者', rebel: '工资依赖型 Sub', dark: '冷血操盘者' },
+                idealism: { default: '情绪供养者', emotion: '认可依赖型' },
+                emotion: { default: '认可依赖型', money: '情绪供养者', dark: '阴阳大师' },
+                rebellion: { default: '反骨打工人 Brat', money: '工资依赖型 Sub', dark: 'KPI施虐狂' },
+                politics: { default: '阴阳大师', money: '变色龙 Switch', rebel: '反骨打工人 Brat' },
+                darkness: { default: '冷血操盘者', money: '利益切换者', rebel: 'KPI施虐狂' }
+            };
+
+            if (PRIMARY_MAP[top2[0]]) {
+                const map = PRIMARY_MAP[top2[0]];
+                resultName = map[top2[1]] || map.default;
             } else {
-                resultName = '利益切换者';
+                resultName = '变色龙 Switch';
             }
 
-            // 特殊处理：某些高分情况
-            if (scores.rebellion > 80 && resultName === '利益切换者') {
-                resultName = '反骨打工人 Brat';
-            }
-            if (scores.politics > 80 && resultName === '利益切换者') {
-                resultName = '阴阳大师';
-            }
-            if (scores.darkness > 75 && resultName === '利益切换者') {
-                resultName = '冷血操盘者';
-            }
-            if (scores.emotion > 80 && resultName === '高敏执行者') {
-                resultName = '认可依赖型';
-            }
+            // 坐标轴微调：xAxis 极值时覆盖特殊人格
+            if (xAxis > 60 && scores.dominance > 70) resultName = '权杖者 Dominant';
+            if (xAxis < -60 && scores.submission > 70) resultName = '高敏执行者';
+            if (yAxis < -60 && scores.money > 70) resultName = '利益切换者';
+            if (yAxis > 60 && scores.idealism > 70) resultName = '情绪供养者';
+
+            // 驯化师：dominance+submission双高（既控制又被控制）
+            if (scores.dominance > 65 && scores.submission > 65) resultName = '驯化师 Trainer';
 
             // 确保结果在12种人格内
             const validNames = Object.keys(PERSONALITIES);
             if (!validNames.includes(resultName)) {
-                // 映射到最接近的
-                if (resultName === '工资驯化型Brat') resultName = '反骨打工人 Brat';
-                else resultName = '利益切换者';
+                resultName = '利益切换者';
             }
 
             const person = PERSONALITIES[resultName];
