@@ -1616,48 +1616,35 @@
             const originalText = btn.textContent;
             btn.textContent = '生成中...';
             btn.classList.add('btn-loading');
-
+            const nameEl = document.getElementById('share-name');
+            const origFill = nameEl.style.webkitTextFillColor;
+            const origClip = nameEl.style.webkitBackgroundClip;
+            const origBg = nameEl.style.background;
             try {
+                nameEl.style.webkitTextFillColor = '#ffd700';
+                nameEl.style.webkitBackgroundClip = 'initial';
+                nameEl.style.background = 'none';
                 const card = document.getElementById('share-card');
-                const canvas = await html2canvas(card, {
-                    scale: 2,
-                    useCORS: true,
-                    backgroundColor: '#0a0a0f',
-                    logging: false
-                });
-
-                const fileName = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
-
-                // 优先使用 toBlob（更好的兼容性和性能）
-                if (canvas.toBlob) {
-                    canvas.toBlob(function(blob) {
-                        const url = URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.download = fileName;
-                        link.href = url;
-                        link.click();
-                        URL.revokeObjectURL(url);
-                        btn.textContent = originalText;
-                        btn.classList.remove('btn-loading');
-                        showToast('报告图片已保存！');
-                    }, 'image/png', 1.0);
-                } else {
-                    // fallback 到 toDataURL
-                    const link = document.createElement('a');
-                    link.download = fileName;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                    btn.textContent = originalText;
-                    btn.classList.remove('btn-loading');
-                    showToast('报告图片已保存！');
-                }
-
-                if (window.analytics) {
-                    analytics.trackImageSave();
-                }
+                const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#0a0a0f', logging: false });
+                nameEl.style.webkitTextFillColor = origFill;
+                nameEl.style.webkitBackgroundClip = origClip;
+                nameEl.style.background = origBg;
+                const dataUrl = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
+                link.href = dataUrl;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(() => { showToast('报告图片已保存！'); }, 100);
+                if (window.analytics) { analytics.trackImageSave(); }
             } catch (err) {
+                nameEl.style.webkitTextFillColor = origFill;
+                nameEl.style.webkitBackgroundClip = origClip;
+                nameEl.style.background = origBg;
                 console.error('Save image error:', err);
                 showToast('保存失败，请尝试截图保存', true);
+            } finally {
                 btn.textContent = originalText;
                 btn.classList.remove('btn-loading');
             }
