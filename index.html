@@ -1008,7 +1008,7 @@
             '权杖者 Dominant': {
                 name: '权杖者 Dominant',
                 tag: '资源掠夺型上位者',
-                icon: '👿',
+                icon: 'image:assets/dominant.png',
                 traits: ['强控制欲', '结果至上', '天然支配感'],
                 risks: ['控制欲过强把团队逼到窒息', '听不进"不"字直到撞南墙'],
                 advice: '真正的王不需要每场仗都亲自打。学会信任副手，你的帝国才能扩张。记住：让人害怕和让人追随，是两种完全不同的权力。',
@@ -1417,7 +1417,14 @@
 
         function renderResult() {
             const r = APP.result;
-            document.getElementById('result-icon').textContent = r.icon;
+            const resultIconEl = document.getElementById('result-icon');
+            if (r.icon.startsWith('image:')) {
+                resultIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" class="w-full h-full object-contain" />`;
+                resultIconEl.classList.remove('text-8xl');
+            } else {
+                resultIconEl.textContent = r.icon;
+                resultIconEl.classList.add('text-8xl');
+            }
 
             const nameEl = document.getElementById('result-name');
             nameEl.textContent = r.name;
@@ -1590,7 +1597,12 @@
             }
             const r = APP.result;
 
-            document.getElementById('share-icon').textContent = r.icon;
+            const shareIconEl = document.getElementById('share-icon');
+            if (r.icon.startsWith('image:')) {
+                shareIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="width:100px;height:100px;object-fit:contain;margin:0 auto;" />`;
+            } else {
+                shareIconEl.textContent = r.icon;
+            }
             document.getElementById('share-name').textContent = r.name;
             document.getElementById('share-tagline').textContent = r.tag;
             document.getElementById('share-quote').textContent = '"' + getResultDescription(r) + '"';
