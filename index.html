@@ -1250,6 +1250,7 @@
             order.forEach((origIdx, displayPos) => {
                 const div = document.createElement('div');
                 div.className = 'option-card rounded-xl p-4 flex items-center';
+                div.dataset.origIdx = origIdx;
                 div.innerHTML = `
                     <span class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border border-gray-600 mr-3 flex-shrink-0">${String.fromCharCode(65 + displayPos)}</span>
                     <span class="text-sm text-gray-200">${optionLabels[origIdx]}</span>
@@ -1278,8 +1279,8 @@
 
         function selectOption(idx) {
             APP.selectedOption = idx;
-            document.querySelectorAll('.option-card').forEach((el, i) => {
-                el.classList.toggle('active', i === idx);
+            document.querySelectorAll('.option-card').forEach(el => {
+                el.classList.toggle('active', parseInt(el.dataset.origIdx) === idx);
             });
 
             const nextBtn = document.getElementById('next-btn');
