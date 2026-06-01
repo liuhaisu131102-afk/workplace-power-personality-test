@@ -1343,46 +1343,48 @@
             const xAxis = scores.dominance - scores.submission;
             const yAxis = scores.idealism - scores.money;
 
-            // 判定逻辑：按8维度得分分布判定
-            let resultName = '';
-
-            // 找出最高分和次高分的维度
-            const dims = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-            const top2 = dims.slice(0, 2).map(d => d[0]);
-
-            // 主判定矩阵：最高分维度 → 人格
-            const PRIMARY_MAP = {
-                dominance: { default: '权杖者 Dominant', dark: '冷血操盘者', rebel: 'KPI施虐狂' },
-                submission: { default: '高敏执行者', emotion: '认可依赖型', dark: '工资依赖型 Sub' },
-                money: { default: '利益切换者', rebel: '工资依赖型 Sub', dark: '冷血操盘者' },
-                idealism: { default: '情绪供养者', emotion: '认可依赖型' },
-                emotion: { default: '认可依赖型', money: '情绪供养者', dark: '阴阳大师' },
-                rebellion: { default: '反骨打工人 Brat', money: '工资依赖型 Sub', dark: 'KPI施虐狂' },
-                politics: { default: '阴阳大师', money: '变色龙 Switch', rebel: '反骨打工人 Brat' },
-                darkness: { default: '冷血操盘者', money: '利益切换者', rebel: 'KPI施虐狂' }
+            // 判定逻辑：12种人格加权矩阵打分，取最高分
+            // 每种人格定义其对8个维度的权重，计算加权得分
+            const PERSONALITY_WEIGHTS = {
+                '权杖者 Dominant':    { dominance: 5, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 2, politics: 2, darkness: 1 },
+                '驯化师 Trainer':     { dominance: 4, submission: 3, money: 0, idealism: 1, emotion: 2, rebellion: 0, politics: 1, darkness: 0 },
+                '高敏执行者':          { dominance: 0, submission: 5, money: 0, idealism: 1, emotion: 3, rebellion: 0, politics: 0, darkness: 0 },
+                '认可依赖型':          { dominance: 0, submission: 3, money: 0, idealism: 1, emotion: 5, rebellion: 0, politics: 1, darkness: 0 },
+                '变色龙 Switch':       { dominance: 1, submission: 2, money: 3, idealism: 0, emotion: 1, rebellion: 1, politics: 5, darkness: 1 },
+                '利益切换者':          { dominance: 1, submission: 0, money: 5, idealism: 0, emotion: 0, rebellion: 1, politics: 3, darkness: 1 },
+                '反骨打工人 Brat':     { dominance: 2, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 5, politics: 2, darkness: 2 },
+                '阴阳大师':            { dominance: 1, submission: 1, money: 1, idealism: 0, emotion: 2, rebellion: 2, politics: 4, darkness: 3 },
+                '冷血操盘者':          { dominance: 4, submission: 0, money: 2, idealism: 0, emotion: 0, rebellion: 1, politics: 2, darkness: 5 },
+                '情绪供养者':          { dominance: 0, submission: 1, money: 0, idealism: 5, emotion: 4, rebellion: 0, politics: 0, darkness: 0 },
+                'KPI施虐狂':           { dominance: 4, submission: 0, money: 1, idealism: 0, emotion: 0, rebellion: 3, politics: 1, darkness: 3 },
+                '工资依赖型 Sub':     { dominance: 0, submission: 3, money: 5, idealism: 0, emotion: 1, rebellion: 0, politics: 1, darkness: 1 }
             };
 
-            if (PRIMARY_MAP[top2[0]]) {
-                const map = PRIMARY_MAP[top2[0]];
-                resultName = map[top2[1]] || map.default;
-            } else {
-                resultName = '变色龙 Switch';
-            }
+            let bestPersonality = '利益切换者';
+            let bestScore = -Infinity;
+            const personalityScores = {}; // debug
 
-            // 坐标轴微调：xAxis 极值时覆盖特殊人格
-            if (xAxis > 60 && scores.dominance > 70) resultName = '权杖者 Dominant';
-            if (xAxis < -60 && scores.submission > 70) resultName = '高敏执行者';
-            if (yAxis < -60 && scores.money > 70) resultName = '利益切换者';
-            if (yAxis > 60 && scores.idealism > 70) resultName = '情绪供养者';
+            Object.entries(PERSONALITY_WEIGHTS).forEach(([name, weights]) => {
+                let weightedSum = 0;
+                let weightSum = 0;
+                Object.keys(scores).forEach(dim => {
+                    const w = weights[dim] || 0;
+                    if (w > 0) {
+                        weightedSum += scores[dim] * w;
+                        weightSum += w;
+                    }
+                });
+                const finalScore = weightSum > 0 ? weightedSum / weightSum : 0;
+                personalityScores[name] = Math.round(finalScore * 10) / 10;
+                if (finalScore > bestScore) {
+                    bestScore = finalScore;
+                    bestPersonality = name;
+                }
+            });
 
-            // 驯化师：dominance+submission双高（既控制又被控制）
-            if (scores.dominance > 65 && scores.submission > 65) resultName = '驯化师 Trainer';
-
-            // 确保结果在12种人格内
-            const validNames = Object.keys(PERSONALITIES);
-            if (!validNames.includes(resultName)) {
-                resultName = '利益切换者';
-            }
+            // 处理同分：最高分有多个人格时，按次高分维度倾向选择
+            // （罕见场景，简单取第一个匹配即可，因为加权后几乎不会同分）
+            const resultName = bestPersonality;
 
             const person = PERSONALITIES[resultName];
             APP.result = {
