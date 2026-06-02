@@ -1419,8 +1419,8 @@
             const r = APP.result;
             const resultIconEl = document.getElementById('result-icon');
             if (r.icon.startsWith('image:')) {
-                resultIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="width:280px;height:280px;object-fit:contain;" />`;
-                resultIconEl.className = 'flex items-center justify-center mx-auto mb-4';
+                resultIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:280px;height:280px;object-fit:contain;margin:0 auto;" />`;
+                resultIconEl.style.cssText = '';
             } else {
                 resultIconEl.textContent = r.icon;
                 resultIconEl.className = 'w-32 h-32 rounded-full glass flex items-center justify-center mx-auto mb-4 text-8xl scale-in';
@@ -1599,8 +1599,8 @@
 
             const shareIconEl = document.getElementById('share-icon');
             if (r.icon.startsWith('image:')) {
-                shareIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="width:220px;height:220px;object-fit:contain;margin:0 auto;" />`;
-                shareIconEl.className = 'mb-3';
+                shareIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:220px;height:220px;object-fit:contain;margin:0 auto;" />`;
+                shareIconEl.style.cssText = '';
             } else {
                 shareIconEl.textContent = r.icon;
                 shareIconEl.className = 'text-8xl mb-3';
