@@ -212,6 +212,18 @@
         .corner-tr { top: 14px; right: 16px; }
         .corner-bl { bottom: 14px; left: 16px; }
         .corner-br { bottom: 14px; right: 16px; }
+        /* 二维码样式 */
+        .qr-wrapper {
+            background: #fff;
+            border-radius: 8px;
+            padding: 6px;
+            display: inline-block;
+        }
+        .qr-code-img {
+            width: 72px;
+            height: 72px;
+            display: block;
+        }
         /* 华丽分割线 */
         .luxury-divider {
             display: flex; align-items: center; gap: 10px; margin: 20px 0;
@@ -583,6 +595,11 @@
                         <!-- 底部信息 -->
                         <div class="text-center">
                             <p class="text-[11px] text-gray-500 tracking-[0.15em]" id="share-date"></p>
+                            <div class="mt-4 flex justify-center">
+                                <div class="qr-wrapper">
+                                    <img src="assets/qrcode.png" alt="扫码测试" class="qr-code-img" />
+                                </div>
+                            </div>
                             <p class="text-[9px] text-gray-700 mt-4 tracking-[0.25em]">数据不会说谎 · 但你会对自己说谎</p>
                         </div>
                     </div>
@@ -1703,13 +1720,36 @@
                 nameEl.style.webkitTextFillColor = origFill;
                 nameEl.style.webkitBackgroundClip = origClip;
                 nameEl.style.background = origBg;
-                const dataUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
-                link.href = dataUrl;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+
+                const filename = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
+
+                // 优先使用 toBlob（更可靠，不会因 canvas 过大而失败）
+                if (canvas.toBlob) {
+                    const blob = await new Promise((resolve, reject) => {
+                        canvas.toBlob(blob => {
+                            if (blob) resolve(blob);
+                            else reject(new Error('toBlob returned null'));
+                        }, 'image/png');
+                    });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = url;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    setTimeout(() => URL.revokeObjectURL(url), 1000);
+                } else {
+                    // fallback: toDataURL
+                    const dataUrl = canvas.toDataURL('image/png');
+                    const link = document.createElement('a');
+                    link.download = filename;
+                    link.href = dataUrl;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+
                 setTimeout(() => { showToast('报告图片已保存！'); }, 100);
                 if (window.analytics) { analytics.trackImageSave(); }
             } catch (err) {
