@@ -1734,11 +1734,12 @@
                     iconImg.style.webkitMaskImage = origWebkitMask;
                 }
 
-                const dataUrl = canvas.toDataURL('image/png');
-                APP.reportImage = dataUrl;
+                // 保存 canvas 用于后续下载（Blob 避免 data URL 长度限制）
+                APP.reportCanvas = canvas;
+                APP.reportImage = canvas.toDataURL('image/png');
 
                 // 用渲染好的图片替换卡片内容
-                card.innerHTML = `<img src="${dataUrl}" alt="职场权力人格报告" style="display:block;width:100%;height:auto;border-radius:3px;" />`;
+                card.innerHTML = `<img src="${APP.reportImage}" alt="职场权力人格报告" style="display:block;width:100%;height:auto;border-radius:3px;" />`;
             } catch (err) {
                 console.error('Render report image error:', err);
                 nameEl.style.webkitTextFillColor = origFill;
@@ -1764,20 +1765,42 @@
         }
 
         async function saveShareImage() {
-            if (APP.reportImage) {
-                const filename = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
+            const filename = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
+
+            function triggerDownload(url) {
                 const link = document.createElement('a');
                 link.download = filename;
-                link.href = APP.reportImage;
+                link.href = url;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
+            }
+
+            // 优先用 canvas.toBlob 生成下载（无 URL 长度限制）
+            if (APP.reportCanvas && APP.reportCanvas.toBlob) {
+                const canvas = APP.reportCanvas;
+                const blob = await new Promise((resolve) => {
+                    canvas.toBlob(blob => resolve(blob), 'image/png');
+                });
+                if (blob && blob.size > 0) {
+                    const url = URL.createObjectURL(blob);
+                    triggerDownload(url);
+                    setTimeout(() => URL.revokeObjectURL(url), 2000);
+                    setTimeout(() => { showToast('报告图片已保存！'); }, 100);
+                    if (window.analytics) { analytics.trackImageSave(); }
+                    return;
+                }
+            }
+
+            // 兜底：用 data URL 下载
+            if (APP.reportImage) {
+                triggerDownload(APP.reportImage);
                 setTimeout(() => { showToast('报告图片已保存！'); }, 100);
                 if (window.analytics) { analytics.trackImageSave(); }
                 return;
             }
 
-            // 兜底：重新渲染
+            // 最终兜底：重新渲染
             const btn = document.getElementById('save-btn');
             const originalText = btn.textContent;
             btn.textContent = '生成中...';
@@ -1785,13 +1808,18 @@
 
             try {
                 await renderReportImage();
-                const filename = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
-                const link = document.createElement('a');
-                link.download = filename;
-                link.href = APP.reportImage;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                if (APP.reportCanvas && APP.reportCanvas.toBlob) {
+                    const blob = await new Promise((resolve) => {
+                        APP.reportCanvas.toBlob(blob => resolve(blob), 'image/png');
+                    });
+                    if (blob && blob.size > 0) {
+                        const url = URL.createObjectURL(blob);
+                        triggerDownload(url);
+                        setTimeout(() => URL.revokeObjectURL(url), 2000);
+                    }
+                } else if (APP.reportImage) {
+                    triggerDownload(APP.reportImage);
+                }
                 setTimeout(() => { showToast('报告图片已保存！'); }, 100);
                 if (window.analytics) { analytics.trackImageSave(); }
             } catch (err) {
