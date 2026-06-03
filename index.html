@@ -1421,7 +1421,7 @@
             if (r.icon.startsWith('image:')) {
                 resultIconEl.className = '';
                 resultIconEl.style.cssText = '';
-                resultIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:280px;height:280px;object-fit:contain;margin:0 auto;" />`;
+                resultIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:100%;max-width:420px;height:auto;margin:0 auto;-webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);mask-image:linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);" />`;
             } else {
                 resultIconEl.textContent = r.icon;
                 resultIconEl.className = 'w-32 h-32 rounded-full glass flex items-center justify-center mx-auto mb-4 text-8xl scale-in';
@@ -1602,7 +1602,7 @@
             if (r.icon.startsWith('image:')) {
                 shareIconEl.className = '';
                 shareIconEl.style.cssText = '';
-                shareIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:220px;height:220px;object-fit:contain;margin:0 auto;" />`;
+                shareIconEl.innerHTML = `<img src="${r.icon.slice(6)}" alt="${r.name}" style="display:block;width:100%;max-width:360px;height:auto;margin:0 auto;-webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);mask-image:linear-gradient(to bottom, transparent 0%, black 12%, black 82%, transparent 100%);" />`;
             } else {
                 shareIconEl.textContent = r.icon;
                 shareIconEl.className = 'text-8xl mb-3';
