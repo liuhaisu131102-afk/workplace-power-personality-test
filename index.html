@@ -597,7 +597,7 @@
                             <p class="text-[11px] text-gray-500 tracking-[0.15em]" id="share-date"></p>
                             <div class="mt-4 flex justify-center">
                                 <div class="qr-wrapper">
-                                    <img src="assets/qrcode.png" alt="扫码测试" class="qr-code-img" />
+                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaCAIAAAC5ZBI0AAAIhElEQVR4nO3dy5LbOhJAQWvC///Lmu2seB+YMoqnM/fdoij1CdhRIH79AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/qTPyQ9/v99fLZ/P0Q351/fq+XV33ueTezX3jm59gm+8qp1O7tV//q9XAnCNnAERcgZEyBkQIWdAhJwBEXIGRMgZECFnQIScARFyBkQcnRXwzM1Y9+b8d97Jude1k+HPsDoDIuQMiJAzIELOgAg5AyLkDIiQMyBCzoAIOQMi5AyIuLYr4GRunHi/8ZvvnN7nW/fK6Qd/hNUZECF" alt="扫码测试" class="qr-code-img" />
                                 </div>
                             </div>
                             <p class="text-[9px] text-gray-700 mt-4 tracking-[0.25em]">数据不会说谎 · 但你会对自己说谎</p>
@@ -1708,22 +1708,44 @@
             btn.textContent = '生成中...';
             btn.classList.add('btn-loading');
             const nameEl = document.getElementById('share-name');
+
+            // 保存原始样式
             const origFill = nameEl.style.webkitTextFillColor;
             const origClip = nameEl.style.webkitBackgroundClip;
             const origBg = nameEl.style.background;
+            const origFilter = nameEl.style.filter;
+
+            // 找到图标 img，保存并清除 mask-image（html2canvas 不支持）
+            let iconImg = null, origMask = null, origWebkitMask = null;
+            const iconEl = document.getElementById('share-icon');
+            if (iconEl) {
+                iconImg = iconEl.querySelector('img');
+                if (iconImg) {
+                    origMask = iconImg.style.maskImage;
+                    origWebkitMask = iconImg.style.webkitMaskImage;
+                    iconImg.style.maskImage = 'none';
+                    iconImg.style.webkitMaskImage = 'none';
+                }
+            }
+
             try {
                 nameEl.style.webkitTextFillColor = '#ffd700';
                 nameEl.style.webkitBackgroundClip = 'initial';
                 nameEl.style.background = 'none';
+                nameEl.style.filter = 'none';
                 const card = document.getElementById('share-card');
                 const canvas = await html2canvas(card, { scale: 2, useCORS: true, backgroundColor: '#0a0a0f', logging: false });
                 nameEl.style.webkitTextFillColor = origFill;
                 nameEl.style.webkitBackgroundClip = origClip;
                 nameEl.style.background = origBg;
+                nameEl.style.filter = origFilter;
+                if (iconImg) {
+                    iconImg.style.maskImage = origMask;
+                    iconImg.style.webkitMaskImage = origWebkitMask;
+                }
 
                 const filename = '职场权力人格报告_' + (APP.result ? APP.result.name : '') + '.png';
 
-                // 优先使用 toBlob（更可靠，不会因 canvas 过大而失败）
                 if (canvas.toBlob) {
                     const blob = await new Promise((resolve, reject) => {
                         canvas.toBlob(blob => {
@@ -1740,7 +1762,6 @@
                     document.body.removeChild(link);
                     setTimeout(() => URL.revokeObjectURL(url), 1000);
                 } else {
-                    // fallback: toDataURL
                     const dataUrl = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.download = filename;
@@ -1756,6 +1777,11 @@
                 nameEl.style.webkitTextFillColor = origFill;
                 nameEl.style.webkitBackgroundClip = origClip;
                 nameEl.style.background = origBg;
+                nameEl.style.filter = origFilter;
+                if (iconImg) {
+                    iconImg.style.maskImage = origMask;
+                    iconImg.style.webkitMaskImage = origWebkitMask;
+                }
                 console.error('Save image error:', err);
                 showToast('保存失败，请尝试截图保存', true);
             } finally {
