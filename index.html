@@ -411,7 +411,7 @@
                         ← 放弃测评
                     </button>
                     <div class="text-sm text-gray-500 font-mono">
-                        <span id="current-q">1</span>/30
+                        <span id="current-q">1</span>/32
                     </div>
                     <div class="w-16"></div>
                 </div>
@@ -637,7 +637,7 @@
             darkness: '黑化倾向'
         };
 
-        // ==================== 题库数据（30题 × 8维度评分）====================
+        // ==================== 题库数据（32题 × 8维度评分）====================
         // 每题5个选项，每个选项映射到8个维度的分数
         const QUESTION_BANK = [
             {
@@ -1000,6 +1000,30 @@
                     {dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 2, rebellion: 2, politics: 2, darkness: 2},
                     {dominance: 2, submission: 2, money: 2, idealism: 1, emotion: 2, rebellion: 2, politics: 2, darkness: 2}
                 ]
+            },
+            {
+                q: '同事私下拉群吐槽领导，你的第一反应是？',
+                dimension: 'rebellion',
+                options: ['第一时间加入，火力全开', '默默围观，偶尔点赞', '看看不说话，保持安全距离', '不会加入，但私下能理解', '直接退出群聊，远离是非'],
+                scores: [
+                    {dominance: 0, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 5, politics: 0, darkness: 0},
+                    {dominance: 1, submission: 1, money: 1, idealism: 1, emotion: 1, rebellion: 4, politics: 1, darkness: 1},
+                    {dominance: 1, submission: 1, money: 1, idealism: 1, emotion: 1, rebellion: 3, politics: 1, darkness: 1},
+                    {dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 2, rebellion: 2, politics: 2, darkness: 2},
+                    {dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 2, rebellion: 1, politics: 2, darkness: 2}
+                ]
+            },
+            {
+                q: '发现同事靠关系获得了你努力争取的晋升机会，你的首选策略是？',
+                dimension: 'darkness',
+                options: ['收集他的黑料，找机会让他出局', '表面恭喜，暗中拉拢他的对手', '心里记下这笔账，来日方长', '调整心态，下次公平竞争', '直接找领导问清楚晋升标准'],
+                scores: [
+                    {dominance: 0, submission: 0, money: 0, idealism: 0, emotion: 0, rebellion: 0, politics: 0, darkness: 5},
+                    {dominance: 1, submission: 1, money: 1, idealism: 1, emotion: 1, rebellion: 1, politics: 1, darkness: 4},
+                    {dominance: 1, submission: 1, money: 1, idealism: 1, emotion: 1, rebellion: 1, politics: 1, darkness: 3},
+                    {dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 2, rebellion: 2, politics: 2, darkness: 2},
+                    {dominance: 2, submission: 2, money: 2, idealism: 2, emotion: 2, rebellion: 2, politics: 2, darkness: 1}
+                ]
             }
         ];
 
@@ -1193,7 +1217,7 @@
         }
 
         function confirmExit() {
-            if (APP.answers.length > 0 && APP.answers.length < 30) {
+            if (APP.answers.length > 0 && APP.answers.length < 32) {
                 if (confirm('确定退出吗？当前进度将丢失。')) {
                     goHome();
                 }
@@ -1211,7 +1235,7 @@
             APP.scores = null;
             APP.assessmentStartTime = Date.now();
 
-            // 从30题中随机选取30题（即全部使用），打乱顺序
+            // 从32题中随机选取32题（即全部使用），打乱顺序
             APP.questions = [...QUESTION_BANK].sort(() => Math.random() - 0.5);
             APP.currentQuestionIndex = 0;
             APP.selectedOption = null;
@@ -1237,7 +1261,7 @@
             document.getElementById('question-text').textContent = q.q;
             document.getElementById('current-q').textContent = APP.currentQuestionIndex + 1;
 
-            const progress = ((APP.currentQuestionIndex) / 30) * 100;
+            const progress = ((APP.currentQuestionIndex) / 32) * 100;
             document.getElementById('progress-fill').style.width = progress + '%';
 
             const container = document.getElementById('options-container');
@@ -1334,7 +1358,7 @@
 
             // ===== 新判定逻辑：均值偏移 + top-2 查表 =====
             // 中性基线（每题选 option 2 的累积）
-            const NEUTRAL = { dominance: 38, submission: 38, money: 38, idealism: 38, emotion: 38, rebellion: 36, politics: 38, darkness: 36 };
+            const NEUTRAL = { dominance: 40, submission: 40, money: 40, idealism: 40, emotion: 40, rebellion: 40, politics: 40, darkness: 40 };
 
             // 计算各维度偏离基线的程度，排序取 top-2
             const deviations = Object.entries(scores).map(([dim, val]) => ({
@@ -1348,33 +1372,58 @@
             const MAP = {
                 'dominance_rebellion': '权杖者 Dominant',
                 'dominance_politics': '权杖者 Dominant',
+                'dominance_idealism': '权杖者 Dominant',
                 'dominance_submission': '驯化师 Trainer',
+                'dominance_emotion': '驯化师 Trainer',
                 'dominance_darkness': '冷血操盘者',
                 'dominance_money': 'KPI施虐狂',
                 'submission_emotion': '高敏执行者',
                 'submission_idealism': '高敏执行者',
+                'submission_rebellion': '高敏执行者',
                 'submission_dominance': '驯化师 Trainer',
                 'submission_money': '工资依赖型 Sub',
+                'submission_darkness': '工资依赖型 Sub',
                 'money_politics': '利益切换者',
                 'money_submission': '工资依赖型 Sub',
                 'money_dominance': 'KPI施虐狂',
+                'money_idealism': '利益切换者',
+                'money_emotion': '利益切换者',
+                'money_rebellion': 'KPI施虐狂',
+                'money_darkness': '利益切换者',
                 'idealism_emotion': '情绪供养者',
                 'idealism_submission': '高敏执行者',
+                'idealism_dominance': '情绪供养者',
+                'idealism_money': 'KPI施虐狂',
                 'idealism_rebellion': '反骨打工人 Brat',
+                'idealism_darkness': '阴阳大师',
                 'emotion_submission': '认可依赖型',
                 'emotion_idealism': '情绪供养者',
+                'emotion_dominance': '认可依赖型',
+                'emotion_money': '认可依赖型',
                 'emotion_politics': '阴阳大师',
+                'emotion_rebellion': '阴阳大师',
+                'emotion_darkness': '情绪供养者',
                 'rebellion_dominance': '反骨打工人 Brat',
                 'rebellion_darkness': '反骨打工人 Brat',
                 'rebellion_politics': '阴阳大师',
+                'rebellion_submission': '认可依赖型',
+                'rebellion_money': '工资依赖型 Sub',
+                'rebellion_emotion': '反骨打工人 Brat',
+                'rebellion_idealism': '反骨打工人 Brat',
                 'politics_money': '变色龙 Switch',
                 'politics_submission': '变色龙 Switch',
                 'politics_dominance': '变色龙 Switch',
                 'politics_darkness': '变色龙 Switch',
                 'politics_idealism': '变色龙 Switch',
+                'politics_emotion': '变色龙 Switch',
+                'politics_rebellion': '变色龙 Switch',
                 'darkness_dominance': '冷血操盘者',
                 'darkness_rebellion': '反骨打工人 Brat',
                 'darkness_politics': '阴阳大师',
+                'darkness_submission': '冷血操盘者',
+                'darkness_money': '冷血操盘者',
+                'darkness_idealism': '冷血操盘者',
+                'darkness_emotion': '高敏执行者',
             };
 
             const FALLBACK = {
